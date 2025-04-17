@@ -1,0 +1,221 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* === CSS Variables === */
+:root {
+  /* Colors */
+  --primary-color: #007bff; /* Blue */
+  --primary-dark: #0056b3;
+  --secondary-color: #6c757d; /* Gray */
+  --accent-color: #17a2b8;  /* Teal/Info */
+  --success-color: #28a745; /* Green */
+  --danger-color: #dc3545;  /* Red */
+  --warning-color: #ffc107; /* Yellow */
+
+  /* Backgrounds */
+  --background-light: #ffffff;
+  --background-off-white: #f8f9fa;
+  --background-dark: #212529; /* Dark Gray/Black */
+  --background-gradient-light: linear-gradient(135deg, #eaf2ff 0%, #f0efff 100%);
+
+  /* Text */
+  --text-heading: #212529; /* Dark */
+  --text-body: #495057;    /* Medium Gray */
+  --text-muted: #6c757d;   /* Lighter Gray */
+  --text-light: #f8f9fa;   /* Light Gray/White for dark backgrounds */
+  --text-primary-on-light: var(--primary-color);
+  --text-primary-on-dark: #64ffda; /* Accent for dark hero */
+
+  /* Borders */
+  --border-color: #dee2e6;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-pill: 50rem;
+  --border-radius-circle: 50%;
+
+  /* Shadows */
+  --box-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.07);
+  --box-shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.1);
+  --box-shadow-dark: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+  /* Spacing */
+  --section-padding-y: 5rem;
+  --container-max-width: 1200px;
+  --container-padding-x: 1rem;
+
+  /* Fonts */
+  --font-family-sans-serif: 'Poppins', sans-serif;
+}
+
+/* === Base Styles === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+  font-size: 16px; /* Base font size */
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  line-height: 1.6;
+  color: var(--text-body);
+  background-color: var(--background-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Container === */
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding-x);
+  padding-right: var(--container-padding-x);
+}
+
+/* === Headings === */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 1rem; /* Default margin */
+}
+
+.section-heading {
+  font-size: 2.25rem; /* Consistent section heading size */
+  font-weight: 700;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--text-heading);
+}
+.section-heading::after { /* Optional underline */
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+/* === Paragraphs & Links === */
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* === Buttons === */
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: var(--border-radius-sm);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.1s ease;
+}
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--box-shadow-sm);
+}
+.btn:active {
+    transform: translateY(0px);
+    box-shadow: none;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+/* Primary Inverted (for dark backgrounds like Hero) */
+.btn-primary-inverted {
+    color: #001f54; /* Darker text to contrast light button */
+    background-color: #64ffda; /* Accent color background */
+    border-color: #64ffda;
+    font-weight: 600;
+}
+.btn-primary-inverted:hover {
+    background-color: #a7ffea;
+    border-color: #a7ffea;
+    color: #001f54;
+}
+
+/* Secondary Outline (for light backgrounds) */
+.btn-secondary-outline {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    background-color: transparent;
+}
+.btn-secondary-outline:hover {
+    color: var(--text-light);
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Secondary Inverted Outline (for dark backgrounds like Hero) */
+.btn-secondary-inverted-outline {
+    color: #64ffda; /* Accent color text/border */
+    border-color: #64ffda;
+    background-color: transparent;
+    font-weight: 500;
+}
+.btn-secondary-inverted-outline:hover {
+    background-color: rgba(100, 255, 218, 0.1); /* Subtle accent background */
+    color: #a7ffea; /* Lighter accent */
+    border-color: #a7ffea;
+}
+
+
+/* === Cards (Base style) === */
+.card {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-sm);
+    overflow: hidden; /* Ensure contents respect border radius */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    height: 100%; /* Make cards in a grid equal height potentially */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-medium);
+    border-color: #adb5bd; /* Slightly darker border on hover */
+}
+
+/* === Utility === */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.margin-bottom-0 { margin-bottom: 0 !important; }
+

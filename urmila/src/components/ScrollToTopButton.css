@@ -1,0 +1,53 @@
+/* src/components/ScrollToTopButton.css */
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  /* Control visibility using opacity and pointer-events */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-btn {
+  /* Appearance */
+  background-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.85); /* Use primary color with alpha */
+  color: var(--text-light); /* White icon */
+  border: none; /* Remove border */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-medium); /* Use variable */
+
+  /* Flexbox to center the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Smooth transitions */
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+/* Add RGB version of primary color if not defined */
+:root {
+    --primary-color-rgb: 0, 123, 255; /* Example for blue */
+}
+
+
+.scroll-btn:hover {
+  background-color: rgba(var(--primary-color-rgb, 0, 123, 255), 1); /* Solid primary on hover */
+  transform: scale(1.1);
+  box-shadow: var(--box-shadow-dark); /* Darker shadow */
+}
+
+.scroll-btn:active {
+    transform: scale(1.0); /* Press effect */
+}

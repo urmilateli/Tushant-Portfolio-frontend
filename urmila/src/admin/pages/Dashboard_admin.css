@@ -1,0 +1,43 @@
+/* Main container for dashboard */
+.dashboard-container {
+    padding: 40px;
+    background-color: #f4f7fb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Title styling */
+  .dashboard-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Description styling */
+  .dashboard-description {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+  
+  /* Adding some responsiveness */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 20px;
+    }
+  
+    .dashboard-title {
+      font-size: 28px;
+    }
+  
+    .dashboard-description {
+      font-size: 16px;
+    }
+  }
+  

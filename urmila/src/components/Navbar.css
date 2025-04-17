@@ -1,0 +1,172 @@
+/* src/components/Navbar.css */
+
+/* === Navbar Base === */
+.navbar {
+  background-color: var(--background-light);
+  box-shadow: none;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 70px;
+  width: 100%;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+  border-bottom: 1px solid transparent; /* Prepare for border on scroll */
+}
+
+/* Style when scrolled */
+.navbar.scrolled {
+  box-shadow: var(--box-shadow-light);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* === Logo === */
+.nav-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.nav-logo:hover {
+  color: var(--primary-dark);
+}
+
+/* === Desktop Menu Container === */
+.nav-menu-desktop {
+  display: none; /* Hidden on mobile by default */
+  align-items: center;
+  gap: 0.5rem; /* Space between links container and button */
+}
+
+.nav-links-desktop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between nav links */
+}
+
+/* === Desktop Navigation Links === */
+.nav-link {
+  color: var(--text-body);
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+.nav-link:hover {
+  color: var(--primary-color);
+  background-color: #f8f9fa; /* Subtle background hover */
+}
+
+/* === Desktop Contact Button === */
+.nav-contact-btn {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  /* Inherits .btn .btn-primary styles from index.css */
+}
+
+/* === Mobile Menu Button === */
+.mobile-menu-button {
+  display: flex; /* Displayed on mobile by default */
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-heading);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 1.5rem; /* Adjust icon size */
+}
+.mobile-menu-button:hover {
+  color: var(--primary-color);
+  background-color: #e9ecef;
+}
+
+/* === Mobile Menu Panel === */
+.nav-links-mobile {
+  display: none; /* Hidden by default */
+  background-color: white;
+  position: absolute;
+  top: 70px; /* Below navbar */
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow-medium);
+  border-top: 1px solid var(--border-color);
+  flex-direction: column;
+  gap: 1rem;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+.nav-links-mobile.open {
+  display: flex; /* Show when open */
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+      opacity: 0;
+      transform: translateY(-10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* === Mobile Navigation Links === */
+.nav-link-mobile {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-heading);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-link-mobile:hover {
+  background-color: #e9ecef;
+  color: var(--primary-color);
+}
+
+/* === Mobile Contact Button === */
+.nav-contact-btn-mobile {
+  width: 100%;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  /* Inherits .btn .btn-primary styles */
+}
+
+/* === Responsive Breakpoint === */
+/* Using 992px as the breakpoint for desktop view */
+@media (min-width: 992px) {
+  .nav-menu-desktop {
+      display: flex; /* Show desktop menu */
+  }
+  .mobile-menu-button {
+      display: none; /* Hide mobile button */
+  }
+  .nav-links-mobile {
+      display: none !important; /* Force hide mobile panel */
+  }
+}

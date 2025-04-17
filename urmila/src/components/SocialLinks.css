@@ -1,0 +1,72 @@
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+.social-icon {
+  color: #fff;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+.social-icon:hover {
+  color: #007bff;
+}
+
+/* src/sections/Contact.css */
+.contact-section {
+  padding: 60px 20px;
+  background-color: #111;
+  color: #fff;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.contact-form-container {
+  background-color: #1c1c1c;
+  padding: 2rem;
+  border-radius: 12px;
+}
+.contact-form-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.contact-info-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+.contact-info-link {
+  color: #fff;
+  text-decoration: none;
+}
+.contact-info-link:hover {
+  color: #007bff;
+}
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #2b2b2b;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+}
+.btn-submit-custom {
+  padding: 0.8rem 1.5rem;
+  background: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+.btn-submit-custom:hover {
+  background: #0056b3;
+}

@@ -1,0 +1,118 @@
+/* src/sections/Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap');
+
+
+.hero-section {
+  /* Dark Blue/Navy background */
+  background-color: #001f54; /* Fallback solid color */
+  /* Optional: Add a subtle texture or gradient overlay */
+  background: linear-gradient(rgba(0, 9, 31, 0.85), rgba(0, 25, 65, 0.95)); /* Dark gradient overlay */
+  /* background-image: url('../assets/your-background-image.jpg'); /* Uncomment and replace if using an image */
+  /* background-size: cover; */
+  /* background-position: center center; */
+  /* background-repeat: no-repeat; */
+
+  color: var(--text-light); /* Light text */
+  min-height: calc(100vh - 70px); /* Full viewport height minus navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 0 4rem 0; /* Vertical padding */
+  position: relative;
+  overflow: hidden; /* Prevent content overflow */
+}
+
+/* Optional Overlay for patterns or subtle effects */
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  /* Example: Add a subtle dot pattern */
+  /* background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px); */
+  /* background-size: 10px 10px; */
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative; /* Ensure content is above overlay */
+  z-index: 2;
+  max-width: 900px; /* Limit content width */
+}
+
+/* === Hero Title === */
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.8rem;
+  color: #f8f9fc;
+  text-align: center;
+  animation: glowText 3s ease-in-out infinite alternate;
+  margin-bottom: 20px;
+}
+
+/* .highlight {
+  color: #ff4c60;
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes glowText {
+  0% {
+    text-shadow: 0 0 10px #ff4c60, 0 0 20px #ff4c60, 0 0 30px #ff4c60;
+  }
+  100% {
+    text-shadow: 0 0 20px #ff6b81, 0 0 30px #ff6b81, 0 0 40px #ff6b81;
+  }
+} */
+
+/* Highlighted part of the title */
+.hero-title .highlight {
+   color: #64ffda; /* Teal/Aqua Accent Color */
+   /* Or use var(--text-primary-on-dark) if defined in index.css */
+}
+
+
+/* === Hero Subtitle === */
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  max-width: 700px; /* Limit subtitle width */
+  margin-left: auto;
+  margin-right: auto;
+  color: #ccd6f6; /* Lighter blue/gray text on dark bg */
+  font-weight: 400;
+}
+
+/* === Hero CTA Buttons === */
+.hero-cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Space between buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+/* Use base .btn styles + specific inverted styles from index.css */
+.hero-cta-buttons .btn {
+    padding: 0.8rem 2rem; /* Slightly larger buttons */
+    font-size: 1rem;
+}
+
+/* === Responsive Adjustments === */
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3.8rem; /* Larger title on desktop */
+  }
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+   .hero-cta-buttons {
+       gap: 1.5rem;
+   }
+}
+@media (min-width: 1024px) {
+    .hero-title {
+        font-size: 4.5rem; /* Even larger on wider screens */
+    }
+     .hero-section {
+         padding: 8rem 0 6rem 0; /* More padding on larger screens */
+     }
+}

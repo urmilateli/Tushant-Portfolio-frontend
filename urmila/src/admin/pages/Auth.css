@@ -1,0 +1,232 @@
+/* --- Auth.css --- */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* --- Theme Variables --- */
+:root {
+  --background-url: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1124&q=100'); /* Background Image */
+  --form-bg-color: rgba(255, 255, 255, 0.1);            /* Form background */
+  --form-border-color: rgba(255, 255, 255, 0.2);       /* Form border */
+  --input-bg-color: rgba(255, 255, 255, 0.15);          /* Input background */
+  --input-border-color: rgba(255, 255, 255, 0.3);      /* Input border */
+  --text-color: #ffffff;                               /* Main text color (white) */
+  --placeholder-color: rgba(255, 255, 255, 0.7);       /* Placeholder/Label initial color */
+  --button-bg-color: #ffffff;                          /* Button background (white) */
+  --button-text-color: #3b1d6e;                       /* Button text (dark purple) */
+  --link-color: #f0f0f0;                               /* Link text color */
+  --link-hover-color: #ffffff;                         /* Link hover/active color */
+  --blur-intensity: 10px;                              /* Glass effect blur amount */
+  --border-radius: 15px;                               /* Rounded corners */
+}
+
+
+
+/* --- Main Auth Container --- */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  width: 100%;
+  background-image: var(--background-url);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 20px; /* Padding for smaller screens */
+}
+
+/* --- Glassmorphism Form Styling --- */
+.auth-form.glass-effect {
+  background: var(--form-bg-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--form-border-color);
+  backdrop-filter: blur(var(--blur-intensity));
+  -webkit-backdrop-filter: blur(var(--blur-intensity)); /* Safari support */
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px; /* Max form width */
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Subtle shadow */
+  text-align: center;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Vertical spacing between form elements */
+}
+
+.auth-form h2 {
+  margin-bottom: 10px; /* Space below heading */
+  font-size: 2rem;     /* Heading size */
+  font-weight: 600;
+}
+
+/* --- Input Field Group & Floating Label --- */
+.input-group {
+  position: relative; /* Needed for absolute positioning of label and icon */
+  width: 100%;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px; /* Base padding */
+  padding-top: 18px; /* Extra top padding to make space for the floating label */
+  background: var(--input-bg-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: 8px; /* Slightly rounded input corners */
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none; /* Remove default browser outline */
+  transition: border-color 0.3s ease;
+}
+
+/* Add right padding specifically to inputs that might have a toggle icon */
+.input-group input[type="password"],
+.input-group input[type="text"] { /* Covers password and when it becomes text */
+  padding-right: 45px; /* Adjust this value based on icon size/positioning */
+}
+
+
+.input-group input:focus {
+  border-color: var(--text-color); /* Highlight border on focus */
+}
+
+/* Floating Label Styling */
+.input-group label {
+  position: absolute;
+  top: 14px; /* Initial vertical position (aligned with input text) */
+  left: 15px; /* Initial horizontal position */
+  font-size: 1rem; /* Initial font size */
+  color: var(--placeholder-color);
+  pointer-events: none; /* Allows clicking 'through' the label to the input */
+  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease; /* Smooth animation */
+}
+
+/* Style for the label when input is focused or has content */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: 5px; /* Move label up */
+  font-size: 0.75rem; /* Make label smaller */
+  color: var(--text-color); /* Make label brighter/match focused border */
+}
+
+/* Hide the actual placeholder text (we use the label) */
+/* The space placeholder " " is needed for :not(:placeholder-shown) to work */
+.input-group input::placeholder {
+ color: transparent;
+}
+
+/* --- Password Visibility Toggle Icon --- */
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;             /* Center vertically */
+  right: 15px;            /* Position from the right edge */
+  transform: translateY(-50%); /* Fine-tune vertical centering */
+  cursor: pointer;
+  color: var(--placeholder-color); /* Use theme color */
+  transition: color 0.2s ease;
+  font-size: 1.2rem;      /* Adjust icon size */
+  line-height: 1;         /* Ensure consistent vertical alignment */
+}
+
+.password-toggle-icon:hover {
+  color: var(--text-color); /* Brighter on hover */
+}
+
+/* --- Main Action Button (Login/Register) --- */
+.btn-login { /* Using this class for both login and register submit buttons */
+  width: 100%;
+  padding: 12px 20px;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px; /* Space above the button */
+}
+
+.btn-login:hover {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.btn-login:active {
+    transform: translateY(0); /* Push back down on click */
+}
+
+/* --- Navigation Link Section (Already have account? / Don't have account?) --- */
+.navigate {
+  margin-top: 5px; /* Adjust space above this section if needed */
+  /* text-align: center; /* Uncomment to center this section */
+}
+
+/* Styling for the paragraph text itself */
+.navigate-link {
+  font-size: 0.9rem;
+  color: var(--link-color);
+  display: inline; /* Allows text and button to be side-by-side */
+}
+
+/* Styling for the button acting as a link (Register / Login links) */
+.btn-register-link {
+  background: none;
+  border: none;
+  color: var(--link-hover-color); /* Make link stand out */
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 5px; /* Spacing around the link text */
+  font-size: inherit; /* Match surrounding text size */
+  font-family: inherit; /* Match surrounding font */
+  transition: color 0.3s ease;
+  vertical-align: baseline; /* Align with the text */
+}
+
+.btn-register-link:hover {
+  color: var(--text-color); /* Brighten link on hover */
+}
+
+/* --- Optional: Remember Me / Forgot Password --- */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--link-color);
+  margin-top: -10px; /* Adjust spacing if used with other elements */
+}
+
+.form-options label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.form-options input[type="checkbox"] {
+  margin-right: 5px;
+  accent-color: var(--text-color); /* Style checkbox */
+}
+
+.form-options a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.form-options a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+
+/* --- Global Resets & Body --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
