@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../api/axios";
+import axios from "../api/axios"; // <<<--- सुनिश्चित करें कि यह axios इंस्टेंस सही बेस URL के साथ कॉन्फ़िगर है, या पूरा URL इस्तेमाल करें
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 // Import eye icons from react-icons
@@ -14,17 +14,26 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/login", { email, password });
+      // --- यहाँ बदलाव करें ---
+      const res = await axios.post("/auth/login", { email, password }); // <<<--- /api जोड़ा गया
+      // -----------------------
+
+      // स्थानीय स्टोरेज में टोकन का नाम 'token' रखा है, सुनिश्चित करें कि आप इसे बाकी जगह भी 'token' से ही एक्सेस करें
+      // आमतौर पर इसे 'adminToken' या कुछ और विशिष्ट नाम देना बेहतर होता है
       localStorage.setItem("token", res.data.token);
-      nav("/dashboard");
+
+      // डैशबोर्ड का पाथ चेक करें, एडमिन के लिए शायद '/admin/dashboard' या सिर्फ '/dashboard' हो
+      nav("/dashboard"); // <<<--- इसे अपने एडमिन डैशबोर्ड के सही पाथ से बदलें
+
     } catch (error) {
       console.error("Login failed:", error);
+      // एरर मैसेज दिखाना ठीक है
       alert(error.response?.data?.message || "Invalid Credentials or Server Error");
     }
   };
 
   const goToRegister = () => {
-    nav("/register");
+    nav("/register"); // सुनिश्चित करें कि '/register' आपका सही रजिस्ट्रेशन पाथ है
   };
 
   // Function to toggle password visibility

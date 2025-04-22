@@ -96,11 +96,10 @@ function Achievements() {
       {/* Added a container div for better structure and potential styling */}
       <div className="admin-container">
         <div className="admin-page achievements-admin"> {/* Added specific class */}
-          <h2 className="admin-heading">Manage Achievements</h2>
+          <h2 className="admin-heading">Achievements</h2>
 
           {/* Form Section */}
           <div className="admin-form-section card-style"> {/* Added card style */}
-             <h3 className="form-title">{editId ? "Edit Achievement" : "Add New Achievement"}</h3>
              <form className="admin-form" onSubmit={handleSubmit}>
                 {/* Input fields */}
                 <div className="form-group">

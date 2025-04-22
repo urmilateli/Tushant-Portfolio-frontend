@@ -14,15 +14,15 @@
   --admin-danger-dark: #b02a37;
   --admin-info: #0dcaf0;
   --admin-light: #f8f9fa;
-  --admin-dark: #343a40;
+  --admin-dark: #060217;
   --admin-white: #ffffff;
   --admin-body-bg: #f4f7f6;
-  --admin-border-color: #dee2e6;
-  --admin-card-bg: var(--admin-white);
+  --admin-border-color: #e6d70c;
+  --admin-card-bg: #060217; /* Note: Original was white, this is dark */
   --admin-input-bg: var(--admin-white);
   --admin-input-border: #ced4da;
   --admin-input-focus-border: #86b7fe;
-  --admin-input-text: #212529;
+  --admin-input-text: #0c97dd; /* Note: Original was dark, this is blue */
   --admin-input-placeholder: #6c757d;
 
   /* Effects & Dimensions */
@@ -36,7 +36,7 @@
 
 /* === Base Styles === */
 body {
-  font-family: var(--font-main); background-color: var(--admin-body-bg); color: var(--admin-dark); line-height: 1.6; font-size: 15px;
+  font-family: var(--font-main); background-color: var(--admin-body-bg); color: var(--admin-dark); line-height: 1.6; font-size: 15px; margin: 0;
 }
 .admin-container {
   padding: 1.5rem 0; /* Keep vertical padding */
@@ -81,7 +81,7 @@ body {
 /* Input Fields (Compact) */
 .form-input, .form-textarea { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--admin-input-border); border-radius: var(--admin-radius); font-size: 0.95rem; font-family: var(--font-main); transition: var(--admin-transition); box-sizing: border-box; background-color: var(--admin-input-bg); color: var(--admin-input-text); box-shadow: inset 0 1px 1px rgba(0,0,0,.05); }
 .form-input::placeholder, .form-textarea::placeholder { color: var(--admin-input-placeholder); opacity: 1; font-size: 0.9rem; }
-.form-input:focus, .form-textarea:focus { border-color: var(--admin-input-focus-border); background-color: var(--admin-input-bg); color: var(--admin-input-text); outline: 0; box-shadow: inset 0 1px 1px rgba(0,0,0,.05), 0 0 0 0.2rem var(--admin-primary)/25%; }
+.form-input:focus, .form-textarea:focus { border-color: var(--admin-input-focus-border); background-color: var(--admin-input-bg); color: var(--admin-input-text); outline: 0; box-shadow: inset 0 1px 1px rgba(0,0,0,.05), 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Fixed var usage */ }
 .form-textarea { resize: vertical; min-height: 80px; }
 
 /* Image Uploader (Compact) */
@@ -94,12 +94,51 @@ body {
 .form-group .upload-placeholder strong { color: var(--admin-primary); font-weight: 600; }
 .form-group .image-uploader-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
-/* Form Image Preview (Compact) */
+/* === Form Image Preview & Improved Remove Button === */
+/* Container and label remain unchanged */
 .form-image-preview-container { margin-top: 0.6rem; padding: 0.6rem; background-color: var(--admin-light); border-radius: var(--admin-radius); border: 1px solid var(--admin-border-color); }
 .form-image-preview-label { font-size: 0.75em; font-weight: 500; color: var(--admin-secondary); margin-bottom: 0.4rem; display: block; }
 .form-image-preview { max-width: 120px; max-height: 90px; border-radius: calc(var(--admin-radius) - 2px); border: 1px solid var(--admin-border-color); box-shadow: var(--admin-shadow-sm); object-fit: cover; display: block; margin-bottom: 0.6rem; }
-.remove-image-button { background-color: var(--admin-light); color: var(--admin-secondary); border: 1px solid var(--admin-border-color); padding: 0.2rem 0.6rem !important; font-size: 0.7rem !important; font-weight: 500 !important; box-shadow: none !important; }
-.remove-image-button:hover { background-color: #e2e8f0; border-color: #cbd5e1; box-shadow: var(--admin-shadow-sm) !important; transform: translateY(-1px) !important; }
+
+/* --- MODIFIED STYLES for the Remove Image Button --- */
+.remove-image-button {
+  /* Base button properties */
+  display: inline-flex; /* Use flex for alignment if icon added */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--admin-radius);
+  transition: var(--admin-transition);
+  line-height: 1.4; /* Match general button */
+
+  /* Danger styling */
+  background-color: var(--admin-danger);
+  color: var(--admin-white);
+  border: 1px solid var(--admin-danger);
+  padding: 0.4rem 0.8rem; /* Adjusted padding */
+  font-size: 0.8rem;     /* Adjusted font size */
+  font-weight: 500;      /* Consistent weight */
+  box-shadow: var(--admin-shadow-sm); /* Add shadow */
+}
+
+.remove-image-button:hover {
+  background-color: var(--admin-danger-dark);
+  border-color: var(--admin-danger-dark);
+  color: var(--admin-white); /* Ensure text stays white */
+  box-shadow: var(--admin-shadow) !important; /* Enhance shadow */
+  transform: translateY(-1px) !important; /* Add lift */
+}
+/* Add active state for better feedback */
+.remove-image-button:active {
+  transform: translateY(0) !important; /* Push down */
+  box-shadow: var(--admin-shadow-sm) !important; /* Reset shadow */
+  background-color: var(--admin-danger-dark); /* Keep dark bg */
+  border-color: var(--admin-danger-dark);
+}
+/* --- End of Modified Styles --- */
+
 .image-url-display { font-size: 0.7rem; color: var(--admin-secondary); margin-top: 0.3rem; word-break: break-all; display: block; background-color: #e9ecef; padding: 2px 4px; border-radius: 3px; }
 
 /* Form Button Group */
@@ -108,31 +147,32 @@ body {
 /* Enhanced Submit Button Styling */
 .submit-button { background-color: var(--admin-primary); color: var(--admin-white); font-weight: 600; padding: 0.7rem 1.5rem; box-shadow: var(--admin-shadow); border: none; }
 .submit-button:hover { background-color: var(--admin-primary-dark); box-shadow: var(--admin-shadow-lg); }
-.cancel-button { background-color: var(--admin-light); color: var(--admin-secondary); border: 1px solid var(--admin-input-border); box-shadow: none; }
+.cancel-button { background-color: var(--admin-light); color: var(--admin-secondary); border: 1px solid var(--admin-input-border); box-shadow: none; padding: 0.7rem 1.5rem; /* Match padding */ }
 .cancel-button:hover { background-color: #e2e8f0; }
 
 /* === List Section === */
 .admin-list-section { margin-top: 2rem; }
 .list-heading { font-size: 1.4rem; font-weight: 600; color: var(--admin-dark); margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--admin-border-color); text-align: center; }
-.loading-text, .error-text, .info-text { text-align: center; padding: 2rem 1rem; font-size: 1rem; font-weight: 500; color: var(--admin-secondary); background-color: var(--admin-white); border-radius: var(--admin-radius); border: 1px dashed var(--admin-border-color); margin-top: 1.5rem; box-shadow: var(--admin-shadow-sm); }
+.loading-text, .error-text, .info-text, .no-items-text { /* Combined class */ text-align: center; padding: 2rem 1rem; font-size: 1rem; font-weight: 500; color: var(--admin-secondary); background-color: var(--admin-white); border-radius: var(--admin-radius); border: 1px dashed var(--admin-border-color); margin-top: 1.5rem; box-shadow: var(--admin-shadow-sm); }
 .error-text { color: var(--admin-danger); border-color: var(--admin-danger); background-color: #fef2f2; }
 .info-text { color: var(--admin-primary); border-color: var(--admin-primary); background-color: #f0f9ff; }
 
 .item-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; padding: 0; list-style: none; }
 
 /* List Item Card Styling */
-.item-card { display: flex; flex-direction: column; padding: 0; /* Uses card-style base */ }
+.item-card { display: flex; flex-direction: column; /* uses card-style base */ }
 .item-card:hover { transform: translateY(-4px); box-shadow: var(--admin-shadow-lg); border-color: var(--admin-primary-light); }
-.item-image-wrapper { width: 100%; aspect-ratio: 16 / 9; background-color: var(--admin-light); overflow: hidden; border-bottom: 1px solid var(--admin-border-color); }
+.item-image-wrapper { width: 100%; aspect-ratio: 16 / 9; background-color: var(--admin-light); overflow: hidden; border-bottom: 1px solid var(--admin-border-color); border-radius: var(--admin-radius) var(--admin-radius) 0 0; }
 .item-image { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
 .item-card:hover .item-image { transform: scale(1.05); }
-.item-image-placeholder { font-size: 0.9rem; color: var(--admin-secondary); text-align: center; padding: 2rem; }
+.item-image-placeholder { font-size: 0.9rem; color: var(--admin-secondary); text-align: center; padding: 2rem; display: flex; align-items: center; justify-content: center; height: 100%; }
 .item-content { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; gap: 0.4rem; }
 .item-title { font-size: 1.1rem; font-weight: 600; color: var(--admin-dark); margin: 0; line-height: 1.3; }
-.item-description, .item-content-text { font-size: 0.85rem; color: var(--admin-secondary); line-height: 1.5; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.item-description, .item-content-text { font-size: 0.85rem; color: var(--admin-secondary); line-height: 1.5; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: calc(1.5em * 2); }
 .item-date, .item-tags-wrapper, .item-link-wrapper { font-size: 0.75rem; color: #64748B; margin-top: 0.4rem; }
 .item-tags-wrapper strong, .item-link-wrapper strong { color: var(--admin-dark); font-weight: 600; margin-right: 0.3em; }
-.item-tags span { background-color: #e0e7ff; color: #3730a3; padding: 2px 5px; border-radius: 4px; margin-right: 4px; margin-bottom: 4px; display: inline-block; font-size: 0.7em; }
+.item-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.item-tags span { background-color: #e0e7ff; color: #3730a3; padding: 2px 6px; border-radius: 4px; display: inline-block; font-size: 0.7em; line-height: 1.3; }
 .item-link a { color: var(--admin-primary); text-decoration: none; word-break: break-all; transition: color 0.2s ease; font-weight: 500; }
 .item-link a:hover { color: var(--admin-primary-dark); text-decoration: underline; }
 .item-date { text-align: right; }
@@ -141,17 +181,25 @@ body {
 .item-button-group {
   padding: 0.75rem 1rem;
   border-top: 1px solid var(--admin-border-color);
-  background-color: var(--admin-light);
+  background-color: var(--admin-light); /* Adjusted bg */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* --- Ensure GAP is present --- */
   gap: 0.8rem; /* Creates space between buttons */
+  border-radius: 0 0 var(--admin-radius) var(--admin-radius);
 }
 
 /* Edit/Delete Button Specific Styles */
-.edit-button, .delete-button { padding: 0.4rem 0.8rem !important; font-size: 0.85rem !important; box-shadow: var(--admin-shadow-sm) !important; flex-shrink: 0; border: 1px solid transparent; }
-.edit-button:hover, .delete-button:hover { box-shadow: var(--admin-shadow) !important; }
+/* Apply .button class in HTML and use these for overrides/specifics */
+.edit-button, .delete-button {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.85rem !important;
+    box-shadow: var(--admin-shadow-sm) !important;
+    flex-shrink: 0;
+    border: 1px solid transparent; /* Ensure border consistency */
+    /* Base styles should come from .button class applied in HTML */
+}
+.edit-button:hover, .delete-button:hover { box-shadow: var(--admin-shadow) !important; transform: translateY(-1px); /* Add hover effect */ }
 .edit-button { background-color: var(--admin-warning); color: #422006; border-color: var(--admin-warning); }
 .edit-button:hover { background-color: var(--admin-warning-dark); border-color: var(--admin-warning-dark); color: #422006; }
 .delete-button { background-color: var(--admin-danger); color: var(--admin-white); border-color: var(--admin-danger); }
@@ -165,19 +213,94 @@ body {
   .admin-container { padding: 1.2rem; }
   .admin-page { width: 85%; } /* Wider on tablets */
   .item-list { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .admin-form .form-grid .span-2 { grid-column: span 1; }
+}
+@media (max-width: 768px) { /* Added breakpoint */
+    .admin-page { width: 90%; }
+    .item-list { grid-template-columns: 1fr; } /* Single column */
 }
 @media (max-width: 576px) {
   .admin-container { padding: 0.8rem; }
-  .admin-page { width: 95%; } /* Nearly full width on mobile */
+  .admin-page { width: 95%; padding: 1rem; } /* Nearly full width on mobile */
+  body { font-size: 14px; }
   .admin-heading { font-size: 1.4rem; margin-bottom: 1.2rem; }
   .card-style { padding: 1rem; margin-bottom: 1rem; }
   .form-title, .list-heading { font-size: 1.2rem; }
   .form-button-group { flex-direction: column; align-items: stretch; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem;}
-  .item-list { grid-template-columns: 1fr; gap: 0.8rem; }
+  .item-list { gap: 0.8rem; }
   .item-content { padding: 0.8rem; }
-  .button { padding: 0.5rem 1rem; font-size: 0.85rem; }
+  .button { padding: 0.6rem 1rem; font-size: 0.9rem; width: 100%; box-sizing: border-box; } /* Full width buttons */
+  .submit-button, .cancel-button { width: 100%; }
   .admin-form .form-grid { grid-template-columns: 1fr; gap: 0.8rem;}
   .admin-form .form-grid .span-2 { grid-column: span 1; }
-  .item-button-group { padding: 0.6rem 0.8rem; }
-  .edit-button, .delete-button { padding: 0.35rem 0.7rem !important; font-size: 0.8rem !important; }
+  .item-button-group { padding: 0.6rem 0.8rem; justify-content: space-between; } /* Keep space-between */
+  .edit-button, .delete-button { padding: 0.4rem 0.7rem !important; font-size: 0.8rem !important; width: auto; } /* Auto width */
+  .form-input, .form-textarea { font-size: 0.9rem; padding: 0.5rem 0.7rem; }
+}
+
+
+
+/* === ImageUploader_admin Specific Styles === */
+/* These styles remain unchanged as requested */
+/* === ImageUploader_admin Specific Styles === */
+/* These styles remain unchanged as requested */
+.image-uploader-container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: flex-start; /* Align items to the start */
+  gap: 0.8rem; /* Space between elements */
+  width: 100%; /* Take full width of its container */
+}
+.image-uploader-container .preview-area {
+  position: relative; 
+  border: 1px solid var(--admin-input-border); 
+  border-radius: var(--admin-radius); 
+  padding: 0.5rem; 
+  background-color: var(--admin-light); 
+  max-width: 250px; /* Maximum width of the preview container */
+  overflow: hidden; 
+  margin-top: 0.5rem;
+  display: inline-block; /* ADDED: Make the container only as wide as needed, up to max-width */
+}
+.image-uploader-container .preview-image {
+  display: block; 
+  /* --- EDITED --- */
+  /* width: 100%;  <-- REMOVED this line which caused stretching */
+  max-width: 100%; /* ADDED: Ensure image doesn't exceed container width */
+  max-height: 150px; /* ADDED: Limit the maximum height */
+  width: auto; /* ADDED: Let the image determine its width based on height/aspect ratio */
+  height: auto; /* Keep aspect ratio */
+  /* --- END EDIT --- */
+  border-radius: calc(var(--admin-radius) - 4px);
+  object-fit: contain; /* ADDED: Ensure the whole image is visible within the bounds */
+}
+.image-uploader-container .button-remove-preview {
+  position: absolute; top: 2px; right: 2px; background-color: rgba(220, 53, 69, 0.8); color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; font-weight: bold; line-height: 20px; text-align: center; cursor: pointer; transition: background-color 0.2s ease; padding: 0; display: flex; justify-content: center; align-items: center;
+}
+.image-uploader-container .button-remove-preview:hover {
+  background-color: var(--admin-danger);
+}
+.image-uploader-container .upload-btn {
+  background-color: var(--admin-success); color: white; padding: 0.5rem 1rem; font-size: 0.9rem; margin-top: 0.5rem; align-self: flex-start; /* Apply .button styles in HTML */
+}
+.image-uploader-container .upload-btn:hover {
+   background-color: #157347;
+}
+.image-uploader-container .upload-message {
+  font-size: 0.85rem; margin-top: 0.5rem; padding: 0.4rem 0.8rem; border-radius: var(--admin-radius); width: 100%; box-sizing: border-box; border: 1px solid transparent;
+}
+.image-uploader-container .upload-message.success {
+  color: #0f5132; background-color: #d1e7dd; border-color: #badbcc;
+}
+.image-uploader-container .upload-message.error {
+  color: #842029; background-color: #f8d7da; border-color: #f5c2c7;
+}
+.image-uploader-container .upload-indicator {
+  font-size: 0.9rem; color: var(--admin-secondary); margin-top: 0.5rem; font-style: italic;
+}
+.image-uploader-container .button-secondary {
+   background-color: var(--admin-secondary); color: white; padding: 0.5rem 1rem; /* Apply .button styles in HTML */
+}
+.image-uploader-container .button-secondary:hover {
+   background-color: #5c636a;
 }

@@ -2,18 +2,17 @@
 
 /* === Navbar Base === */
 .navbar {
-  background-color: var(--background-light);
+  background-color:#060217 ;
   box-shadow: none;
   position: sticky;
   top: 0;
   z-index: 1000;
-  height: 70px;
+  height: 70px; /* Make sure this height accommodates your logo */
   width: 100%;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
-  border-bottom: 1px solid transparent; /* Prepare for border on scroll */
+  border-bottom: 1px solid transparent;
 }
 
-/* Style when scrolled */
 .navbar.scrolled {
   box-shadow: var(--box-shadow-light);
   border-bottom: 1px solid var(--border-color);
@@ -28,67 +27,106 @@
 
 /* === Logo === */
 .nav-logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--primary-color);
+  /* font-size: 1.6rem; */ /* Text styles removed/commented out */
+  /* font-weight: 700; */
+  /* color: var(--primary-color); */ /* Text color removed */
   cursor: pointer;
-  transition: color 0.2s;
+  /* transition: color 0.2s; */ /* No transition needed for image color */
+  display: flex; /* Helps with vertical alignment if needed */
+  align-items: center; /* Vertically center logo if navbar is taller */
+  height: 100%;
+  width: 10%; /* Make the clickable area fill the navbar height */
 }
-.nav-logo:hover {
-  color: var(--primary-dark);
+/* .nav-logo:hover { */
+  /* color: var(--primary-dark); */ /* No hover effect needed for image */
+/* } */
+
+/* --- Style for the Image inside the logo container --- */
+.nav-logo img {
+  height: 70px; /* Adjust this value to resize your logo */
+  width: 130px;   /* Maintain aspect ratio */
+  display: block; /* Removes potential extra space below the image */
 }
+/* --- End Logo Image Style --- */
+
 
 /* === Desktop Menu Container === */
 .nav-menu-desktop {
   display: none; /* Hidden on mobile by default */
   align-items: center;
-  gap: 0.5rem; /* Space between links container and button */
+  gap: 0.5rem;
 }
 
+/* === Desktop Links Container (Needs Relative Positioning) === */
 .nav-links-desktop {
+  position: relative; /* Crucial for positioning the absolute indicator */
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Space between nav links */
+  gap: 0.5rem;
 }
 
 /* === Desktop Navigation Links === */
 .nav-link {
-  color: var(--text-body);
+  color:white;
   padding: 0.6rem 1rem;
   border-radius: var(--border-radius-sm);
-  font-size: 0.95rem;
+  font-size: 0.99rem;
   font-weight: 500;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   background: none;
   border: none;
   cursor: pointer;
-  position: relative;
+  position: relative; /* Keep if you have other ::before/::after */
+  z-index: 1; /* Ensure links are above the indicator if needed */
 }
-.nav-link:hover {
+/* .nav-link:hover {
   color: var(--primary-color);
-  background-color: #f8f9fa; /* Subtle background hover */
+
+} */
+
+.nav-link.active {
+  /* color: var(--primary-color); */
+  font-weight: 600;
+  color: #FF9B17;
+  border: 1px solid #FF9B17;
+  border-radius: 50px;
+  /* background: #FF9B17; */
+  padding: 10px 25px;
+
 }
+
+
+
 
 /* === Desktop Contact Button === */
 .nav-contact-btn {
   padding: 0.6rem 1.25rem;
   font-size: 0.9rem;
-  /* Inherits .btn .btn-primary styles from index.css */
+  /* transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out; */
+  border-radius: 50px;
 }
+
+.nav-contact-btn.active {
+  background-color: #FF9B17;
+  color: #060217;
+  border-radius: 50px;
+
+}
+
 
 /* === Mobile Menu Button === */
 .mobile-menu-button {
-  display: flex; /* Displayed on mobile by default */
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  border-radius: var(--border-radius-sm);
-  color: var(--text-heading);
+  border-radius:50px;
+  color:#FF9B17;
   background: none;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
-  font-size: 1.5rem; /* Adjust icon size */
+  font-size: 1.5rem;
 }
 .mobile-menu-button:hover {
   color: var(--primary-color);
@@ -97,34 +135,29 @@
 
 /* === Mobile Menu Panel === */
 .nav-links-mobile {
-  display: none; /* Hidden by default */
+  display: none;
   background-color: white;
   position: absolute;
-  top: 70px; /* Below navbar */
+  top: 70px;
   left: 0;
   right: 0;
   padding: 1.5rem;
   box-shadow: var(--box-shadow-medium);
   border-top: 1px solid var(--border-color);
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
   max-height: calc(100vh - 70px);
   overflow-y: auto;
 }
 .nav-links-mobile.open {
-  display: flex; /* Show when open */
+  display: flex;
   animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {
-  from {
-      opacity: 0;
-      transform: translateY(-10px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* === Mobile Navigation Links === */
@@ -136,7 +169,7 @@
   border-radius: var(--border-radius-sm);
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--text-heading);
+  color: #060217;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   background: none;
   border: none;
@@ -147,6 +180,12 @@
   color: var(--primary-color);
 }
 
+.nav-link-mobile.active {
+   background-color: #e9ecef;
+   color: var(--primary-color);
+   font-weight: 600;
+}
+
 /* === Mobile Contact Button === */
 .nav-contact-btn-mobile {
   width: 100%;
@@ -154,19 +193,39 @@
   padding: 0.8rem 1rem;
   font-size: 1rem;
   margin-top: 0.5rem;
-  /* Inherits .btn .btn-primary styles */
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
+.nav-contact-btn-mobile.active {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+
 /* === Responsive Breakpoint === */
-/* Using 992px as the breakpoint for desktop view */
 @media (min-width: 992px) {
   .nav-menu-desktop {
-      display: flex; /* Show desktop menu */
+      display: flex;
   }
   .mobile-menu-button {
-      display: none; /* Hide mobile button */
+      display: none;
   }
   .nav-links-mobile {
-      display: none !important; /* Force hide mobile panel */
+      display: none !important;
   }
+}
+
+/* REMOVED Hover Indicator CSS */
+/*
+.nav-hover-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
 }

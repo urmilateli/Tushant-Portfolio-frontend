@@ -1,156 +1,180 @@
-/* Original Styles (Mostly Desktop First) */
+/* === Professional Card Styles - Image Right, Text Left, Custom Fonts === */
+
+/* --- FONT IMPORTS (MUST BE AT THE VERY TOP) --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AU+SA:wght@100..400&display=swap');
+/* --- END FONT IMPORTS --- */
+
+
 .about-section {
-  /* Using a light gradient background */
-  background: linear-gradient(to bottom, #ffffff 5%, #d9e0e4 100%);
-  padding: 80px 20px; /* Default padding for larger screens */
-  min-height: 100vh;  /* Ensure section takes at least full viewport height */
+  background: white; /* Slightly different light background */
+  padding: 80px 20px;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box; /* Include padding in height calculation */
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .about-container {
   display: flex;
-  gap: 60px;          /* Gap for larger screens */
-  flex-wrap: wrap;    /* Allow wrapping on medium screens */
-  max-width: 1300px;  /* Max width of the content */
-  width: 100%;        /* Take up available width within max-width */
-  align-items: center; /* Vertically align items when wrapped/side-by-side */
-  justify-content: center; /* Center items horizontally */
+  flex-direction: row-reverse; /* Image right, Text left */
+  gap: 50px; /* Slightly increased gap */
+  flex-wrap: wrap;
+  max-width: 1300px;
+  width: 100%;
+  align-items: stretch; /* Make cards equal height */
+  justify-content: center;
+ 
 }
 
+/* Common Card Styling - Refined */
+.about-image,
+.about-content {
+  background-color: #ffffff;
+  border-radius: 10px; /* Slightly less rounded */
+  /* Padding removed from image card, kept for text */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for both cards */
+}
+.about-image:hover,
+.about-content:hover {
+   transform: translateY(-5px); /* Slightly more lift */
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+}
+
+
+/* Image Card Specific Styling (Right Side) */
 .about-image {
-   flex-shrink: 0; /* Prevent image container from shrinking excessively */
-   text-align: center; /* Helps center image if needed */
+  border: 6px solid #0b132b; /* BLUE border - slightly thinner */
+  flex-basis: 45%;          /* Adjust basis */
+  max-width: 550px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* IMPORTANT: To contain the image with object-fit */
+  padding: 0; /* <<< REMOVED padding */
 }
 
 .about-image img {
-  width: 100%;       /* Make width responsive */
-  max-width: 500px;  /* Set a max-width for larger screens */
-  height: auto;      /* Maintain aspect ratio */
-  border-radius: 25px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15); /* Slightly softer shadow */
-  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Smoother transition */
-  display: block;    /* Remove extra space below image */
-  margin: 0 auto;    /* Center image within its container if needed */
-}
-.about-image img:hover {
-  transform: scale(1.04); /* Slightly less aggressive scale */
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25); /* Adjusted hover shadow */
+  width: 100%;  /* Fill the container width */
+  height: 100%; /* Fill the container height */
+  object-fit: cover; /* Cover the area, crop if needed */
+  display: block;
+  /* Remove max-width and border-radius from img itself */
+  /* max-width: 400px; */ /* <<< REMOVED */
+  /* border-radius: 8px; */ /* <<< REMOVED */
 }
 
+
+/* Text Content Card Specific Styling (Left Side) */
 .about-content {
-  max-width: 700px; /* Max width for text content */
-  flex-grow: 1;     /* Allow text content to grow */
-  flex-basis: 400px;/* Minimum base width before wrapping */
-  color: #333;       /* Slightly darker grey for better contrast */
-  font-size: 1.1rem;  /* Base font size */
-  line-height: 1.8;  /* Generous line height */
-  font-family: 'Poppins', sans-serif; /* Ensure Poppins is loaded */
-  /* Removed animation for default state, apply via JS/AOS if needed */
+  border: 1px solid #ffc107; /* YELLOW border - slightly thinner */
+  flex-basis: 50%;           /* Adjust basis */
+  max-width: 700px;
+  color: #ffffff; /* Slightly darker text */
+  justify-content: center;
+  padding: 30px 35px;
+  background-color: #0b132b; /* Keep padding for text card */
 }
 
 .about-content h2 {
-  font-size: 2.5rem; /* Base heading size */
-  margin-bottom: 20px; /* Adjusted margin */
-  color: #0b132b; /* Dark blue heading */
-  font-weight: 600; /* Ensure weight is set */
+  font-family: "Playwrite AU SA", cursive; /* Apply specific font */
+  font-size: 2.4rem; /* Adjust size if needed */
+  font-weight: 500; /* Adjust weight as needed */
+  margin-bottom: 25px;
   line-height: 1.3;
+  text-align: left;
+  color: #ffffff;
 }
 
+/* Styling the heading parts */
+.heading-highlight {
+  color:#FF9B17; /* Yellow color */
+}
+.heading-main {
+  color: #ffffff; /* Dark blue color for contrast on white card */
+}
+
+.about-content p {
+   font-family: 'Playfair Display', serif; /* Apply specific font */
+   font-size: 1.1rem; /* Adjust size */
+   line-height: 1.8;
+   margin-bottom: 25px;
+   text-align: left;
+   color: #ffffff; /* Slightly lighter than heading */
+}
+
+/* Button Styling */
 .read-more-btn {
-  background-color: #0b132b;
-  color: #fff;
-  padding: 10px 25px; /* Slightly more padding */
-  font-size: 0.95rem; /* Adjusted size */
-  font-weight: 500; /* Added weight */
+  background-color: #FF9B17;
+  color: #0b132b;
+  padding: 12px 28px; /* Adjust padding */
+  font-family: 'Poppins', sans-serif; /* Ensure button uses a standard font */
+  font-size: 0.9rem;
+  font-weight: 500;
   border: none;
-  border-radius: 25px; /* Make it pill-shaped */
+  border-radius: 50px; /* Fully rounded pill shape */
   cursor: pointer;
-  margin-top: 25px; /* Adjusted margin */
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: inline-block; /* Ensure it behaves like a block for margin/padding */
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  align-self: flex-start;
+  box-shadow: 0 4px 10px rgba(11, 19, 43, 0.3); /* Button shadow */
 }
 .read-more-btn:hover {
   background-color: #1c2541;
-  transform: translateY(-2px); /* Add slight lift on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(11, 19, 43, 0.4);
 }
-
-/* Removed fadeInUp animation from default state - apply via AOS/JS */
-/* @keyframes fadeInUp { ... } */
-
 
 /* === Responsive Adjustments === */
 
-/* Medium Screens / Tablets (~992px and below) */
 @media (max-width: 991.98px) {
   .about-container {
-    gap: 40px; /* Reduce gap */
-    /* flex-direction: column; */ /* Uncomment if you want stacking already here */
-    /* align-items: center; */   /* Center items when stacked */
+    gap: 30px;
   }
-
-   .about-image img {
-     max-width: 400px; /* Slightly smaller max image */
+   .about-image, .about-content {
+     flex-basis: 46%; /* Adjust for slightly smaller screens */
    }
-
-  .about-content {
-    max-width: 600px; /* Adjust text max width */
-    font-size: 1.05rem; /* Slightly smaller text */
-    flex-basis: auto; /* Allow natural stacking */
-    /* text-align: center; */ /* Uncomment if stacking and wanting centered text */
-  }
-
-  .about-content h2 {
-    font-size: 2.2rem; /* Smaller heading */
-  }
-
-   .about-section {
-      padding: 60px 20px; /* Reduce section padding */
-   }
+   .about-content h2 { font-size: 2rem; }
+   .about-content p { font-size: 1rem; }
 }
 
-
-/* Small Screens / Mobile (~768px and below) */
 @media (max-width: 767.98px) {
   .about-section {
-    padding: 40px 15px; /* Further reduce padding */
-    min-height: auto;   /* Allow height to be determined by content */
-    align-items: flex-start; /* Align content to top */
-    padding-top: 60px; /* Add padding if there's a fixed navbar */
+    padding: 50px 15px;
   }
-
   .about-container {
-    flex-direction: column; /* Stack image and text vertically */
-    gap: 30px; /* Reduce gap further when stacked */
-    align-items: center; /* Center stacked items */
+    flex-direction: column; /* Stack */
+    gap: 30px;
+    align-items: center;
   }
-
-  .about-image img {
-    max-width: 350px; /* Further reduce max image size */
-    width: 100%;      /* Allow it to shrink fully */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Adjust shadow */
+  .about-image, .about-content {
+    flex-basis: auto;
+    width: 95%;
+    max-width: 500px;
+    padding: 25px; /* Add padding back to image card when stacked */
   }
-   .about-image img:hover {
-     transform: scale(1.03); /* Less aggressive hover scale */
-     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-   }
-
-  .about-content {
-    max-width: 100%; /* Allow text to take full width */
-    text-align: center; /* Center text content */
-    font-size: 1rem; /* Base mobile font size */
-    line-height: 1.7;
+  .about-image {
+    min-height: 350px; /* Give image card some height when stacked */
+    border-width: 6px; /* Keep border thickness */
   }
-
+   .about-content {
+    border-width: 6px; /* Keep border thickness */
+    text-align: center;
+  }
   .about-content h2 {
-    font-size: 1.8rem; /* Smaller heading for mobile */
+    font-size: 1.8rem;
   }
-
+  .about-content p {
+      font-size: 0.95rem;
+      text-align: center;
+  }
   .read-more-btn {
-    padding: 8px 20px;
-    font-size: 0.9rem;
+    align-self: center;
   }
 }

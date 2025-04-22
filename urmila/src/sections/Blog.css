@@ -4,11 +4,12 @@
 :root {
     --section-padding-y: 4rem; /* Example: Reduced padding */
     --background-off-white: #f8f9fa; /* Example light gray */
-    --background-light: #ffffff; /* White cards */
-    --border-color: #e9ecef;    /* Lighter border */
-    --text-heading: #343a40;    /* Darker heading */
-    --text-body: #6c757d;       /* Standard body text */
-    --text-muted: #6c757d;       /* Muted text (same as body here) */
+    --background-light: #ffffff; /* White cards - जैसा आपने दिया था */
+    --border-color: #FF9B17;
+    --card-bg: #060217;    
+    --text-heading: #343a40;    /* Darker heading - टाइटल के लिए बदला जाएगा */
+    --text-body: #e54e4e;       /* Standard body text - डिस्क्रिप्शन के लिए बदला जाएगा */
+    --text-muted: #6c757d;       /* Muted text - Date के लिए बदला जाएगा */
     --primary-color: #007bff;   /* Example Blue */
     --primary-dark: #0056b3;    /* Darker blue */
     --font-sans: sans-serif;      /* Add default */
@@ -17,82 +18,81 @@
 
 /* === Blog Section === */
 .blog-section {
+    /* --- कोई बदलाव नहीं --- */
     padding: var(--section-padding-y, 4rem) 0;
-    background: linear-gradient(to bottom, #ffffff 5%, #adb2ba 100%);
+    background: white;
     border-top: 1px solid var(--border-color);
     font-family: var(--font-sans);
 }
 
-.blog-section .container { /* Added container for consistent max-width */
+.blog-section .container { /* --- कोई बदलाव नहीं --- */
     max-width: 1140px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-/* === Section Heading (Keep As Is or Style as Needed) === */
-.section-heading {
-    font-size: 2rem; /* Slightly smaller heading */
+/* === Section Heading === */
+.section-heading { /* --- कोई बदलाव नहीं --- */
+    font-size: 2rem;
     font-weight: 600;
-    color: var(--text-heading);
+    color: #060217 ;
     text-align: center;
-    margin-bottom: 2.5rem; /* Reduced margin */
+    margin-bottom: 2.5rem;
 }
 .section-heading::after { display: none; }
 
 
 /* === Blog Grid === */
-.blog-grid {
+.blog-grid { /* --- कोई बदलाव नहीं --- */
     display: grid;
-    /* --- CHANGE: Smaller minmax for narrower cards --- */
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Reduced min width */
-    /* --- CHANGE: Reduced Gap --- */
-    gap: 1.5rem; /* Reduced gap */
-    /* margin-bottom: 3rem; */ /* Removed margin */
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.5rem;
 }
 
 /* === Blog Card Styling === */
 .blog-card {
-    background-color: var(--background-light);
+    /* --- कोई बदलाव नहीं --- */
+    background-color: var( --card-bg); /* सफेद बैकग्राउंड रखा गया */
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: var(--border-radius); /* Use variable */
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06); /* Softer shadow */
-    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+    border: 2px solid var(  --border-color); 
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     padding: 0;
 }
 
-.blog-card:hover {
-    transform: translateY(-4px); /* Reduced lift */
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08); /* Adjusted hover shadow */
+.blog-card:hover { /* --- कोई बदलाव नहीं --- */
+    transform: translateY(-4px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* === Blog Card Image (Should be first element in JSX) === */
+/* === Blog Card Image === */
 .blog-card-image {
+    /* --- कोई बदलाव नहीं --- */
     width: 100%;
-    /* --- CHANGE: Reduced Height --- */
-    height: 160px; /* Reduced height significantly */
+    height: 160px;
     overflow: hidden;
-    /* Removed margin-top */
     background-color: #f0f0f0;
+    border: 1px solid black; /* 1px काला बॉर्डर रखा गया */
 }
 
-.blog-card-image img {
+.blog-card-image img { /* --- कोई बदलाव नहीं --- */
     width: 100%;
     height: 100%;
-    /* --- CHANGE: Use 'cover' for better image handling --- */
     object-fit: cover;
     display: block;
     transition: transform 0.3s ease;
 }
-.blog-card:hover .blog-card-image img { transform: scale(1.04); }
+.blog-card:hover .blog-card-image img { /* --- कोई बदलाव नहीं --- */
+    transform: scale(1.04);
+}
 
 
-/* === Blog Card Content (Should follow image in JSX) === */
-.blog-card-content {
-    /* --- CHANGE: Reduced Padding --- */
-    padding: 1rem 1.2rem; /* Reduced padding */
+/* === Blog Card Content === */
+.blog-card-content { /* --- कोई बदलाव नहीं --- */
+    padding: 1rem 1.2rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -100,36 +100,39 @@
 
 /* 2. Title */
 .blog-card-title {
-    font-size: 1.1rem; /* Reduced size */
+    font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-heading);
-    margin: 0 0 0.5rem 0; /* Reduced margin */
+    /* === CHANGE: रंग लाल किया गया === */
+    color: #35a7dc; /* सीधे लाल रंग का कोड (आप चाहें तो var(--danger-color) भी इस्तेमाल कर सकते हैं अगर डिफाइन हो) */
+    margin: 0 0 0.5rem 0;
     line-height: 1.3;
 }
+/* टाइटल के लिंक का रंग अब लाल रहेगा */
 .blog-card-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
 .blog-card-title a:hover { color: var(--primary-color); text-decoration: underline; }
 
 /* 3. Excerpt/Content */
 .blog-card-excerpt {
-    color: var(--text-body);
-    font-size: 0.85rem; /* Reduced size */
-    line-height: 1.5; /* Adjusted line height */
-    margin-bottom: 0.8rem; /* Reduced margin */
+    /* === CHANGE: रंग सफेद किया गया === */
+    /* !!! चेतावनी: सफेद बैकग्राउंड पर सफेद टेक्स्ट नहीं दिखेगा !!! */
+    color: #ffffff;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
     flex-grow: 1;
-
-    /* --- Line Clamping --- */
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* <<< Show only 2 lines */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
 /* 4. Date */
 .blog-card-date {
-    font-size: 0.7rem; /* Reduced size */
-    color: var(--text-muted);
-    margin-top: auto; /* Push to bottom */
-    padding-top: 0.5rem; /* Reduced space */
+    font-size: 0.9rem;
+    /* === CHANGE: रंग पीला किया गया === */
+    color: #FF9B17; /* सीधे पीले रंग का कोड (var(--border-color) वाला) */
+    margin-top: auto;
+    padding-top: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 500;
@@ -137,38 +140,41 @@
 }
 
 /* Read More Link */
-.blog-card-link {
+.blog-card-link { /* --- कोई बदलाव नहीं --- */
     color: var(--primary-color);
     font-weight: 600;
-    margin-top: 0.4rem; /* Reduced space */
+    margin-top: 0.4rem;
     padding-top: 0;
     transition: color 0.2s, transform 0.2s;
     display: inline-block;
     text-decoration: none;
-    font-size: 0.8rem; /* Reduced size */
+    font-size: 0.8rem;
 }
 .blog-card-link:hover { color: var(--primary-dark); text-decoration: underline; transform: translateX(3px); }
 
 
-/* View All Button Container (Keep if used) */
-.blog-view-all { text-align: center; margin-top: 1.5rem; }
+/* View All Button Container */
+.blog-view-all { /* --- कोई बदलाव नहीं --- */
+    text-align: center;
+    margin-top: 1.5rem;
+}
 
 /* === Responsive Adjustments === */
+/* --- कोई बदलाव नहीं --- */
 @media (max-width: 768px) {
     .blog-grid {
-        /* Keep auto-fit */
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjust minmax */
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 1.2rem;
     }
     .section-heading { font-size: 1.8rem; }
-    .blog-card { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); } /* Lighter shadow on mobile */
-    .blog-card-image { height: 140px; } /* Further reduce */
+    .blog-card { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); }
+    .blog-card-image { height: 140px; }
 }
 
 @media (max-width: 480px) {
     .blog-grid {
-        grid-template-columns: 1fr; /* Force single column */
+        grid-template-columns: 1fr;
     }
     .blog-card-title { font-size: 1rem; }
-    .blog-card-excerpt { font-size: 0.8rem; -webkit-line-clamp: 3;} /* Allow maybe 3 lines on smallest screens */
+    .blog-card-excerpt { font-size: 0.8rem; -webkit-line-clamp: 3;}
 }

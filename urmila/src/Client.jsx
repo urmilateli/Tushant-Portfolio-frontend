@@ -5,10 +5,10 @@ import ScrollToTopButton from './components/ScrollToTopButton.jsx';
 import Home from './sections/Home.jsx';
 import About from './sections/About.jsx';
 import Achievements from './sections/Achievements.jsx';
-import Courses from './sections/Courses.jsx'; // <<< ENSURE THIS IS PRESENT
 import Blog from './sections/Blog.jsx';
 import Contact from './sections/Contact.jsx';
 import AOS from 'aos';
+import Projects from './sections/Projects.jsx';
 
 function Client() {
   useEffect(() => {
@@ -22,7 +22,7 @@ function Client() {
         <Home />
         <About />
         <Achievements />
-        <Courses /> {/* <<< Renders the featured courses section */}
+        <Projects/>
         <Blog />
         <Contact />
       </main>

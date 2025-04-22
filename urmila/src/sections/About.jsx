@@ -19,7 +19,10 @@ function About() {
 
         {/* Right Side - Content */}
         <div className="about-content">
-          <h2>Hey, I’m Tushant Kumar</h2>
+        <h2>
+            <span className="heading-highlight">Hey,</span> {/* Yellow Part */}
+            <span className="heading-main"> I’m Tushant Kumar</span> {/* Default/Dark Part */}
+          </h2>
           <p>
             With over 4 years of experience as an AIML and IoT specialist, I’ve worked on countless hands-on projects and trained more than 600 students...
             <br /><br />

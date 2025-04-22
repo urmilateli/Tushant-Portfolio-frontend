@@ -92,11 +92,10 @@ function Articles_admin() {
         {/* Use consistent container */}
         <div className="admin-container">
           <div className="admin-page articles-admin"> {/* Specific class */}
-            <h2 className="admin-heading">Manage Articles</h2>
+            <h2 className="admin-heading">Articles</h2>
 
             {/* --- Form Section (Keep As Is, structured) --- */}
             <div className="admin-form-section card-style">
-                <h3 className="form-title">{editId ? "Edit Article" : "Add New Article"}</h3>
                 <form className="admin-form" onSubmit={handleSubmit}>
                      {/* Title Input */}
                     <div className="form-group">

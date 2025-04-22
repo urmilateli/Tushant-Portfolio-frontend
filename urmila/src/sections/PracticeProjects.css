@@ -1,0 +1,312 @@
+/* src/sections/PracticeProjects.css */
+
+/* === Optional: Global Variables === */
+:root {
+    /* Update colors based on the image's header */
+    --header-gradient-start: #3a3a3a; /* Dark Gray/Black */
+    --header-gradient-end: #e85a5a;   /* Reddish color */
+    --text-color-on-dark: #ffffff;
+    --text-color-light: #f8f9fa;
+    --breadcrumb-link-color: #dddddd;
+    --breadcrumb-active-color: #ffffff;
+
+    --content-bg-color: #ffffff; /* White background for cards */
+    --card-border-color: #eeeeee;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --card-hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    --card-title-color: #333333;
+    --button-border-color: #d75a5a; /* Match red tone */
+    --button-text-color: #d75a5a;
+    --button-hover-bg: #d75a5a;
+    --button-hover-text: #ffffff;
+
+    --container-max-width: 1140px;
+    --container-padding-x: 15px; /* Standard bootstrap padding */
+    --font-family-sans-serif: 'Poppins', sans-serif; /* Or your preferred font */
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+}
+
+/* Reset or Base styles */
+body {
+  margin: 0;
+  font-family: var(--font-family-sans-serif);
+  line-height: 1.6;
+  color: #555;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding-x);
+  padding-right: var(--container-padding-x);
+  width: 100%;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* === Header Section Styling === */
+.page-header-section {
+  position: relative; /* Needed for pseudo-element positioning */
+  color: var(--text-color-on-dark);
+  padding: 5rem 0 7rem 0; /* Adjust top/bottom padding as needed */
+  overflow: hidden; /* Hide the parts of the curve outside */
+  z-index: 1; /* Ensure header content is above the curve */
+}
+
+/* The Gradient Curve Background using ::before */
+.page-header-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0; /* Start from the left edge */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height of the padded section */
+  /* The Gradient - Adjust colors and direction */
+  background: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end));
+  /* Create the curve - Elliptical bottom radius */
+  /* Tweak the second value (e.g., 40px) to control curve depth */
+  border-bottom-left-radius: 50% 40px;
+  border-bottom-right-radius: 50% 40px;
+  z-index: -1; /* Place behind the header content */
+}
+
+/* Header Content (Title, Breadcrumbs) */
+.header-content {
+  position: relative; /* Ensure content is above pseudo-element */
+  z-index: 2;
+  text-align: left; /* Align text to the left like the image */
+}
+
+.page-header-section h1 {
+  font-size: 2.8rem; /* Larger title */
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-color-on-dark);
+}
+
+/* Breadcrumb Styling */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0; /* Remove default padding */
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: transparent; /* No background */
+  border-radius: var(--border-radius-sm);
+}
+
+.breadcrumb-item {
+  font-size: 0.9rem;
+  color: var(--breadcrumb-active-color); /* Default color for items */
+}
+
+/* Style for the separator (>) */
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: var(--breadcrumb-link-color); /* Color of the ">" */
+  content: ">"; /* Use > as separator */
+}
+
+.breadcrumb-item a {
+  color: var(--breadcrumb-link-color); /* Link color */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--text-color-on-dark); /* Brighter link on hover */
+}
+
+.breadcrumb-item.active {
+  color: var(--breadcrumb-active-color); /* Color of the current page */
+  font-weight: 500;
+}
+
+/* === Projects Content Area === */
+.projects-content-area {
+  background-color: var(--content-bg-color); /* White background */
+  padding: 3rem 0; /* Padding above and below the grid */
+  /* Pull the content area up slightly to overlap the curve */
+  margin-top: -4rem; /* Adjust this value based on curve depth */
+  position: relative; /* Needed for stacking context */
+  z-index: 0; /* Ensure it's behind the header curve visually */
+  border-top-left-radius: 15px; /* Optional: slight rounding */
+  border-top-right-radius: 15px; /* Optional: slight rounding */
+}
+
+/* Optional heading for practice projects if used */
+/*
+.section-heading-practice {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2.5rem;
+}
+*/
+
+/* === Status/Error Messages Styling === */
+.status-message,
+.error-message {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1rem;
+  color: #6c757d;
+}
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+}
+
+
+/* === Projects Grid Styling (Match Image) === */
+.courses-grid {
+  display: grid;
+  /* Adjust grid columns for responsiveness */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Aim for ~3 cards per row on large screens */
+  gap: 1.8rem; /* Spacing between cards */
+  padding-top: 1rem; /* Space above grid if needed */
+}
+
+/* === Project Card Styling (Match Image) === */
+.course-card {
+  background-color: var(--content-bg-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: var(--border-radius-md); /* Slightly rounded corners */
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: var(--card-hover-shadow);
+}
+
+/* Card Image */
+.course-image {
+  width: 100%;
+  /* Adjust aspect ratio if images are not uniform */
+  aspect-ratio: 16 / 10; /* Or 4/3, 1/1 depending on source */
+  overflow: hidden;
+  background-color: #f0f0f0; /* Placeholder bg */
+  padding: 1.5rem; /* Padding around the image illustration */
+  box-sizing: border-box;
+  display: flex; /* Center illustration if needed */
+  justify-content: center;
+  align-items: center;
+}
+
+.course-image img {
+  display: block;
+  /* Let the image scale within the padding */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Show the whole illustration */
+}
+
+/* Card Content */
+.course-content {
+  padding: 1.5rem;
+  text-align: center; /* Center title and button */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+}
+
+/* Card Title (Bold, Uppercase like image) */
+.course-title-main {
+  font-size: 1.1rem;
+  font-weight: 700; /* Bold */
+  color: var(--card-title-color);
+  margin: 0 0 1rem 0; /* Space below title */
+  text-transform: uppercase; /* Uppercase like image */
+  line-height: 1.4;
+}
+
+/* Read More Button Container */
+.course-actions {
+  margin-top: auto; /* Push button to bottom if content varies */
+}
+
+/* Read More Button */
+.read-more-btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--button-border-color);
+  color: var(--button-text-color);
+  background-color: transparent;
+  border-radius: var(--border-radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.read-more-btn:hover {
+  background-color: var(--button-hover-bg);
+  color: var(--button-hover-text);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .page-header-section h1 {
+    font-size: 2.4rem;
+  }
+  .page-header-section {
+    padding: 4rem 0 6rem 0;
+  }
+  .projects-content-area {
+     margin-top: -3.5rem; /* Adjust overlap */
+  }
+  .courses-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .page-header-section h1 {
+    font-size: 2rem;
+    text-align: center; /* Center title on mobile */
+  }
+  .header-content {
+    text-align: center; /* Center breadcrumbs on mobile */
+  }
+  .breadcrumb {
+     justify-content: center; /* Center breadcrumb items */
+  }
+  .page-header-section {
+    padding: 3rem 0 5rem 0;
+  }
+   /* Make curve shallower on mobile */
+   .page-header-section::before {
+       border-bottom-left-radius: 50% 30px;
+       border-bottom-right-radius: 50% 30px;
+   }
+  .projects-content-area {
+     margin-top: -3rem; /* Adjust overlap */
+     padding: 2rem 0;
+  }
+  .courses-grid {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 1.5rem;
+  }
+  .course-card {
+      max-width: 350px; /* Prevent cards from becoming too wide */
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
