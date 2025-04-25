@@ -1,16 +1,16 @@
 // src/sections/Contact.jsx
 import React, { useState } from 'react';
 import SocialLinks from '../components/SocialLinks';
-import './Contact.css';
+import './Contact.css'; // Make sure this CSS file is correctly imported
 import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 
 const Contact = () => {
   const [status, setStatus] = useState('');
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('Sending...');
-    
+
     const form = e.target;
     const formData = new FormData(form);
     formData.append("access_key", "dece19a1-a1e2-49fa-9e35-28e6e0a1ec1f"); // 🔑 Replace with your Web3Forms access key
@@ -28,11 +28,12 @@ const Contact = () => {
         form.reset(); // Reset form
         setTimeout(() => setStatus(''), 5000);
       } else {
+        console.error("Web3Forms Error:", data); // Log the error details from Web3Forms
         setStatus(data.message || "Something went wrong.");
         setTimeout(() => setStatus(''), 7000);
       }
     } catch (error) {
-      console.error("Submission Error:", error);
+      console.error("Submission Fetch Error:", error);
       setStatus("An error occurred. Please try again.");
       setTimeout(() => setStatus(''), 7000);
     }
@@ -51,25 +52,65 @@ const Contact = () => {
             </p>
 
             <form onSubmit={handleSubmit} className="contact-form">
+              {/* --- Updated Form Fields --- */}
               <div className="form-row-grid">
+                {/* Name (Required) */}
                 <div className="form-group">
-                  <input type="text" name="name" required className="form-input" placeholder="Your Name" />
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="form-input"
+                    placeholder="Name *"
+                  />
                 </div>
+
+                {/* Email (Required) */}
                 <div className="form-group">
-                  <input type="text" name="username" className="form-input" placeholder="Username" />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="form-input"
+                    placeholder="Email *"
+                  />
                 </div>
+
+                {/* Phone Number (Optional) */}
                 <div className="form-group">
-                  <input type="email" name="email" required className="form-input" placeholder="Your Email" />
+                  <input
+                    type="tel"
+                    name="phone" // Keep name 'phone' for consistency or change if needed
+                    className="form-input"
+                    placeholder="Phone Number"
+                  />
                 </div>
-                <div className="form-group">
-                  <input type="tel" name="phone" className="form-input" placeholder="PhoneNumber " />
+
+                 {/* Subject (Required) */}
+                 <div className="form-group">
+                  <input
+                    type="text"
+                    name="subject" // Added name 'subject'
+                    required
+                    className="form-input"
+                    placeholder="Subject *"
+                  />
                 </div>
               </div>
+              {/* --- End of Grid Row --- */}
 
+              {/* Message (Required) */}
               <div className="form-group">
-                <textarea name="message" rows="6" required className="form-textarea" placeholder="Your Message / Requirement *"></textarea>
+                <textarea
+                  name="message" // Keep name 'message'
+                  rows="6"
+                  required
+                  className="form-textarea"
+                  placeholder="Your Message and Requirement *" // Updated placeholder
+                ></textarea>
               </div>
 
+              {/* Submit Button & Status */}
               <div className="form-submit-wrapper">
                 <button type="submit" className="btn-submit-custom" disabled={status === 'Sending...'}>
                   {status === 'Sending...' ? 'Sending...' : 'Submit Message'}
@@ -79,7 +120,7 @@ const Contact = () => {
             </form>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact Info (Remains the same) */}
           <div className="contact-info-container contact-info-dark" data-aos="fade-left" data-aos-delay="100">
             <div className="contact-info-block">
               <div className="contact-info-item">
@@ -100,7 +141,7 @@ const Contact = () => {
 
             <div className="contact-socials">
               <h4 className="contact-socials-title">Connect Online</h4>
-              <SocialLinks className="contact-info-dark" />
+              <SocialLinks className="contact-info-dark" /> {/* Assuming SocialLinks handles its own styling */}
             </div>
           </div>
 
