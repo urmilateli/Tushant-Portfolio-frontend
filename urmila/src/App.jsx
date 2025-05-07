@@ -16,6 +16,7 @@ import Achievements from './admin/pages/Achievements';
 import Articles_admin from './admin/pages/Articles';   
 import PracticesProject_Admin from './admin/pages/PracticesProject'; 
 import AllProject from './sections/AllProject';
+import Register_admin from './admin/pages/Register';
 const ProtectedRoute = ({ children }) => {
     const token = localStorage.getItem("token");
     return token ? children : <Navigate to="/login" />;
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/allprojects" element={<AllProject/>}/>
                 <Route path="/practiceprojects" element={<PracticeProjectsS />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register_admin/>} />
                 <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                 <Route path="/myprojects" element={<ProtectedRoute><MyProjects_admin /></ProtectedRoute>} />
                 <Route path="/achievements" element={<ProtectedRoute><Achievements /></ProtectedRoute>} />

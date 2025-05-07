@@ -3,29 +3,29 @@
 /* === Variables (Updated Theme) === */
 :root {
   /* --- Backgrounds --- */
-  --contact-bg: #060217; /* Your dark purple/blue */
-  --card-bg-dark: #1e1e1e; /* Keep card dark */
+  --contact-bg: #323846 ; /* Your dark purple/blue */
+  --card-bg-dark: #323846; /* Keep card dark */
 
   /* --- Text Colors --- */
   --text-primary-dark: #ffffff;   /* Main text WHITE */
   --text-secondary-dark: #cccccc; /* Lighter grey */
   --text-muted-dark: #8892b0;   /* Muted color for placeholders */
-  --intro-text-color: #FF9B17;    /* YELLOW for intro line */
+  --intro-text-color: #00ffee ;    /* YELLOW for intro line */
 
   /* --- Input Fields (Light Style on Dark Card) --- */
-  --input-bg-light: #ffffff;      /* WHITE input background */
-  --input-border-light: #ced4da;   /* Standard light border */
+  --input-bg-light: #212529;      /* WHITE input background */
+  --input-border-light: #306192;   /* Standard light border */
   --input-text-light: #212529;     /* BLACK input text */
   --input-focus-border: #87ceeb;    /* SKY BLUE focus border */
   --input-focus-shadow: rgba(135, 206, 235, 0.25); /* SKY BLUE focus shadow */
 
   /* --- Icons --- */
-  --icon-color: #FF9B17;          /* YELLOW icons */
+  --icon-color: #00ffee;          /* YELLOW icons */
   --icon-hover: #ffffff;          /* WHITE icon hover */
 
   /* --- Submit Button --- */
-  --submit-btn-bg: #FF9B17;         /* YELLOW button background */
-  --submit-btn-text: #060217;       /* DARK text (matches bg) on yellow button */
+  --submit-btn-bg: #00ffee;         /* YELLOW button background */
+  --submit-btn-text: #fff;       /* DARK text (matches bg) on yellow button */
   --submit-btn-hover-bg: #ffffff;     /* WHITE background on hover */
   --submit-btn-hover-text: #060217;   /* DARK text on hover */
   --submit-btn-hover-border: #87ceeb;  /* SKY BLUE border on hover */
@@ -105,9 +105,9 @@ line-height: 1.5; /* Adjusted line height */
 width: 100%; padding: 0.6rem 0.8rem; /* Slightly more padding */
 font-size: 0.9rem; /* Slightly larger font */
 line-height: 1.4;
-background-color: var(--input-bg-light); /* White Background */
+background-color: #323846 !important; /* White Background */
 color: var(--input-text-light); /* Black Text */
-border: 1px solid var(--input-border-light); /* Light Border */
+border: 1px solid #01EEFF !important; /* Light Border */
 border-radius: var(--border-radius-form);
 box-sizing: border-box;
 transition: var(--transition-base);
@@ -129,21 +129,22 @@ box-shadow: 0 0 0 3px var(--input-focus-shadow); /* Sky Blue Focus Shadow */
 .form-submit-wrapper { margin-top: 0.8rem; text-align: center; }
 .btn-submit-custom {
 display: inline-block; padding: 0.5rem 1.8rem; /* Adjusted padding */
-font-size: 0.95rem; /* Adjusted font size */
+font-size: 0.85rem; /* Adjusted font size */
 font-weight: 600; /* Bolder */
-background-color: var(--submit-btn-bg); /* Yellow Background */
+background-color: #323846 !important; /* Yellow Background */
 color: var(--submit-btn-text); /* Dark Text */
-border: 1px solid transparent; /* Reserve space for hover border */
+border: 1px solid #01EEFF !important; /* Reserve space for hover border */
 border-radius: 50px;
 cursor: pointer;
 transition: var(--transition-base), border-color var(--transition-base); /* Add border-color to transition */
-box-shadow: 0 1px 3px rgba(223, 217, 32, 0.3); /* Subtle yellow shadow */
+box-shadow: 0 0 5px #01EEFF; /* Subtle yellow shadow */
 padding: 10px 20px;
 }
 .btn-submit-custom:hover:not(:disabled) {
 background-color: var(--submit-btn-hover-bg); /* White Hover Background */
 color: var(--submit-btn-hover-text); /* Dark Hover Text */
-border: 1px solid var(--submit-btn-hover-border); /* Sky Blue Hover Border */
+border: 2px solid #d36419 !important;
+box-shadow: 0 0 15px #f47421 !important ; /* Sky Blue Hover Border */
 transform: translateY(-1px);
 box-shadow: 0 2px 5px rgba(135, 206, 235, 0.4);
 color: rgb(68, 68, 202);

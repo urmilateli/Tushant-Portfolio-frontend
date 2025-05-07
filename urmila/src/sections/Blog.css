@@ -1,180 +1,310 @@
-/* src/sections/Blog.css */
+/* src/sections/Blog.css - Modified with Codepen Hover Effect */
 
-/* === Optional: Define Variables (Assuming from your existing setup) === */
-:root {
-    --section-padding-y: 4rem; /* Example: Reduced padding */
-    --background-off-white: #f8f9fa; /* Example light gray */
-    --background-light: #ffffff; /* White cards - जैसा आपने दिया था */
-    --border-color: #FF9B17;
-    --card-bg: #060217;    
-    --text-heading: #343a40;    /* Darker heading - टाइटल के लिए बदला जाएगा */
-    --text-body: #e54e4e;       /* Standard body text - डिस्क्रिप्शन के लिए बदला जाएगा */
-    --text-muted: #6c757d;       /* Muted text - Date के लिए बदला जाएगा */
-    --primary-color: #007bff;   /* Example Blue */
-    --primary-dark: #0056b3;    /* Darker blue */
-    --font-sans: sans-serif;      /* Add default */
-    --border-radius: 6px;       /* Example: smaller radius */
-}
+/* === Global Variables (Assuming these are defined elsewhere) === */
+/* ... (variables definition) ... */
 
 /* === Blog Section === */
 .blog-section {
-    /* --- कोई बदलाव नहीं --- */
-    padding: var(--section-padding-y, 4rem) 0;
-    background: white;
-    border-top: 1px solid var(--border-color);
-    font-family: var(--font-sans);
+  padding: var(--section-padding-y, 4rem) 0;
+  background: #151925 !important; /* Dark background */
+  font-family: var(--font-body, sans-serif);
 }
 
-.blog-section .container { /* --- कोई बदलाव नहीं --- */
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 15px;
+.blog-section .container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 /* === Section Heading === */
-.section-heading { /* --- कोई बदलाव नहीं --- */
-    font-size: 2rem;
-    font-weight: 600;
-    color: #060217 ;
-    text-align: center;
-    margin-bottom: 2.5rem;
+.section-heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff !important; /* White heading */
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: var(--font-heading, sans-serif);
 }
-.section-heading::after { display: none; }
-
 
 /* === Blog Grid === */
-.blog-grid { /* --- कोई बदलाव नहीं --- */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 1.5rem;
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem !important; /* Increased gap slightly */
+  /* We add margin to the cards themselves, so grid row gap might not be needed,
+     but 'gap' handles both row and column, so keep it for column spacing. */
 }
 
 /* === Blog Card Styling === */
 .blog-card {
-    /* --- कोई बदलाव नहीं --- */
-    background-color: var( --card-bg); /* सफेद बैकग्राउंड रखा गया */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
-    border: 2px solid var(  --border-color); 
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    padding: 0;
+  background-color: #323846 !important;
+   /* Card background */
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius-lg, 0.8rem); /* Slightly larger radius like Codepen */
+  overflow: hidden; /* Keep elements contained */
+  position: relative; /* Essential for absolute positioning */
+  /* --- ADDED Codepen transition and initial shadow --- */
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.2); /* Softer initial shadow */
+  /* Use a cubic-bezier for the Codepen feel */
+  transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+  /* --- ADDED: Margin below the card --- */
+  margin-bottom: 2.8rem; /* Adjust this value (e.g., 1rem, 2rem) as needed */
+  /* This adds vertical space below each card */
 }
 
-.blog-card:hover { /* --- कोई बदलाव नहीं --- */
-    transform: translateY(-4px);
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+/* === ADDED: Codepen Hover Effects === */
+.blog-card:hover {
+  /* Increased shadow on hover */
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.25);
+  /* Scale transform from Codepen (replaces translateY) */
+  transform: scale(1.08, 1.08); /* Adjust scale factor if needed */
+  /* Keep background color or change if needed */
+  /* background-color: #3f4657 !important; /* Optional slightly lighter hover bg */
 }
 
-/* === Blog Card Image === */
+/* === Blog Card Image (Original Container) === */
 .blog-card-image {
-    /* --- कोई बदलाव नहीं --- */
-    width: 100%;
-    height: 160px;
-    overflow: hidden;
-    background-color: #f0f0f0;
-    border: 1px solid black; /* 1px काला बॉर्डर रखा गया */
+  width: 100%;
+  height: 180px; /* Your original height */
+  overflow: hidden;
+  position: relative; /* Needed for positioning img if it were visible */
+  z-index: 1; /* Below content and hover elements */
 }
 
-.blog-card-image img { /* --- कोई बदलाव नहीं --- */
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
+/* --- Hide the actual <img> tag visually --- */
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Make the image tag itself invisible */
+  opacity: 0;
+  visibility: hidden;
+  /* Remove transition from the hidden image */
+  transition: none;
 }
-.blog-card:hover .blog-card-image img { /* --- कोई बदलाव नहीं --- */
-    transform: scale(1.04);
+
+/* === ADDED: Image Hover Overlay Div === */
+.blog-card-image-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px; /* Start with the same height as image container */
+  background-size: cover;
+  background-position: center center; /* Center the background image */
+  background-repeat: no-repeat;
+  /* Apply border radius only to the top corners initially */
+  border-top-left-radius: var(--border-radius-lg, 0.8rem);
+  border-top-right-radius: var(--border-radius-lg, 0.8rem);
+  z-index: 0; /* Base layer, behind content */
+  transition: height 0.3s ease-out, opacity 0.3s ease-out, border-radius 0.3s ease-out; /* Animate height, opacity, and radius */
+  opacity: 1; /* Start fully visible */
+}
+
+/* Optional: Style for placeholder when no image */
+.blog-card-image-placeholder {
+    background-color: #4a5263; /* Placeholder background */
+    /* You can add a placeholder pattern or icon here */
+}
+
+
+/* On hover, expand the overlay and make it semi-transparent */
+.blog-card:hover .blog-card-image-hover {
+  height: 100%; /* Expand to full card height */
+  opacity: 0.2; /* Make it semi-transparent (adjust as needed) */
+  /* Apply border radius to all corners when expanded */
+  border-radius: var(--border-radius-lg, 0.8rem);
+}
+
+/* === ADDED: Top Hover Info Container === */
+.blog-card-info-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem; /* Adjust padding */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out 0.1s; /* Fade in with slight delay */
+  z-index: 3; /* Above everything else */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none; /* Allow clicks to pass through if needed */
+}
+
+.blog-card:hover .blog-card-info-hover {
+  opacity: 1; /* Show on hover */
+}
+
+/* === ADDED: Styles for Icons inside Hover Info === */
+.blog-card-like {
+  width: 20px;
+  height: 20px;
+  /* pointer-events: auto; /* Make icon clickable if needed */
+}
+.blog-card-like path {
+  fill: #ffffff; /* White icon */
+}
+
+.blog-card-clock-info {
+  display: flex;
+  align-items: center;
+}
+
+.blog-card-clock {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.blog-card-clock path {
+  fill: #ffffff; /* White icon */
+}
+
+.blog-card-time {
+  font-size: 0.8rem;
+  color: #ffffff; /* White text */
+  vertical-align: middle;
+  font-family: var(--font-body, sans-serif);
+  font-weight: 500;
 }
 
 
 /* === Blog Card Content === */
-.blog-card-content { /* --- कोई बदलाव नहीं --- */
-    padding: 1rem 1.2rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+.blog-card-content {
+  padding: 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* --- ADDED for hover effect --- */
+  position: relative; /* Needed to sit above the image overlay */
+  z-index: 2; /* Above image overlay, below top hover info */
+  background-color: #323846 !important; /* Start with solid background */
+  /* Apply border radius only to bottom corners initially */
+  border-bottom-left-radius: var(--border-radius-lg, 0.8rem);
+  border-bottom-right-radius: var(--border-radius-lg, 0.8rem);
+  /* Smooth background transition */
+  transition: background-color 0.3s ease-in-out;
 }
 
-/* 2. Title */
+/* Make content background transparent on hover */
+.blog-card:hover .blog-card-content {
+  background-color: transparent !important;
+}
+
+/* Title */
 .blog-card-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    /* === CHANGE: रंग लाल किया गया === */
-    color: #35a7dc; /* सीधे लाल रंग का कोड (आप चाहें तो var(--danger-color) भी इस्तेमाल कर सकते हैं अगर डिफाइन हो) */
-    margin: 0 0 0.5rem 0;
-    line-height: 1.3;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-heading, sans-serif);
+  color: #ffffff !important; /* White title (reverted as requested in previous step) */
+  margin: 0 0 0.6rem 0;
+  line-height: 1.4;
 }
-/* टाइटल के लिंक का रंग अब लाल रहेगा */
-.blog-card-title a { color: inherit; text-decoration: none; transition: color 0.2s; }
-.blog-card-title a:hover { color: var(--primary-color); text-decoration: underline; }
+.blog-card-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+/* Title link hover (optional, keep white/light on card hover) */
+/* .blog-card-title a:hover { color: #e0e0e0; } */
 
-/* 3. Excerpt/Content */
+/* Excerpt/Content */
 .blog-card-excerpt {
-    /* === CHANGE: रंग सफेद किया गया === */
-    /* !!! चेतावनी: सफेद बैकग्राउंड पर सफेद टेक्स्ट नहीं दिखेगा !!! */
-    color: #ffffff;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin-bottom: 0.8rem;
-    flex-grow: 1;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  /* Adjust initial color for better contrast on dark bg if needed */
+  color: #bdc5d4 !important; /* Lighter grey excerpt */
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  /* Keep text clamping */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
-/* 4. Date */
+/* Date */
 .blog-card-date {
-    font-size: 0.9rem;
-    /* === CHANGE: रंग पीला किया गया === */
-    color: #FF9B17; /* सीधे पीले रंग का कोड (var(--border-color) वाला) */
-    margin-top: auto;
-    padding-top: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 500;
-    text-align: right;
+  font-size: 0.8rem;
+  color: #D9D9D9 !important; /* Light grey date */
+  margin-top: auto; /* Pushes date to the bottom */
+  padding-top: 0.5rem; /* Space above the date, if button is not present or if needed */
+  font-weight: 500;
+  text-align: right;
+  font-family: var(--font-body, sans-serif);
 }
 
-/* Read More Link */
-.blog-card-link { /* --- कोई बदलाव नहीं --- */
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-top: 0.4rem;
-    padding-top: 0;
-    transition: color 0.2s, transform 0.2s;
-    display: inline-block;
-    text-decoration: none;
-    font-size: 0.8rem;
-}
-.blog-card-link:hover { color: var(--primary-dark); text-decoration: underline; transform: translateX(3px); }
-
-
-/* View All Button Container */
-.blog-view-all { /* --- कोई बदलाव नहीं --- */
-    text-align: center;
-    margin-top: 1.5rem;
+/* === ADDED: Blog Card "Read More" Link Button === */
+.blog-card-link-wrapper {
+  margin-top: 1rem;      /* Space between excerpt and button */
+  margin-bottom: 0.8rem; /* Space between button and date */
+  /* text-align: left; /* Default, or use 'center' or 'right' if you want to align the button */
 }
 
-/* === Responsive Adjustments === */
-/* --- कोई बदलाव नहीं --- */
+.blog-card-link-display {
+  display: inline-block; /* Behaves like a button */
+  padding: 0.3rem 1rem; /* Button padding (top/bottom, left/right) */
+  background-color: #4a5263; /* A medium-dark grey, can be themed */
+  color: #ffffff !important; /* White text, important to override potential global 'a' styles */
+  border-radius: var(--border-radius-md, 0.4rem); /* Slightly rounded corners, adjust as needed */
+  text-decoration: none; /* Remove underline from link */
+  font-weight: 500;
+  font-size: 0.85rem; /* Button text size */
+  font-family: var(--font-body, sans-serif);
+  text-align: center;
+  border: 1px solid transparent; /* Placeholder for border to prevent size shift if border is added on hover */
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Subtle shadow for button */
+}
+
+.blog-card-link-display:hover,
+.blog-card-link-display:focus {
+  background-color: #0f419e; /* Slightly lighter background on hover/focus */
+  color: #ffffff !important; /* Ensure text color remains white */
+  text-decoration: none; /* Ensure no underline on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
+}
+
+.blog-card-link-display:active {
+  transform: translateY(0px); /* Button press effect */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Reset shadow or make it look pressed */
+}
+/* === End Link Display Area --- */
+
+
+/* === Text Color Change on Card Hover === */
+/* Ensure text remains readable (white) on the transparent background over the faded image */
+.blog-card:hover .blog-card-title,
+.blog-card:hover .blog-card-title a,
+.blog-card:hover .blog-card-excerpt,
+.blog-card:hover .blog-card-date {
+  color: #ffffff !important;
+  /* Optional: Add a subtle shadow for better readability on complex images */
+  /* text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); */
+}
+/* The button (.blog-card-link-display) already has color: #ffffff !important, so it's covered */
+
+
+/* === Optional Read More Link & View All Button (Keep as is) === */
+/* ... your existing styles for .blog-card-link and .blog-view-all ... */
+
+/* === Responsive Adjustments (Keep as is, review if needed) === */
 @media (max-width: 768px) {
-    .blog-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.2rem;
-    }
-    .section-heading { font-size: 1.8rem; }
-    .blog-card { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); }
-    .blog-card-image { height: 140px; }
+  .blog-grid { gap: 1.5rem; }
+  .section-heading { font-size: 2rem; }
+  .blog-card-image, .blog-card-image-hover { height: 160px; } /* Adjust height */
+  .blog-card-link-display { padding: 0.5rem 1rem; font-size: 0.8rem; } /* Slightly smaller button on mobile */
 }
 
 @media (max-width: 480px) {
-    .blog-grid {
-        grid-template-columns: 1fr;
-    }
-    .blog-card-title { font-size: 1rem; }
-    .blog-card-excerpt { font-size: 0.8rem; -webkit-line-clamp: 3;}
+  .blog-card-title { font-size: 1rem; }
+  .blog-card-excerpt { font-size: 0.85rem; -webkit-line-clamp: 2;}
+  /* Further adjust button for very small screens if needed */
+  .blog-card-link-wrapper { margin-top: 0.8rem; margin-bottom: 0.6rem; }
+  .blog-card-link-display { width: 100%; box-sizing: border-box; } /* Make button full width */
 }

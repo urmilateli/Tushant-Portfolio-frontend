@@ -1,152 +1,183 @@
 /* src/components/Navbar.css */
 
+/* === Import Google Font === */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+/* You can try other fonts like 'Parisienne', 'Dancing Script' if you prefer */
+
+/* === Root Variables === */
+:root {
+  /* Colors */
+  --navbar-text-logo: #FFFFFF;       /* White for "Tushant" */
+  --logo-lastname-color: #01EEFF;    /* Cyan for "Kumar" */
+  --navbar-bg: #151925;            /* Navbar background */
+  --navbar-link-color: #FFFFFF;     /* Default link color */
+  --navbar-link-active: #01EEFF;    /* Active link color (Cyan) */
+  --navbar-contact-bg: #060217;     /* Contact button background (Dark Purple) */
+  --navbar-contact-text: #FFFFFF;    /* Contact button text */
+  --navbar-contact-active-bg: #205781; /* Active Contact button background (Blueish) */
+
+  /* Fonts */
+  --logo-font: 'Great Vibes', cursive; /* Script font for logo */
+  /* --font-body: sans-serif; /* Define your default body font if needed */
+
+  /* Other Variables */
+  --box-shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --border-color: #e5e7eb; /* Light grey border for scrolled state */
+  --border-radius-sm: 4px;
+  --box-shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+
 /* === Navbar Base === */
 .navbar {
-  background-color:#060217 ;
+  background-color: var(--navbar-bg);
   box-shadow: none;
   position: sticky;
   top: 0;
   z-index: 1000;
-  height: 70px; /* Make sure this height accommodates your logo */
+  height: 70px; /* Standard height */
   width: 100%;
   transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid transparent; /* Start transparent */
 }
-
+/* Scrolled state */
 .navbar.scrolled {
   box-shadow: var(--box-shadow-light);
-  border-bottom: 1px solid var(--border-color);
+  /* border-bottom: 1px solid var(--border-color); */ /* Optional border on scroll */
+  /* background-color: rgba(21, 25, 37, 0.95); */ /* Optional slightly transparent bg on scroll */
 }
-
 .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 /* === Logo === */
 .nav-logo {
-  /* font-size: 1.6rem; */ /* Text styles removed/commented out */
-  /* font-weight: 700; */
-  /* color: var(--primary-color); */ /* Text color removed */
+  font-family: var(--logo-font);       /* Apply the script font */
+  font-size: 2.5rem;                   /* Adjust size for script font */
+  color: var(--navbar-text-logo);      /* White color for "Tushant" */
   cursor: pointer;
-  /* transition: color 0.2s; */ /* No transition needed for image color */
-  display: flex; /* Helps with vertical alignment if needed */
-  align-items: center; /* Vertically center logo if navbar is taller */
+  display: flex;
+  align-items: center;
   height: 100%;
-  width: 10%; /* Make the clickable area fill the navbar height */
+  white-space: nowrap;                 /* Prevent wrapping */
+  text-decoration: none; 
+  position: relative;  
+  top: 5px;  
+  text-shadow: 1px 1px 2px #ffffff;  
+  left: -50px;              /* Remove underline if it's a link */
 }
-/* .nav-logo:hover { */
-  /* color: var(--primary-dark); */ /* No hover effect needed for image */
-/* } */
-
-/* --- Style for the Image inside the logo container --- */
-.nav-logo img {
-  height: 70px; /* Adjust this value to resize your logo */
-  width: 130px;   /* Maintain aspect ratio */
-  display: block; /* Removes potential extra space below the image */
+/* Style for the second part ("Kumar") */
+.nav-logo .logo-lastname {
+  color: var(--logo-lastname-color);   /* Cyan color */
+  margin-left: 0.5rem; 
+  text-shadow: 1px 1px 2px #01EEFF;                /* Space between names */
 }
-/* --- End Logo Image Style --- */
 
 
 /* === Desktop Menu Container === */
 .nav-menu-desktop {
-  display: none; /* Hidden on mobile by default */
+  display: none; /* Hidden by default, shown in media query */
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.5rem;   /* Reduced gap between links container and button */
 }
 
-/* === Desktop Links Container (Needs Relative Positioning) === */
+/* === Desktop Links Container === */
 .nav-links-desktop {
-  position: relative; /* Crucial for positioning the absolute indicator */
+  position: relative; /* For potential dropdowns later */
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.5rem;  /* Space between links */
 }
 
 /* === Desktop Navigation Links === */
 .nav-link {
-  color:white;
+  color: var(--navbar-link-color); /* White */
   padding: 0.6rem 1rem;
-  border-radius: var(--border-radius-sm);
-  font-size: 0.99rem;
+  font-size: 0.92rem;
   font-weight: 500;
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
   background: none;
   border: none;
   cursor: pointer;
-  position: relative; /* Keep if you have other ::before/::after */
-  z-index: 1; /* Ensure links are above the indicator if needed */
+  position: relative;
 }
-/* .nav-link:hover {
-  color: var(--primary-color);
-
-} */
-
+/* Active state for desktop links */
 .nav-link.active {
-  /* color: var(--primary-color); */
   font-weight: 600;
-  color: #FF9B17;
-  border: 1px solid #FF9B17;
-  border-radius: 50px;
-  /* background: #FF9B17; */
-  padding: 10px 25px;
+  color: var(--navbar-link-active); /* Cyan */
+  
+}
+/* Optional hover effect */
+.nav-link:hover {
+ color: var(--navbar-link-active); /* Cyan on hover */
 
 }
-
-
 
 
 /* === Desktop Contact Button === */
 .nav-contact-btn {
-  padding: 0.6rem 1.25rem;
-  font-size: 0.9rem;
-  /* transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out; */
-  border-radius: 50px;
+ color: var(--navbar-contact-text) !important;      /* White text */
+ /* background-color: var(--navbar-contact-bg) !important;  */
+ padding: 0.6rem 1.25rem;
+ font-size: 0.9rem;
+ border-radius: 50px; /* Pill shape */
+ border: none;
+ cursor: pointer;
+ font-weight: 500;
+ transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
-
+/* Active state for contact button */
 .nav-contact-btn.active {
-  background-color: #FF9B17;
-  color: #060217;
-  border-radius: 50px;
-
+  /* background-color: var(--navbar-contact-active-bg) !important;  */
+  color: #ffffff !important; 
+  border: 1px solid #01EEFF !important;
+}
+/* Optional hover effect */
+.nav-contact-btn:hover:not(.active) {
+   /* background-color: #1a1f2e !important;  */
+   border: 1px solid #01EEFF !important;
 }
 
 
 /* === Mobile Menu Button === */
 .mobile-menu-button {
-  display: flex;
+  display: flex; /* Shown by default, hidden in media query */
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  border-radius:50px;
-  color:#FF9B17;
+  border-radius: var(--border-radius-sm);
+  color: var(--navbar-link-color); /* White icon */
   background: none;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Icon size */
 }
 .mobile-menu-button:hover {
-  color: var(--primary-color);
-  background-color: #e9ecef;
+  color: var(--navbar-link-active); /* Cyan */
+  /* background-color: rgba(255, 255, 255, 0.1); */ /* Optional subtle hover bg */
 }
 
 /* === Mobile Menu Panel === */
 .nav-links-mobile {
-  display: none;
-  background-color: white;
+  display: none; /* Hidden by default */
+  background-color: #1f2430; /* Slightly lighter dark bg for panel */
   position: absolute;
-  top: 70px;
+  top: 70px; /* Below navbar */
   left: 0;
   right: 0;
   padding: 1.5rem;
   box-shadow: var(--box-shadow-medium);
-  border-top: 1px solid var(--border-color);
+  /* border-top: 1px solid rgba(255, 255, 255, 0.1); */ /* Optional top border */
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  align-items: stretch; /* Stretch items full width */
+  gap: 0.5rem; /* Space between mobile links/button */
   max-height: calc(100vh - 70px);
   overflow-y: auto;
 }
@@ -154,7 +185,6 @@
   display: flex;
   animation: slideDown 0.3s ease-out;
 }
-
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -169,20 +199,19 @@
   border-radius: var(--border-radius-sm);
   font-size: 1.1rem;
   font-weight: 500;
-  color: #060217;
+  color: var(--navbar-link-color); /* White */
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   background: none;
   border: none;
   cursor: pointer;
 }
 .nav-link-mobile:hover {
-  background-color: #e9ecef;
-  color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle hover */
+  color: var(--navbar-link-active); /* Cyan */
 }
-
 .nav-link-mobile.active {
-   background-color: #e9ecef;
-   color: var(--primary-color);
+   background-color: rgba(1, 238, 255, 0.1); /* Cyan subtle active bg */
+   color: var(--navbar-link-active);       /* Cyan active text */
    font-weight: 600;
 }
 
@@ -194,38 +223,30 @@
   font-size: 1rem;
   margin-top: 0.5rem;
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  color: var(--navbar-contact-text) !important;      /* White text */
+  background-color: var(--navbar-contact-bg) !important; /* Dark Purple bg */
+  border-radius: 50px; /* Pill shape */
+  border: none;
+  font-weight: 500;
 }
-
 .nav-contact-btn-mobile.active {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
+  background-color: var(--navbar-contact-active-bg) !important; /* Match desktop active */
+  color: var(--navbar-contact-text) !important;
+}
+.nav-contact-btn-mobile:hover:not(.active) {
+   background-color: #1a1f2e !important; /* Slightly lighter purple */
 }
 
 
 /* === Responsive Breakpoint === */
-@media (min-width: 992px) {
+@media (min-width: 992px) { /* Adjust breakpoint if needed */
   .nav-menu-desktop {
-      display: flex;
+      display: flex; /* Show desktop menu */
   }
   .mobile-menu-button {
-      display: none;
+      display: none; /* Hide mobile button */
   }
   .nav-links-mobile {
-      display: none !important;
+      display: none !important; /* Ensure mobile panel is always hidden on desktop */
   }
-}
-
-/* REMOVED Hover Indicator CSS */
-/*
-.nav-hover-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  background-color: var(--primary-color);
-  border-radius: 2px;
-  transition: left 0.3s ease, width 0.3s ease, opacity 0.2s ease;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 0;
 }

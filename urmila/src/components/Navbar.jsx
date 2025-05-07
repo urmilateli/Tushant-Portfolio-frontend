@@ -2,18 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import logoImage from '../assets/tushantlogo5.png'; // Updated path to tushantlogo5.png
-import './Navbar.css';
+// import logoImage from '../assets/tushantlogo5.png'; // Removed image import
+import './Navbar.css'; // Ensure this CSS includes styles for .logo-lastname
 
 const Navbar = () => {
-  // State for mobile menu toggle
+  // State variables remain the same
   const [isOpen, setIsOpen] = useState(false);
-  // State to track if the page has been scrolled
   const [isScrolled, setIsScrolled] = useState(false);
-  // State to track the currently active section for highlighting the link
   const [activeSection, setActiveSection] = useState('');
 
-  // --- Configuration: Define Navigation Links and their Target Section IDs ---
+  // Navigation links configuration remains the same
   const navLinks = [
     { title: 'Home', id: 'hero' },
     { title: 'About', id: 'about' },
@@ -22,13 +20,12 @@ const Navbar = () => {
     { title: 'Blog', id: 'blog' },
   ];
   const contactLinkId = 'contact';
-  // --- End Configuration ---
-
   const allSectionIds = [...navLinks.map(link => link.id), contactLinkId];
   const homeSectionId = navLinks.length > 0 ? navLinks[0].id : '';
 
-  // --- Smooth Scrolling Function ---
+  // Scrolling and Effect hooks remain the same
   const scrollToSection = (id) => {
+    // ... (keep the function code as is)
     const element = document.getElementById(id);
     if (element) {
       const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
@@ -46,8 +43,8 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  // --- Effect for Navbar Style Change on Scroll ---
   useEffect(() => {
+    // ... (keep scroll style effect as is)
     const handleScrollStyle = () => {
       setIsScrolled(window.scrollY > 10);
     };
@@ -55,9 +52,9 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScrollStyle);
   }, []);
 
-  // --- Effect for Scrollspy (Highlighting Active Nav Link) ---
   useEffect(() => {
-    const handleScrollSpy = () => {
+    // ... (keep scroll spy effect as is)
+     const handleScrollSpy = () => {
       let currentSection = '';
       const scrollPosition = window.scrollY;
       const offset = 80;
@@ -77,15 +74,19 @@ const Navbar = () => {
       if (firstSectionElement && scrollPosition < firstSectionElement.offsetTop - offset) {
         currentSection = homeSectionId;
       }
+       // Check if near the bottom
       if ((window.innerHeight + scrollPosition) >= document.body.offsetHeight - 50) {
          if(allSectionIds.length > 0){
+            // Highlight the last section ID (usually contact)
             currentSection = allSectionIds[allSectionIds.length - 1];
          }
       }
 
+
       if (currentSection && currentSection !== activeSection) {
         setActiveSection(currentSection);
       } else if (!currentSection && activeSection && scrollPosition < 50) {
+         // Ensure 'Home' is active when scrolled to the very top
          setActiveSection(homeSectionId);
       }
     };
@@ -93,27 +94,30 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScrollSpy, { passive: true });
     handleScrollSpy(); // Initial check
     return () => window.removeEventListener('scroll', handleScrollSpy);
-
   }, [activeSection, allSectionIds, homeSectionId]);
+
 
   // --- Render the Navbar ---
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container container">
 
-        {/* Logo/Brand Name - Updated to use image */}
-        <img
-          src={logoImage} // Uses the updated imported image variable (tushantlogo5.png)
-          alt="Tushant Kumar Logo"
+        {/* Logo/Brand Name - UPDATED with span for last name */}
+        <div
           onClick={() => scrollToSection(homeSectionId)}
-          className="nav-logo"
+          className="nav-logo" // Keep the class for styling
           aria-label="Scroll to top"
-          style={{ cursor: 'pointer', height: '40px' }}
-        />
+          style={{ cursor: 'pointer' }} // Keep pointer cursor
+        >
+          Tushant{/* First part gets default .nav-logo color (white) */}
+          {' '} {/* Optional: Add a space */}
+          <span className="logo-lastname">Kumar</span> {/* Wrap last name in span */}
+        </div>
 
-        {/* --- Desktop Navigation Menu --- */}
+        {/* --- Desktop Navigation Menu (Keep as is) --- */}
         <div className="nav-menu-desktop">
-          <div className="nav-links-desktop">
+          {/* ... (keep desktop links and contact button) ... */}
+           <div className="nav-links-desktop">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -124,8 +128,6 @@ const Navbar = () => {
               </button>
             ))}
           </div>
-
-          {/* Contact Button */}
           <button
             onClick={() => scrollToSection(contactLinkId)}
             className={`btn btn-primary nav-contact-btn ${activeSection === contactLinkId ? 'active' : ''}`}
@@ -134,7 +136,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* --- Mobile Menu Toggle Button --- */}
+        {/* --- Mobile Menu Toggle Button (Keep as is) --- */}
         <button
           className="mobile-menu-button"
           onClick={() => setIsOpen(!isOpen)}
@@ -144,9 +146,10 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* --- Mobile Navigation Menu Panel --- */}
+      {/* --- Mobile Navigation Menu Panel (Keep as is) --- */}
       <div className={`nav-links-mobile ${isOpen ? 'open' : ''}`}>
-        {navLinks.map((link) => (
+         {/* ... (keep mobile links and contact button) ... */}
+         {navLinks.map((link) => (
           <button
             key={link.id}
             onClick={() => scrollToSection(link.id)}
@@ -155,7 +158,6 @@ const Navbar = () => {
             {link.title}
           </button>
         ))}
-        {/* Contact Button for Mobile */}
         <button
           onClick={() => scrollToSection(contactLinkId)}
           className={`btn btn-primary nav-contact-btn-mobile ${activeSection === contactLinkId ? 'active' : ''}`}

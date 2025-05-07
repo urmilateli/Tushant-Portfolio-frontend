@@ -1,307 +1,378 @@
 /* src/sections/Home.css */
 
-/* --- Font Imports --- */
-/* Remove unused fonts if needed */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); /* For buttons or fallback */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap'); /* For subtitle */
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap'); /* For Title */
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-
-/* --- Variables --- */
+/* Variables */
 :root {
-  /* Define colors based on request */
-  --hero-bg: #060217;
-  --hero-text-light: #ffffff;
-  --hero-text-subtitle: #ffffff;
-  --hero-text-highlight: #FF9B17; /* Yellow for highlight span */
-  --hero-circle-solid-yellow: #FF9B17; /* Solid Yellow for circles */
+  /* Colors */
+  --bg-dark: #151925;
+  --text-light: #FFFFFF;
+  --text-secondary: #adb5bd;
+  --accent-cyan: #01EEFF;                 /* Exact Cyan from image */
+  --accent-cyan-glow-subtle: rgba(1, 238, 255, 0.5);  /* Subtle glow */
+  --accent-cyan-glow-medium: rgba(1, 238, 255, 0.7); /* Medium glow (like Download Resume) */
+  --accent-cyan-glow-strong: rgba(1, 238, 255, 0.9); /* Stronger glow on hover */
 
-  /* Button - View My Work */
-  --btn1-bg: #FF9B17;         /* Yellow bg */
-  --btn1-text: #060217;       /* blue text */
-  --btn1-hover-bg: #ffffff;   /* White hover bg */
-  --btn1-hover-text: #060217;  /* Blue hover text */
-  --btn1-hover-border: #FF9B17; /* yelow hover border */
+  /* Button 1 ("Practice Project" - like Download Resume) */
+  --btn-primary-bg: var(--accent-cyan);
+  --btn-primary-text: #000000; /* Black text for high contrast */
+  --btn-primary-hover-bg: #00dcec; /* Slightly lighter cyan */
+  --btn-primary-hover-text: #000000;
 
-  /* Button - Get In Touch */
-  --btn2-text:#FF9B17;         /* Yellow text */
-  --btn2-border: #FF9B17;       /* Yellow border */
-  --btn2-bg: transparent;      /* Transparent default bg */
-  --btn2-hover-bg: rgba(255, 252, 100, 0.1); /* Light yellow hover bg (10% opacity) */
-  --btn2-hover-text: #FF9B17;    /* Yellow hover text */
-  --btn2-hover-border:#FF9B17;  /* Yellow hover border */
+  /* Button 2 ("Get in Touch" - like Contact) */
+  --btn-secondary-text: var(--accent-cyan);
+  --btn-secondary-border: var(--accent-cyan);
+  --btn-secondary-bg: transparent;
+  --btn-secondary-hover-bg: var(--accent-cyan); /* Cyan background on hover */
+  --btn-secondary-hover-text: #000000;        /* Black text on hover */
+  --btn-secondary-hover-border: var(--accent-cyan); /* Match background */
 
-  /* Fonts */
-  --font-title: 'PT Serif', serif;
-  --font-subtitle: 'Merriweather', serif;
-  --font-button: 'Poppins', sans-serif; /* Default font for buttons */
+  /* Social Icons */
+  --icon-border: var(--accent-cyan);
+  --icon-color: var(--accent-cyan);
+  --icon-bg: transparent;
+  --icon-hover-bg: var(--accent-cyan);
+  --icon-hover-color: #000000; /* Black icon on hover */
+  --icon-hover-border: var(--accent-cyan);
+
+  /* General */
+  --font-primary: 'Poppins', sans-serif;
+  --navbar-height: 70px; /* Adjust if your navbar height is different */
+  --transition-speed: 0.3s; /* Consistent transition speed */
 }
 
+/* Keyframes for Blinking Cursor (Kept) */
+@keyframes blink-caret {
+  from, to { opacity: 1 }
+  50% { opacity: 0 }
+}
 
-.hero-section {
-  /* Background with solid yellow circles */
-  background:
-    /* NOTE: Borders on background circles are not directly possible with CSS background property */
-    /* Layer 1: Circle Top Left */
-    radial-gradient(circle 120px at 3% 8%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%),
-    /* Layer 2: Circle Top Right */
-    radial-gradient(circle 20px at 80% 80%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%),
-    /* Layer 3: Circle Mid Left */
-    radial-gradient(circle 30px at 18% 10%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%),
-    /* Layer 4: Circle Bottom Right */
-    radial-gradient(circle 120px at 95% 88%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%),
-    /* Layer 5: Circle Bottomish */
-    radial-gradient(circle 60px at 78% 100%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%),
-    /* Layer 6: Base Background Color */
-    var(--hero-bg);
+/* === Base Section Styling === */
+.home-section {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  padding-top: calc(var(--navbar-height) + 40px); /* आप इसे थोड़ा कम कर सकते हैं यदि पूरे सेक्शन को ऊपर ले जाना है */
+  padding-bottom: 60px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center; /* कंटेंट को वर्टिकली सेंटर रखता है */
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+  font-family: var(--font-primary);
+  box-sizing: border-box;
+}
 
-  color: var(--hero-text-light); /* Default light text */
-  min-height: calc(100vh - 70px);
+/* === Container === */
+.container.home-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  /* align-items: flex-start; /* Changed from center to flex-start to align items higher */
+  align-items: center; /* Keeping center, will use transform instead */
+  justify-content: space-between;
+  gap: 4rem; /* Adjust gap if needed due to size change */
+  position: relative;
+  z-index: 2;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
+/* === Left Text Content === */
+.home-text-content {
+  flex: 1 1 60%;
+  max-width: 650px;
+  text-align: left;
+  position: relative;
+  /* --- UPDATED: Increased negative value to move text higher --- */
+  transform: translateY(-50px); /* Move content up by 50px (Adjust as needed) */
+  /* --- END UPDATE --- */
+}
+
+.intro-text {
+  font-size: 4rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+}
+
+.main-name {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+  line-height: 1.1;
+}
+
+.main-name .first-name-highlight {
+  color: var(--accent-cyan);
+}
+
+.specialization-text {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  min-height: 1.4em;
+  display: inline-block;
+  width: 100%;
+  line-height: 1.4;
+}
+.specialization-text .highlight {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+.typing-cursor {
+  font-weight: normal;
+  color: var(--accent-cyan);
+  animation: blink-caret 0.75s step-end infinite;
+  margin-left: 2px;
+  font-size: 1.7rem;
+  vertical-align: baseline;
+}
+
+.description-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 580px;
+}
+
+/* === Social Icons === */
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.social-icons a {
+  color: var(--icon-color);
+  background-color: var(--icon-bg);
+  border: 2px solid var(--icon-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.3rem;
+  transition: all var(--transition-speed) ease;
+  /* box-shadow: 0 0 8px 1px var(--accent-cyan-glow-subtle); */
+}
+.social-icons a:hover {
+  background-color: var(--icon-hover-bg);
+  color: var(--icon-hover-color);
+  border-color: var(--icon-hover-border);
+  box-shadow: 0 0 15px 3px var(--accent-cyan-glow-medium);
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* === Buttons === */
+.home-cta-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.home-cta-buttons .btn {
+  padding: 0.8rem 2.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: all var(--transition-speed) ease;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  box-shadow: none;
+  display: inline-block;
+}
+
+.btn.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-bg);
+  box-shadow: 0 0 18px 3px var(--accent-cyan-glow-medium);
+}
+.btn.btn-primary:hover {
+  background-color: var(--btn-primary-hover-bg);
+  border-color: var(--btn-primary-hover-bg);
+  color: var(--btn-primary-hover-text);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 25px 5px var(--accent-cyan-glow-strong);
+}
+
+.btn.btn-secondary-outline {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+  box-shadow: 0 0 8px 1px var(--accent-cyan-glow-subtle);
+}
+.btn.btn-secondary-outline:hover {
+  background-color: var(--btn-secondary-hover-bg);
+  color: var(--btn-secondary-hover-text);
+  border-color: var(--btn-secondary-hover-border);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 15px 3px var(--accent-cyan-glow-medium);
+}
+
+/* === Right Image Content === */
+.home-image-content {
+  flex: 1 1 40%;
+  /* --- UPDATED: Increased max-width for larger image --- */
+  max-width: 450px; /* Increased from 400px (Adjust as needed) */
+  /* --- END UPDATE --- */
+  flex-shrink: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 6rem 0 4rem 0;
+  /* --- UPDATED: Added transform to move image higher --- */
+  transform: translateY(-50px); /* Match text move (Adjust as needed) */
+  /* --- END UPDATE --- */
+}
+.profile-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  /* --- UPDATED: Increased max-width to match container --- */
+  max-width: 450px; /* Increased from 400px (Adjust as needed) */
+  /* --- END UPDATE --- */
+  border-radius: 50%;
   position: relative;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.4s ease-in-out, box-shadow 0.4s ease; /* Added box-shadow to transition */
+  box-shadow: 0 0 30px var(--accent-cyan); /* Adjusted shadow color */
 }
-
-/* Remove or adjust overlay if it clashes with solid circles */
-.hero-overlay {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  opacity: 0; /* Hide overlay if not needed */
-  z-index: 1;
-  /* background: linear-gradient(rgba(0, 9, 31, 0.1), rgba(0, 25, 65, 0.2)); */
+.image-hover-area {
+    display: inline-block; /* Keeps hover effect contained */
 }
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
+.image-hover-area:hover .profile-image-wrapper {
+   filter: drop-shadow(0px 0px 25px var(--accent-cyan-glow-medium))
+           drop-shadow(0px 0px 10px var(--accent-cyan));
+   /* Optional: Slightly enhance shadow on hover */
+   box-shadow: 0 0 40px var(--accent-cyan-glow-medium);
 }
-
-/* === Hero Title === */
-.hero-title {
-  font-family: var(--font-title); /* Apply PT Serif */
-  font-size: 2.8rem;
-  color: var(--hero-text-light); /* Default color is white (for spans) */
-  text-align: center;
-  margin-bottom: 25px; /* Increased margin */
-  line-height: 1.4; /* Adjust line height */
-  font-weight: 700; /* Adjust weight if needed */
-  /* Remove glow animation */
-  /* animation: glowText 3s ease-in-out infinite alternate; */
-  text-shadow: none; /* Ensure no leftover shadow */
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
-
-/* Style for the white parts of the title */
-.hero-title .title-part-white {
-   color: var(--hero-text-light); /* Explicitly White */
-}
-
-/* Style for the yellow highlight part */
-.hero-title .highlight {
-   color: var(--hero-text-highlight); /* Yellow */
-   /* Font is inherited from .hero-title */
-}
-
-/* Remove glow keyframes */
-/* @keyframes glowText { ... } REMOVED */
-
-
-/* === Hero Subtitle === */
-.hero-subtitle {
-  font-family: var(--font-subtitle); /* Apply Merriweather */
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
-  opacity: 0.95; /* Slightly more opaque */
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--hero-text-subtitle); /* White Color */
-  font-weight: 400; /* Regular weight for Merriweather */
-  line-height: 1.7; /* Good line height for serif */
-}
-
-/* === Hero CTA Buttons === */
-.hero-cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 30px; /* Add some space above buttons */
-}
-
-/* --- Styling for the specific buttons --- */
-
-/* Base Button Style Reset (Optional but recommended) */
-.hero-cta-buttons .btn {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    border: 1px solid transparent; /* Start with transparent border */
-    transition: all 0.3s ease; /* Smooth transition for all properties */
-    font-family: var(--font-button); /* Poppins or your choice */
-    font-weight: 600; /* Make buttons bolder */
-}
-
-/* Button 1: View My Work (Targets the class from JSX) */
-.hero-cta-buttons .btn-primary-inverted {
-    background-color: var(--btn1-bg); /* Yellow bg */
-    color: var(--btn1-text);         /* Black text */
-    border-radius: 50px;             /* Rounded corners */
-    border-color: var(--btn1-bg);    /* Match border to bg */
-}
-
-.hero-cta-buttons .btn-primary-inverted:hover {
-    background-color: var(--btn1-hover-bg);   /* White hover bg */
-    color: var(--btn1-hover-text);          /* Blue hover text */
-    border-color: var(--btn1-hover-border);   /* Blue hover border */
-    transform: translateY(-2px);
-}
-
-/* Button 2: Get In Touch (Targets the class from JSX) */
-.hero-cta-buttons .btn-secondary-inverted-outline {
-    background-color: var(--btn2-bg);   /* Transparent bg */
-    color: var(--btn2-text);         /* Yellow text */
-    border-color: var(--btn2-border);   /* Yellow border */
-    border-radius: 50px;             /* Match border-radius */
-}
-
-.hero-cta-buttons .btn-secondary-inverted-outline:hover {
-    background-color: var(--btn2-hover-bg);   /* Light yellow hover bg */
-    color: var(--btn2-hover-text);          /* Yellow hover text */
-    border-color: var(--btn2-hover-border);   /* Yellow hover border */
-    transform: translateY(-2px);
-}
-
-
-/* === Responsive Adjustments (Keep existing, adjust if needed) === */
-@media (min-width: 768px) {
-  .hero-title {
-    font-size: 3.8rem; /* Adjust size for PT Serif */
-    line-height: 1.3;
-  }
-  .hero-subtitle {
-    font-size: 1.4rem; /* Adjust size for Merriweather */
-    line-height: 1.7;
-  }
-   .hero-cta-buttons {
-       gap: 1.5rem;
-   }
-}
-@media (min-width: 1024px) {
-    .hero-title {
-        font-size: 4.5rem; /* Adjust size for PT Serif */
-        line-height: 1.3;
-    }
-     .hero-subtitle {
-        font-size: 1.5rem; /* Optional larger size */
-     }
-     .hero-section {
-         padding: 8rem 0 6rem 0;
-     }
-}
-
-/* src/sections/Home.css */
-
-/* ... (Keep all :root variables and base .hero-section styles as they are) ... */
 
 /* === Responsive Adjustments === */
 
-/* Medium Screens / Tablets (~992px and below) */
-@media (max-width: 991.98px) {
-  .hero-section {
-    /* Keep other tablet adjustments like padding, min-height if you have them */
-    /* padding: 6rem 1.5rem 4rem 1.5rem; */
-    /* min-height: calc(90vh - 70px); */
-
-    /* --- ADJUSTED Background Circles for Tablet --- */
-    /* Sizes reduced, positions kept similar to desktop */
-    background:
-      /* Layer 1: Circle Top Left */
-      radial-gradient(circle 90px at 3% 8%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 120px */
-      /* Layer 2: Circle Top Right */
-      radial-gradient(circle 15px at 80% 80%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 20px */
-      /* Layer 3: Circle Mid Left */
-      radial-gradient(circle 25px at 18% 10%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 30px */
-      /* Layer 4: Circle Bottom Right */
-      radial-gradient(circle 90px at 95% 88%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 120px */
-      /* Layer 5: Circle Bottomish */
-      radial-gradient(circle 45px at 78% 100%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 60px */
-      /* Layer 6: Base Background Color */
-      var(--hero-bg);
-      /* --- End Background Adjustment --- */
+/* Large Tablets / Small Laptops */
+@media (max-width: 1024px) {
+  .container.home-container {
+    gap: 3rem; /* Slightly adjusted gap */
+    padding-left: 25px;
+    padding-right: 25px;
   }
-
-  /* ... (Keep other tablet styles for .hero-title, .hero-subtitle, etc.) ... */
-  /* .hero-title { font-size: 3.2rem; } */
-  /* .hero-subtitle { font-size: 1.3rem; max-width: 600px; } */
-  /* .hero-cta-buttons { gap: 1rem; } */
+  .main-name { font-size: 3.5rem; }
+  .specialization-text, .typing-cursor { font-size: 1.5rem; }
+  /* --- UPDATED: Adjusted image size for this breakpoint --- */
+  .home-image-content {
+      max-width: 390px; /* Proportionally increased from 350px */
+      transform: translateY(-40px); /* Slightly less upward move */
+  }
+  .profile-image-wrapper { max-width: 390px; }
+  .home-text-content {
+      transform: translateY(-40px); /* Match image move */
+  }
+  /* --- END UPDATE --- */
+  .social-icons a { width: 38px; height: 38px; font-size: 1.2rem; }
 }
 
-
-/* Small Screens / Mobile (~768px and below) */
-@media (max-width: 767.98px) {
-  .hero-section {
-    /* Keep other mobile adjustments like padding, min-height if you have them */
-    /* padding: 5rem 1rem 3rem 1rem; */
-    /* min-height: auto; */
-
-    /* --- ADJUSTED Background Circles for Mobile --- */
-    /* Sizes reduced further, positions kept similar to desktop */
-    background:
-      /* Layer 1: Circle Top Left */
-      radial-gradient(circle 60px at 3% 8%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 120px desktop */
-      /* Layer 2: Circle Top Right */
-      radial-gradient(circle 10px at 80% 80%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 20px desktop */
-      /* Layer 3: Circle Mid Left */
-      radial-gradient(circle 15px at 18% 10%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 30px desktop */
-      /* Layer 4: Circle Bottom Right */
-      radial-gradient(circle 70px at 95% 88%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 120px desktop */
-      /* Layer 5: Circle Bottomish */
-      radial-gradient(circle 35px at 78% 100%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 60px desktop */
-      /* Layer 6: Base Background Color */
-      var(--hero-bg);
-      /* --- End Background Adjustment --- */
+/* Tablets */
+@media (max-width: 768px) {
+  .home-section {
+     min-height: auto;
+     padding: calc(var(--navbar-height) + 30px) 0 40px 0; /* Reduced top padding slightly */
   }
-
-  /* ... (Keep other mobile styles for .hero-title, .hero-subtitle, buttons, etc.) ... */
-  /* .hero-title { font-size: 2.2rem; line-height: 1.35; } */
-  /* .hero-subtitle { font-size: 1.1rem; max-width: 90%; line-height: 1.6; } */
-  /* .hero-cta-buttons { gap: 0.8rem; flex-direction: column; align-items: center; } */
-  /* .hero-cta-buttons .btn { padding: 0.7rem 1.8rem; font-size: 0.95rem; width: 80%; max-width: 300px; } */
+  .container.home-container {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 2.5rem;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .home-text-content {
+    text-align: center;
+    max-width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    /* --- UPDATED: Reset or adjust transform for stacked layout --- */
+    transform: translateY(0); /* Reset transform on tablet */
+  }
+  .intro-text { font-size: 1.3rem; }
+  .main-name { font-size: 3rem; }
+  .specialization-text {
+      font-size: 1.4rem;
+      display: block;
+      width: auto;
+      min-height: 2.8em;
+      line-height: 1.5;
+  }
+  .typing-cursor { font-size: 1.4rem; }
+  .description-text { font-size: 0.95rem; max-width: 90%; }
+  .social-icons { justify-content: center; gap: 1.2rem; margin-bottom: 2rem; }
+  .social-icons a { width: 40px; height: 40px; font-size: 1.3rem; }
+  .home-cta-buttons { justify-content: center; gap: 1rem; }
+  /* --- UPDATED: Adjusted image size and reset transform --- */
+  .home-image-content {
+      max-width: 310px; /* Proportionally increased from 280px */
+      transform: translateY(0); /* Reset transform on tablet */
+   }
+  .profile-image-wrapper {
+      max-width: 310px;
+      margin-bottom: 1rem;
+  }
+  /* --- END UPDATE --- */
 }
 
-/* Optional: Very Small Screens (~480px and below) */
-@media (max-width: 479.98px) {
-  .hero-section {
-    /* Keep other very small screen adjustments like padding */
-    /* padding: 4rem 1rem 2.5rem 1rem; */
-
-    /* --- ADJUSTED Background Circles for Small Mobile --- */
-    /* Sizes reduced even more, positions kept similar */
-     background:
-      /* Layer 1: Circle Top Left */
-      radial-gradient(circle 45px at 3% 8%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 120px desktop */
-      /* Layer 2: Circle Top Right */
-      radial-gradient(circle 8px at 80% 80%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 20px desktop */
-      /* Layer 3: Circle Mid Left */
-      radial-gradient(circle 12px at 18% 10%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 30px desktop */
-      /* Layer 4: Circle Bottom Right */
-      radial-gradient(circle 50px at 95% 88%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 120px desktop */
-      /* Layer 5: Circle Bottomish */
-      radial-gradient(circle 25px at 78% 100%, var(--hero-circle-solid-yellow) 100%, transparent 100.1%), /* Was 60px desktop */
-      /* Layer 6: Base Background Color */
-      var(--hero-bg);
-      /* --- End Background Adjustment --- */
-    }
-
-  /* ... (Keep other very small screen styles for .hero-title, .hero-subtitle, buttons, etc.) ... */
-  /* .hero-title { font-size: 1.9rem; line-height: 1.3; } */
-  /* .hero-subtitle { font-size: 1rem; } */
-  /* .hero-cta-buttons .btn { padding: 0.6rem 1.5rem; font-size: 0.9rem; width: 90%; } */
+/* Small Mobiles */
+@media (max-width: 480px) {
+  .main-name { font-size: 2.5rem; }
+  .specialization-text { font-size: 1.2rem; min-height: 2.4em; }
+  .typing-cursor { font-size: 1.2rem; }
+  .intro-text { font-size: 1.1rem; }
+  .description-text { font-size: 0.9rem; }
+  /* --- UPDATED: Adjusted image size --- */
+  .home-image-content {
+      max-width: 250px; /* Proportionally increased from 220px */
+  }
+  .profile-image-wrapper { max-width: 250px; }
+  /* --- END UPDATE --- */
+  .social-icons { gap: 1rem; }
+  .social-icons a { width: 36px; height: 36px; font-size: 1.1rem; }
+  .home-cta-buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+   }
+  .home-cta-buttons .btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.9rem;
+      width: 90%;
+      max-width: 320px;
+   }
+  .home-section { padding-top: calc(var(--navbar-height) + 20px); padding-bottom: 30px; }
+   .container.home-container {
+       padding-left: 10px;
+       padding-right: 10px;
+   }
 }

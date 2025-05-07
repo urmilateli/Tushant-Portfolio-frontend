@@ -1,247 +1,404 @@
-/* src/sections/Projects.css - Aggressively Shortened Cards */
+/* src/sections/Projects.css - Final Adjustments: Hover Reveal, Colors, Size */
 
-/* === Optional: Define Variables === */
-/* :root {
-
-} */
-
-/* === Section Wrapper === */
-/* RENAMED SELECTOR */
-.projects-section {
-    padding: var(--section-padding-y, 2rem) 0;
-    background: #060217;
-    font-family: var(--font-sans); /* Assuming --font-sans is defined elsewhere */
-    border-top: 1px solid #FF9B17;
+/* === Optional: Define CSS Variables === */
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --section-padding-y: 4rem;
+  --border-radius-lg: 12px;
 }
 
-/* RENAMED SELECTOR */
+/* === Section Wrapper === */
+.projects-section {
+  padding: var(--section-padding-y, 4rem) 0;
+  background: #323846 !important;
+  font-family: var(--font-sans);
+  overflow: visible;
+}
+
 .projects-section .container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 15px;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* === Section Heading === */
+.projects-section .section-heading {
+  color: #ffffff;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 4rem !important;
+  /* font-size set inline in JSX */
 }
 
 /* Loading/Error States */
-/* RENAMED SELECTOR */
-.projects-section.loading p, .projects-section.error p { padding: 1.5rem 0; font-size: 0.9rem; color: var(--text-body, #6c757d); } /* Added fallback for text-body */
-/* RENAMED SELECTOR */
-.projects-section.error .error-message { color: #dc3545; }
-
-/* === Section Heading === */
-/* MADE SELECTOR MORE SPECIFIC */
-.projects-section .section-heading {
-    color: white !important; /* Ensure the color is white, added !important for testing if needed */
-    text-align: center; /* Center the heading */
-    font-size: 2rem;    /* Adjust size as needed */
-    font-weight: 700;   /* Make it bold */
-    margin-bottom: 2.5rem; /* Add space below the heading */
-     /* If you want the underline like in index.css */
-    /* position: relative;
-    padding-bottom: 0.5rem; */
-}
-/* Optional: Add the underline style if needed */
-/* .projects-section .section-heading::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background-color: var(--primary-color, #007bff); /* Use primary color or fallback */
-    /* margin: 0.5rem auto 0;
-    border-radius: 2px;
-} */
-
+.projects-section.loading p, .projects-section.error p { padding: 1.5rem 0; text-align: center; color: #ccc; }
+.projects-section.error .error-message { color: #ff4d4d; font-weight: 500; }
 
 /* === Projects Grid === */
-/* RENAMED SELECTOR */
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  perspective: 1500px !important;
 }
 
 /* === Project Card Styling === */
-/* RENAMED SELECTOR */
 .project-card {
-    background-color: white;
-    border-radius: var(--border-radius-md, 8px); /* Use variable or fallback */
-    overflow: hidden; /* Prevent content spill */
-    display: flex; /* Use flexbox for content alignment */
-    flex-direction: column; /* Stack image and content vertically */
-    box-shadow: var(--box-shadow-light, 0 4px 8px rgba(0,0,0,0.07)); /* Use variable or fallback */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #eee; /* Optional subtle border */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden; /* Important for content sliding from bottom */
+  border-radius: var(--border-radius-lg, 12px) !important;
+  /* --- MODIFIED: Reduced height (made square-ish) --- */
+  aspect-ratio: 1 / 1; /* Was 9 / 11 */
+  display: block;
+
+  /* Glassy edge effect */
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.15),
+              0 8px 16px rgba(0, 0, 0, 0.3);
+
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  transform-style: preserve-3d !important;
+  transform: perspective(1500px) rotateX(0) rotateY(0) scale3d(1, 1, 1) !important;
 }
-/* RENAMED SELECTOR */
+
+/* Hover Shadow */
 .project-card:hover {
-    transform: translateY(-3px); /* Slightly more lift */
-    box-shadow: var(--box-shadow-medium, 0 6px 12px rgba(0,0,0,0.1)); /* Use variable or fallback */
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.2),
+              0 25px 50px rgba(0, 0, 0, 0.5) !important;
+  /* Tilt applied by JS */
 }
 
-/* === Project Image === */
-/* RENAMED SELECTOR */
+/* === Background Image Container === */
 .project-image {
-    width: 100%;
-    aspect-ratio: 2.8 / 1; /* Or 16 / 9 for a common ratio */
-    overflow: hidden;
-    background-color: #f0f0f0; /* Lighter placeholder color */
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  border-radius: inherit;
 }
-/* Specific selector for course card image if needed */
-/* .course-card .course-image img {
-    object-fit: contain;
-} */
-/* RENAMED SELECTOR */
+
 .project-image img {
-    display: block; /* Remove extra space below image */
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover the area, crop if needed */
-    transition: transform 0.3s ease;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  transition: transform 0.5s ease, filter 0.5s ease;
 }
-/* RENAMED SELECTOR */
+
+/* Image Hover Effect */
 .project-card:hover .project-image img {
-    transform: scale(1.05); /* Slightly larger scale on hover */
+  transform: scale(1.1);
+  filter: brightness(0.5);
 }
 
-/* === Project Content === */
-/* RENAMED SELECTOR */
+
+/* === Clickable Link Overlay === */
+.project-image-link {
+  display: block;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  cursor: pointer;
+  border-radius: inherit;
+  z-index: 3;
+  background-color: transparent;
+}
+.project-image-link.non-clickable { cursor: default; }
+
+/* === Project Content (Reveals on Hover) === */
 .project-content {
-    padding: 0.8rem 1rem; /* Slightly more padding */
-    flex-grow: 1; /* Allow content to fill space */
-    display: flex; /* Use flex for inner content */
-    flex-direction: column; /* Stack title and description */
+  position: absolute !important;
+  bottom: 0 !important; left: 0 !important; right: 0 !important;
+  background: linear-gradient(hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0.3) 50%, hsla(0, 0%, 0%, 0.9) 100%) !important; /* Darker gradient */
+  padding: 1.5rem !important; /* Padding */
+  z-index: 2;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+
+  transform-style: preserve-3d !important;
+  opacity: 0 !important;
+  transform: translateY(100%) translateZ(30px) !important;
+  transition: opacity 0.4s ease-out, transform 0.45s cubic-bezier(0.23, 1, 0.32, 1) !important; /* Smooth slide */
+  pointer-events: none; /* Initially non-interactive */
 }
 
-/* === Project Title === */
-/* RENAMED SELECTOR */
+/* Reveal content on hover */
+.project-card:hover .project-content {
+  opacity: 1 !important;
+  transform: translateY(0) translateZ(30px) !important; /* Slide fully into view */
+  pointer-events: auto; /* Allow interaction */
+}
+
+
+/* === Project Title Styling === */
 .project-title {
-    font-size: 1rem; /* Slightly larger title */
-    font-weight: 600; /* Bolder title */
-    color: var(--primary-color, #007bff); /* Use variable or fallback */
-    margin-bottom: 0.4rem; /* Space below title */
-    line-height: 1.3;
-}
-/* RENAMED SELECTOR */
-.project-title a {
-    color: inherit;
-    text-decoration: none;
-}
-/* RENAMED SELECTOR */
-.project-title a:hover {
-    color: var(--primary-dark, #0056b3); /* Use variable or fallback */
-    text-decoration: underline;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  font-family: "Playfair Display", serif;
+  color: #01EEFF !important; /* Cyan color */
+  margin-bottom: 0.8rem !important;
+  line-height: 1.3;
+  transform: translateZ(10px); /* Adjusted back from previous request's 40px */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  pointer-events: auto;
 }
 
-/* === Project Description === */
-/* RENAMED SELECTOR */
-.project-description {
-    color: var(--text-body, #000000); /* Use variable or fallback */
-    font-size: 0.8rem; /* Slightly smaller description */
-    line-height: 1.5;
-    margin-bottom: 0; /* Remove default paragraph margin if it's a <p> */
-    /* Optional: Limit text lines */
-     overflow: hidden;
-     display: -webkit-box;
-     -webkit-line-clamp: 3; /* Show 3 lines */
-     -webkit-box-orient: vertical;
-}
-
-/* === Tags (Keep hidden or rename if used) === */
-/* RENAMED SELECTOR */
+/* === Description and Tags (Part of Reveal) === */
+.project-description,
 .project-tags {
-    display: none;
-    /* Add styles here if you decide to show tags */
-    /* padding-top: 0.5rem;
-    margin-top: auto; /* Push tags to bottom if content area allows */
-    /* font-size: 0.7rem; */
+   transition: none; /* No separate transition needed */
+  pointer-events: auto; /* Allow interaction when visible */
+  transform-style: preserve-3d; /* Keep for consistency */
 }
 
-/* === View All Button Container === */
-/* RENAMED SELECTOR */
-.view-all-projects-container {
-  text-align: center;
-  padding: 2rem 0 1rem 0; /* More space above button */
+.project-description {
+  color: #e0e0e0 !important;
+  font-size: 0.8rem !important;
+  line-height: 1.5;
+  margin-bottom: 1rem !important;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   transform: translateZ(5px); /* Adjusted back from previous request's 25px */
 }
 
-/* === View All Button Styling === */
-/* RENAMED SELECTOR */
-.view-all-projects-btn {
-  display: inline-block;
-  padding: 10px 25px; /* Adjusted padding */
-  font-size: 0.9rem;
-  background-color: #FF9B17;
-  color: #060217; /* Dark text for contrast */
-  border-radius: 50px;
-  font-weight: 600; /* Bold enough */
-  border: 1px solid #FF9B17; /* Border same as bg */
-  text-decoration: none; /* Remove underline */
-  transition: background-color 0.2s ease, transform 0.1s ease, color 0.2s ease; /* Added color transition */
+.project-tags {
+ display: flex !important;
+ flex-wrap: wrap !important;
+ gap: 0.4rem !important;
+ padding-top: 0 !important;
+ margin-top: 0 !important;
+ transform: translateZ(5px); /* Adjusted back from previous request's 25px */
 }
-/* RENAMED SELECTOR */
-.view-all-projects-btn:hover {
-  background-color: #e68a00; /* Darker shade of orange */
-  transform: translateY(-2px); /* Slightly more lift */
-  color: #060217; /* Keep text dark */
-  border-color: #e68a00;
+
+.tag-bubble {
+display: inline-block !important;
+background-color: rgba(255, 255, 255, 0.15) !important;
+color: #00ffee !important;
+padding: 0.25rem 0.7rem !important;
+border-radius: 50px !important;
+font-size: 0.7rem !important;
+font-weight: 500;
+backdrop-filter: blur(2px);
+transition: background-color 0.3s ease, color 0.3s ease;
 }
+.tag-bubble:hover {
+  background-color: #00ffee !important;
+  color: #080808 !important;
+  cursor: pointer;
+}
+
+
+/* === View All Button (Kept as is) === */
+.view-all-projects-container { text-align: center; padding: 3rem 0 1rem 0; }
+.view-all-projects-btn { display: inline-block; padding: 10px 25px; font-size: 0.9rem; background-color: #060217 ; color:#ffffff; border-radius: 50px; font-weight: 600; border: 1px solid #060217; box-shadow: 0 0 10px ; text-decoration: none; transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
+.view-all-projects-btn:hover { background-color: #ffff; color: #060217; border-color: #000000; transform: scale(1.05); box-shadow: 0 0 35px #060217; }
 
 /* === Responsive Adjustments === */
-
 @media (max-width: 991px) {
-    /* RENAMED SELECTOR */
-    .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    /* RENAMED SELECTOR */
-    .projects-section .section-heading { font-size: 1.8rem; margin-bottom: 2rem; }
-    /* RENAMED SELECTOR */
-    .project-title { font-size: 0.95rem; }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .projects-section .section-heading { margin-bottom: 3rem; }
+  .project-title { font-size: 1.4rem !important; }
+  /* --- MODIFIED: Adjusted responsive aspect ratio --- */
+  .project-card { aspect-ratio: 1 / 1; } /* Was 9 / 10 */
 }
 
 @media (max-width: 767px) {
-     /* RENAMED SELECTOR */
-    .projects-section { padding: 2rem 0; } /* Keep reasonable padding */
-     /* RENAMED SELECTOR */
-    .projects-grid { grid-template-columns: 1fr; gap: 1rem; } /* Increased gap slightly */
-    /* RENAMED SELECTOR */
-    .projects-section .section-heading { font-size: 1.6rem; margin-bottom: 1.5rem; }
-     /* RENAMED SELECTOR */
-    .project-content { padding: 0.7rem 0.9rem; }
-     /* RENAMED SELECTOR */
-    .project-title { font-size: 0.9rem; }
-     /* RENAMED SELECTOR */
-    .project-description { font-size: 0.75rem; -webkit-line-clamp: 2; }
-     /* RENAMED SELECTOR */
-    .view-all-projects-btn { padding: 8px 20px; font-size: 0.85rem; }
-     /* RENAMED SELECTOR */
-    .project-image { aspect-ratio: 16 / 9; } /* Standard mobile aspect ratio */
+  .projects-section { padding: 3rem 0; }
+  .projects-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .projects-section .section-heading { margin-bottom: 2.5rem; }
+  /* --- MODIFIED: Adjusted responsive aspect ratio --- */
+  .project-card { aspect-ratio: 1 / 1; } /* Was 10 / 11 */
+  .project-title { font-size: 1.3rem !important; }
+  .project-content { padding: 1.2rem 1.2rem 1.5rem 1.2rem !important; }
+   .project-description { font-size: 0.75rem; -webkit-line-clamp: 2; }
+   .tag-bubble { font-size: 0.65rem; }
 }
 
 
+/* ================================================ */
+/* === Styles for All Projects Page (#all-projects-page) === */
+/* ================================================ */
 
-/* Add this to your Projects.css or a relevant CSS file */
+/* ================================================ */
+/* === Styles for All Projects Page (#all-projects-page) === */
+/* ================================================ */
+/* ================================================ */
+/* === Styles for All Projects Page (#all-projects-page) === */
+/* ================================================ */
 
-.back-home-button {
-    display: inline-block; /* Allows margin-bottom to work correctly */
-    padding: 8px 16px;
-    margin-bottom: 20px; /* Space between button and heading */
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #333; /* Or match your theme */
-    background-color: #FF9B17; /* Light background */
-    /* border: 1px solid #ccc; */
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    text-decoration: none; /* If you ever change it to a Link */
+/* --- Wave Animation Keyframes --- */
+@keyframes wave {
+  0% {
+    background-position-x: 0;
   }
-  
-  .back-home-button:hover {
-    background-color: #e0e0e0; /* Slightly darker on hover */
+  100% {
+    background-position-x: 1440px; /* Adjust based on wave image pattern width */
   }
-  
-  /* You might want to center it on smaller screens if the layout stacks */
-  @media (max-width: 767.98px) {
-    .back-home-button {
-      /* display: block; */ /* Uncomment if you want it full width */
-      /* margin-left: auto;  */ /* Uncomment with display: block for centering */
-      /* margin-right: auto; */ /* Uncomment with display: block for centering */
+}
+/* --- END Keyframes --- */
+
+
+#all-projects-page {
+  position: relative;
+  padding-top: 180px; /* Adjust based on final header + wave height */
+  background-color: #E8F9FF; /* Main content background */
+  overflow: hidden; /* Changed back to hidden to prevent horizontal scroll from wave */
+  z-index: 1;
+}
+
+/* --- Header Background (Purple Gradient) --- */
+#all-projects-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* Height from example */
+  /* background-color: #a4508b; */
+  /* background-image: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%); */
+  z-index: 0; /* Behind Button */
+}
+/* --- END Header Background --- */
+
+/* --- Animated Wave (White) --- */
+#all-projects-page::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 120px; /* Position below the purple gradient */
+  width: 100%;
+  height: 100px; /* Adjust height of the wave image part */
+  background: url('https://1.bp.blogspot.com/-NYl6L8pz8B4/XoIVXwfhlNI/AAAAAAAAU3k/nxJKiLT706Mb7jUFiM5vdCsOSNnFAh0yQCLcBGAsYHQ/s1600/hero-wave.png') repeat-x;
+  background-position: bottom;
+  background-size: auto 100px; /* Control height */
+  animation: wave 10s cubic-bezier(0.44, 0.66, 0.67, 0.37) infinite;
+  z-index: 1; /* Above purple gradient, below button */
+  pointer-events: none;
+}
+/* --- END Wave --- */
+
+
+/* --- Button Styling (Matching Image) --- */
+#all-projects-page .back-home-button {
+  position: absolute;
+  left: 50%;
+  top: 80px; /* Moves the button down, overlapping the wave start */
+  transform: translateX(-50%);
+  z-index: 3; /* Above wave and header */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; 
+  color: #333; /* Darker text color */
+  border: 1px solid hsl(0, 81%, 55%); /* Light grey border */
+  border-radius: 50px; /* Rounded corners */
+  padding: 0.6rem 1.8rem; /* Adjust padding */
+  font-size: 14px; /* Adjust font size */
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#all-projects-page .back-home-button:hover {
+  transform: translateX(-50%) scale(1.03); /* Keep centering transform */
+  /* --- UPDATED: Changed shadow color to purple tint --- */
+  box-shadow: 0 6px 20px rgba(111, 66, 193, 0.25); /* Using purple color (from --wave-purple) with alpha */
+  /* --- END UPDATE --- */
+  /* Keep background/color same on hover */
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #e00f0f !important;
+}
+/* --- END Button Styling --- */
+
+
+/* --- Heading Styling --- */
+#all-projects-page .section-heading {
+  position: relative;
+  text-align: center;
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  z-index: 1;
+  padding: 0 15px;
+  margin-top: 60px; /* Adjust this value */
+}
+
+#all-projects-page .section-heading::after {
+  display: none;
+}
+/* --- END Heading Styling --- */
+
+
+/* --- Projects Grid Margin --- */
+#all-projects-page .projects-grid {
+  margin-top: 1rem;
+}
+
+
+/* === Responsive Adjustments === */
+@media (max-width: 768px) {
+  #all-projects-page {
+    padding-top: 160px;
+  }
+  #all-projects-page::before {
+    height: 100px;
+  }
+   #all-projects-page::after {
+     top: 100px;
+     height: 80px;
+     background-size: auto 80px;
+   }
+  #all-projects-page .back-home-button {
+    top: 70px;
+    font-size: 13px;
+    padding: 0.5rem 1.5rem;
+  }
+  #all-projects-page .section-heading {
+    font-size: 2rem;
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  #all-projects-page {
+     padding-top: 140px;
+  }
+   #all-projects-page::before {
+     height: 90px;
+   }
+    #all-projects-page::after {
+      top: 90px;
+      height: 60px;
+      background-size: auto 60px;
     }
-  }
+   #all-projects-page .back-home-button {
+     top: 65px;
+     font-size: 12px;
+     padding: 0.4rem 1.2rem;
+   }
+   #all-projects-page .section-heading {
+     font-size: 1.8rem;
+     margin-top: 40px;
+   }
+}
+
+/* === End Styles for All Projects Page === */
+
+/* === End Styles for All Projects Page === */
+/* === End Styles for All Projects Page === */

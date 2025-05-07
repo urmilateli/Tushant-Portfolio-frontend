@@ -1,217 +1,221 @@
 /* src/sections/Achievements.css */
 
-/* --- FONT IMPORT (Add this at the very top) --- */
+/* --- FONT IMPORT (Keeping imports from your code) --- */
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AU+SA:wght@100..400&display=swap');
 /* --- END FONT IMPORT --- */
 
-/* === Define Variables (Adjusted for Black Cards) === */
-:root {
-  /* ... rest of your variables ... */
-  --section-bg-gradient: White;
-  --card-bg: #060217;
-  --text-secondary: #ffffff;
-  /* --- CHANGE: Update main heading color variable --- */
-  --text-heading-main: #060217; /* Your requested dark color */
-  --accent-color: #e74c3c;
-  --error-color: #e74c3c;
-  --border-color:  #FF9B17;
-  --section-border-color: #FF9B17;
-  --shadow-color: rgba(255, 255, 255, 0.08);
-  --shadow-hover-color: rgba(255, 255, 255, 0.12);
-  --border-radius: 6px;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --section-padding-y: 4rem;
-}
+/* :root block removed */
 
 /* === Base Section Styling === */
 .achievements-section {
-  padding: var(--section-padding-y) 0;
-  background: var(--section-bg-gradient);
-  border-top: 1px solid var(--section-border-color);
-  font-family: var(--font-sans);
-  color: var(--text-secondary);
-  overflow: hidden;
+  padding: 4rem 0 !important; /* Hardcoded from --section-padding-y */
+  background: #151925!important; /* Hardcoded from --section-bg-gradient */
+  /* border-top: 1px solid #FF9B17 !important;  */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important; /* Hardcoded from --font-sans */
+  color: #fff !important; /* Hardcoded from --text-secondary */
+  overflow: hidden !important;
 }
 
 .achievements-section .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 1.5rem !important;
 }
 
 /* Loading/Error States */
-/* ... (keep existing loading/error styles) ... */
 .achievements-section.loading,
 .achievements-section.error {
-  text-align: center;
-  padding: var(--section-padding-y) 1.5rem;
-  min-height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #333; /* Error/loading text should be visible on light background */
+  text-align: center !important;
+  padding: 4rem 1.5rem !important; /* Hardcoded from --section-padding-y */
+  min-height: 200px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: #333 !important;
 }
 .error-message {
-  color: var(--error-color); /* Error text color */
-  font-weight: 500;
+  color: #e74c3c !important; /* Hardcoded from --error-color */
+  font-weight: 500 !important;
 }
 
-/* === Section Heading Styling (MODIFIED) === */
+/* === Section Heading Styling === */
+/* --- Font size REDUCED further --- */
 .section-heading {
-  font-family: 'Lora', serif; /* <<< ADDED: Apply Lora font */
-  font-size: 2.4rem; /* Adjusted size, feel free to change */
-  font-weight: 700;
-  margin-bottom: 2.5rem; /* <<< REDUCED: Move heading up (less space below) */
-  text-align: center;
-  position: relative;
-  /* Color is set by the variable */
-  color: var(--text-heading-main); /* Uses #060217 from :root */
+  font-family: 'Lora', serif !important; /* Kept from your code */
+  font-size: 0.8rem !important; /* <<< Reduced base font size */
+  font-weight: 700 !important;
+  margin-bottom: 3.9rem !important; /* As provided in your code */
+  text-align: center !important;
+  position: relative !important;
+  color: #ffff !important; /* Hardcoded from --text-heading-main */
 }
-
-/* REMOVE the ::after pseudo-element for the underline */
-/*
-.section-heading::after {
-  content: '';
-  display: block;
-  width: 70px;
-  height: 4px;
-  background: #555;
-  margin: 0.8rem auto 0;
-  border-radius: 2px;
-}
-*/
+/* Underline was already commented out */
 
 /* === Achievements Grid Layout === */
-/* ... (keep existing grid styles) ... */
 .achievements-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* Mobile first */
-  gap: 1.8rem; /* Reduced gap */
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1.8rem !important;
 }
 
 
 /* === Card Base Styling === */
-/* ... (keep existing card styles) ... */
 .achievement-card {
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: 0 5px 15px var(--shadow-color);
-  border: 2px solid var(--border-color);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 0;
+  background-color: #323846 !important; /* <<< Your requested background color */
+  border-radius: 10px !important; /* Hardcoded from --border-radius */
+  /* box-shadow: 0 5px 15px rgba(255, 255, 255, 0.08) !important;  */
+  /* border: 2px solid #97a4cc !important; */
+ /* box-shadow: 0 0 13px #97a4cc !important ; */
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important; /* Added background transition */
+  padding: 0 !important;
 }
 .achievement-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 25px var(--shadow-hover-color);
+  background-color: #535b6e !important; /* Light blue background on hover */
+    transform: translateY(-6px) !important;
+    /* box-shadow: 0 8px 25px rgba(255, 255, 255, 0.12) !important;  */
 }
 
+/* === Card Content Structure (Keeping your original structure and styles) === */
 /* === Card Content Structure === */
-/* ... (keep existing card content styles - image, title, desc, date) ... */
+/* Image styles with existing hover */
 .achievement-card-image {
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border-color);
-  background-color: #222;
+  width: 100% !important;
+  aspect-ratio: 2 / 1 !important;
+  overflow: hidden !important;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom: 1px solid #b2dddf !important; /* Your custom border color */
+  background-color: #222 !important;
 }
 .achievement-card-image img {
-  width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.4s ease !important;
 }
-.achievement-card:hover .achievement-card-image img { transform: scale(1.05); }
 .achievement-card-image.clickable {
-  cursor: pointer;
+  cursor: pointer !important;
 }
+.achievement-card:hover .achievement-card-image img {
+   transform: scale(1.05) !important;
+}
+
+/* Content Area - Keeping your styles */
 .achievement-card-content {
-  padding: 1rem 1.2rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 1rem 1.2rem !important;
+  flex-grow: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
+
+/* Title - Adding transition for color */
 .achievement-card-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #49ace5; /* Example - Assuming you want title color from previous var */
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
+  font-size: 1.9rem !important; /* As provided in your code */
+  font-weight: 600 !important;
+  color: #ffff!important; /* Your base color */
+  margin: 0 0 0.5rem 0 !important;
+  line-height: 1.3 !important;
+  transition: color 0.3s ease !important;
 }
+
+/* Description - Adding transition for color */
 .achievement-card-description {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.5;
-  margin-bottom: 0.8rem;
-  flex-grow: 1;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  color: #01EEFF !important; /* Your base color */
+  font-size: 1rem !important; /* As provided in your code */
+  line-height: 1.5 !important;
+  margin-bottom: 0.8rem !important;
+  flex-grow: 1 !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  font-weight: 500 !important;
+  transition: color 0.3s ease !important;
 }
+
+/* Date - Adding transition for color */
 .achievement-card-date {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color:#FF9B17 ;
-  margin-top: auto;
-  padding-top: 0.4rem;
-  text-align: right;
+  font-size: 0.7rem !important; /* As provided in your code */
+  font-weight: 500 !important;
+  color: #F5F5F5 !important; /* Your base color */
+  margin-top: auto !important;
+  padding-top: 0.4rem !important;
+  text-align: right !important;
+  transition: color 0.3s ease !important;
+}
+
+/* === HOVER EFFECTS === */
+.achievement-card:hover .achievement-card-title,
+.achievement-card:hover .achievement-card-description,
+.achievement-card:hover .achievement-card-date {
+  color: #f6e3e3 !important; /* Dark blue text color on hover for all text */
 }
 
 
 /* === Responsive Adjustments === */
-/* ... (keep existing responsive styles) ... */
 @media (min-width: 768px) {
-  .achievements-grid { grid-template-columns: repeat(2, 1fr); gap: 1.8rem; }
-  .section-heading { font-size: 2.6rem; } /* Slightly larger size */
+  .achievements-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1.8rem !important; }
+  /* --- Heading font size REDUCED for tablet --- */
+  .section-heading { font-size: 1.8rem !important; } /* <<< Reduced */
 }
 @media (min-width: 992px) {
-  .achievements-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .section-heading { font-size: 2.8rem; } /* Slightly larger size */
-  .achievement-card-content { padding: 1.2rem 1.5rem; }
-  .achievement-card-title { font-size: 1.2rem; }
+  .achievements-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 2rem !important; }
+  /* --- Heading font size REDUCED for desktop --- */
+  .section-heading { font-size: 2rem !important; } /* <<< Reduced */
+  .achievement-card-content { padding: 1.2rem 1.5rem !important; }
+  .achievement-card-title { font-size: 1.2rem !important; } /* Kept as is */
+  .achievement-card-description { font-size: 0.9rem !important; } /* Kept as is */
+  .achievement-card-date { font-size: 0.75rem !important; } /* Kept as is */
 }
 @media (max-width: 767px) {
-  .achievements-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-  .section-heading { font-size: 2rem; margin-bottom: 2.5rem; }
-  .achievement-card-content { padding: 1rem 1.2rem; }
-  .achievement-card-title { font-size: 1.05rem; }
-  .achievement-card-image { aspect-ratio: 16 / 9; }
-  .achievement-card-description { font-size: 0.8rem; -webkit-line-clamp: 3; }
+  .achievements-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+  /* --- Heading font size REDUCED for mobile --- */
+  .section-heading { font-size: 1.5rem !important; margin-bottom: 2.5rem !important; } /* <<< Reduced */
+  .achievement-card-content { padding: 1rem 1.2rem !important; }
+  .achievement-card-title { font-size: 1.05rem !important; } /* Kept as is */
+  .achievement-card-image { aspect-ratio: 16 / 9 !important; } /* Kept as is */
+  .achievement-card-description { font-size: 0.8rem !important; -webkit-line-clamp: 3 !important; } /* Kept as is */
+  .achievement-card-date { font-size: 0.7rem !important; } /* Kept as is */
 }
 
 
-/* === Image Modal Styles === */
-/* ... (keep existing modal styles) ... */
+/* === Image Modal Styles (Keeping your original styles) === */
 .image-modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: flex; justify-content: center; align-items: center;
-  z-index: 1000; padding: 20px; cursor: pointer;
-  animation: fadeIn 0.3s ease-out;
+  position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  display: flex !important; justify-content: center !important; align-items: center !important;
+  z-index: 1000 !important; padding: 20px !important; cursor: pointer !important;
+  animation: fadeIn 0.3s ease-out !important;
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .image-modal-content {
-  position: relative;
-  background-color: var(--card-bg);
-  padding: 10px;
-  border-radius: var(--border-radius);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-  max-width: 90%; max-height: 90%;
-  cursor: default; overflow: hidden; display: flex;
-  justify-content: center; align-items: center;
+  position: relative !important;
+  background-color: #EEF4F4 !important; /* Use the new background color */
+  padding: 10px !important;
+  border-radius: 6px !important; /* Hardcoded from --border-radius */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important; /* Adjusted shadow for light bg */
+  max-width: 90% !important; max-height: 90% !important;
+  cursor: default !important; overflow: hidden !important; display: flex !important;
+  justify-content: center !important; align-items: center !important;
 }
 .image-modal-image {
-  display: block; max-width: 100%; max-height: calc(90vh - 40px);
-  object-fit: contain; border-radius: 4px;
+  display: block !important; max-width: 100% !important; max-height: calc(90vh - 40px) !important;
+  object-fit: contain !important; border-radius: 4px !important;
 }
 .image-modal-close {
-  position: absolute; top: 8px; right: 12px;
-  background: none; border: none; font-size: 2.5rem; font-weight: bold;
-  color: rgba(255, 255, 255, 0.8);
-  cursor: pointer; line-height: 1; padding: 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  transition: color 0.2s ease;
+  position: absolute !important; top: 5px !important; right: 10px !important;
+  background: none !important; border: none !important; font-size: 2.2rem !important; font-weight: bold !important;
+  color: #ff0000 !important; /* Darker close button */
+  cursor: pointer !important; line-height: 1 !important; padding: 0 !important;
+  text-shadow: none !important;
+  transition: color 0.2s ease !important;
 }
 .image-modal-close:hover {
-    color: #ffffff;
+    color: #000000 !important; /* Black on hover */
 }

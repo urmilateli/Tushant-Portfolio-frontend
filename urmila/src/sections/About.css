@@ -1,177 +1,197 @@
-/* === Professional Card Styles - Image Right, Text Left, Custom Fonts === */
+/* src/sections/About.css */
 
-/* --- FONT IMPORTS (MUST BE AT THE VERY TOP) --- */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AU+SA:wght@100..400&display=swap');
-/* --- END FONT IMPORTS --- */
+/* Assume global :root variables like --background-light, --border-radius-lg etc. are defined elsewhere or use defaults */
+
+/* --- Keyframes for Load Animation --- */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Start slightly lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);   /* End at normal position */
+  }
+}
+/* --- END Keyframes --- */
 
 
 .about-section {
-  background: white; /* Slightly different light background */
-  padding: 80px 20px;
-  min-height: 100vh;
+  background: #eaeaea;
+  padding: 6rem 15px;
+  min-height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .about-container {
   display: flex;
-  flex-direction: row-reverse; /* Image right, Text left */
-  gap: 50px; /* Slightly increased gap */
+  flex-direction: row;
+  gap: 50px;
   flex-wrap: wrap;
-  max-width: 1300px;
+  max-width: 1140px;
   width: 100%;
-  align-items: stretch; /* Make cards equal height */
+  align-items: stretch;
   justify-content: center;
- 
 }
 
-/* Common Card Styling - Refined */
+/* Common Card Styling */
 .about-image,
 .about-content {
-  background-color: #ffffff;
-  border-radius: 10px; /* Slightly less rounded */
-  /* Padding removed from image card, kept for text */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  background-color: var(--background-light, #fff);
+  border-radius: var(--border-radius-lg, 10px);
+  box-shadow: var(--shadow-light, 0 4px 8px rgba(0,0,0,0.07));
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for both cards */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Separate hover transition */
+  border: 1px solid var(--border-light, #eee);
+
+  /* --- Initial state for animation --- */
+  opacity: 0;
+  transform: translateY(30px);
 }
+
+/* Apply animation ONLY when .is-visible class is added by IntersectionObserver */
+.about-image.is-visible {
+  animation: fadeSlideUp 0.8s ease-out forwards;
+  /* You can add a slight delay if needed */
+  /* animation-delay: 0.1s; */
+}
+.about-content.is-visible {
+   animation: fadeSlideUp 0.8s ease-out forwards;
+   /* Delay content slightly */
+   animation-delay: 0.2s;
+}
+
+/* Hover effect (works independently of animation) */
 .about-image:hover,
 .about-content:hover {
-   transform: translateY(-5px); /* Slightly more lift */
-   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+   /* Overrides the final transform(0) from animation when hovered */
+   transform: translateY(-5px);
+   box-shadow: var(--shadow-medium, 0 8px 16px rgba(0,0,0,0.1));
 }
 
 
-/* Image Card Specific Styling (Right Side) */
+/* Image Card Specific Styling */
 .about-image {
-  border: 6px solid #0b132b; /* BLUE border - slightly thinner */
-  flex-basis: 45%;          /* Adjust basis */
-  max-width: 550px;
+  flex-basis: 48%;
+  max-width: 500px;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* IMPORTANT: To contain the image with object-fit */
-  padding: 0; /* <<< REMOVED padding */
+  overflow: hidden;
+  padding: 0;
+  box-shadow:0 0 80px #588cc8; /* Existing shadow overrides common shadow */
 }
 
 .about-image img {
-  width: 100%;  /* Fill the container width */
-  height: 100%; /* Fill the container height */
-  object-fit: cover; /* Cover the area, crop if needed */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  /* Remove max-width and border-radius from img itself */
-  /* max-width: 400px; */ /* <<< REMOVED */
-  /* border-radius: 8px; */ /* <<< REMOVED */
 }
 
 
-/* Text Content Card Specific Styling (Left Side) */
+/* Text Content Card Specific Styling */
 .about-content {
-  border: 1px solid #ffc107; /* YELLOW border - slightly thinner */
-  flex-basis: 50%;           /* Adjust basis */
-  max-width: 700px;
-  color: #ffffff; /* Slightly darker text */
+  flex-basis: 48%;
+  max-width: 600px;
+  color: var(--text-dark, #333);
   justify-content: center;
-  padding: 30px 35px;
-  background-color: #0b132b; /* Keep padding for text card */
+  padding: 2.5rem 3rem;
 }
 
 .about-content h2 {
-  font-family: "Playwrite AU SA", cursive; /* Apply specific font */
-  font-size: 2.4rem; /* Adjust size if needed */
-  font-weight: 500; /* Adjust weight as needed */
-  margin-bottom: 25px;
+  font-family: var(--font-heading, sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
   line-height: 1.3;
   text-align: left;
-  color: #ffffff;
+  color: var(--text-dark, #333);
 }
 
-/* Styling the heading parts */
 .heading-highlight {
-  color:#FF9B17; /* Yellow color */
+  color: var(--primary-color, #3aa8ed); /* Example highlight color */
 }
 .heading-main {
-  color: #ffffff; /* Dark blue color for contrast on white card */
+  color: var(--text-dark, #333);
 }
 
 .about-content p {
-   font-family: 'Playfair Display', serif; /* Apply specific font */
-   font-size: 1.1rem; /* Adjust size */
-   line-height: 1.8;
-   margin-bottom: 25px;
+   font-family: var(--font-body, sans-serif);
+   font-size: 1rem;
+   line-height: 1.7;
+   margin-bottom: 1.5rem;
    text-align: left;
-   color: #ffffff; /* Slightly lighter than heading */
+   color: var(--text-secondary, #555);
+}
+.about-content p:last-of-type {
+    margin-bottom: 0;
 }
 
 /* Button Styling */
 .read-more-btn {
-  background-color: #FF9B17;
-  color: #0b132b;
-  padding: 12px 28px; /* Adjust padding */
-  font-family: 'Poppins', sans-serif; /* Ensure button uses a standard font */
+  background-color:#060217  !important;
+  color: #ffffff !important;
+  padding: 0.7rem 1.8rem;
+  font-family: var(--font-heading, sans-serif);
   font-size: 0.9rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 50px; /* Fully rounded pill shape */
+  font-weight: 600;
+  border: 2px solid#060217  !important;
+  box-shadow: 0 0 20px #578cd6  !important ;
+  border-radius: var(--border-radius-pill, 50px);
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 1.5rem;
+  transition: var(--transition-base, all 0.3s ease);
   display: inline-block;
   align-self: flex-start;
-  box-shadow: 0 4px 10px rgba(11, 19, 43, 0.3); /* Button shadow */
 }
 .read-more-btn:hover {
-  background-color: #1c2541;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(11, 19, 43, 0.4);
+  background-color:#ffffff !important;
+  color: #000000 !important;
+  transform: translateY(-2px); /* Button specific hover transform */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* === Responsive Adjustments === */
-
 @media (max-width: 991.98px) {
   .about-container {
     gap: 30px;
+    flex-direction: column-reverse;
+     align-items: center;
   }
    .about-image, .about-content {
-     flex-basis: 46%; /* Adjust for slightly smaller screens */
+     flex-basis: auto; /* Reset basis */
+     width: 90%;
+     max-width: 600px; /* Limit max width when stacked */
+     /* Initial animation state will still apply */
    }
-   .about-content h2 { font-size: 2rem; }
-   .about-content p { font-size: 1rem; }
+   .about-image {
+        max-width: 500px;
+        min-height: 300px;
+   }
+   .about-content h2 { font-size: 1.8rem; }
+   .about-content p { font-size: 0.95rem; }
 }
 
 @media (max-width: 767.98px) {
   .about-section {
-    padding: 50px 15px;
-  }
-  .about-container {
-    flex-direction: column; /* Stack */
-    gap: 30px;
-    align-items: center;
-  }
-  .about-image, .about-content {
-    flex-basis: auto;
-    width: 95%;
-    max-width: 500px;
-    padding: 25px; /* Add padding back to image card when stacked */
-  }
-  .about-image {
-    min-height: 350px; /* Give image card some height when stacked */
-    border-width: 6px; /* Keep border thickness */
+    padding: 4rem 15px;
   }
    .about-content {
-    border-width: 6px; /* Keep border thickness */
+    padding: 2rem 1.5rem;
     text-align: center;
   }
   .about-content h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    text-align: center;
   }
   .about-content p {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-align: center;
   }
   .read-more-btn {
