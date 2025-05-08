@@ -76,7 +76,7 @@ const ContactPage = () => {
 
     fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'no-cors', // Important for sending to Google Apps Script when not handling response directly
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -84,7 +84,7 @@ const ContactPage = () => {
     })
       .then(() => {
         setStatus('Message sent successfully!');
-        setFormData({
+        setFormData({ // Reset form
           name: '',
           email: '',
           phone: '',
@@ -92,9 +92,9 @@ const ContactPage = () => {
           message: ''
         });
       })
-      .catch((error) => {
+      .catch((error) => { // This catch might not be hit with mode: 'no-cors' for network errors
         console.error('Error:', error);
-        setStatus('Failed to send message.');
+        setStatus('Failed to send message. Please try again.');
       });
   };
 
@@ -168,9 +168,16 @@ const ContactPage = () => {
                 />
               </div>
               <div className="form-submit-wrapper">
+                {/* MODIFIED BUTTON CODE STARTS HERE */}
                 <button type="submit" className="btn-submit-custom" disabled={status === 'Sending...'}>
                   {status === 'Sending...' ? 'Sending...' : 'Send Message'}
+                  <span className="btn-submit-custom__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </span>
                 </button>
+                {/* MODIFIED BUTTON CODE ENDS HERE */}
               </div>
               {status && <p className={`form-status ${status.includes('successfully') ? 'success' : 'error'}`}>{status}</p>}
             </form>
@@ -196,6 +203,21 @@ const ContactPage = () => {
 
         </div>
       </div>
+      {/*
+        REMINDER: Ensure the SVG filter for the gooey effect is included in your project
+        (e.g., in public/index.html or rendered once at the app root)
+        AND that your Contact.css has the necessary styles for .btn-submit-custom and its blobs.
+
+        <svg style="position: absolute; width: 0; height: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+          </defs>
+        </svg>
+      */}
     </section>
   );
 }

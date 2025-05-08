@@ -1,17 +1,21 @@
-/* src/sections/Projects.css - Final Adjustments: Hover Reveal, Colors, Size */
+/* src/sections/Projects.css */
 
 /* === Optional: Define CSS Variables === */
 :root {
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* ...aapke maujooda variables... */
   --section-padding-y: 4rem;
   --border-radius-lg: 12px;
+  --d: 700ms;
+  --e: cubic-bezier(0.19, 1, 0.22, 1);
+  --font-sans: 'Rubik', sans-serif; 
+  --font-serif: 'Cardo', serif;  
 }
 
 /* === Section Wrapper === */
 .projects-section {
   padding: var(--section-padding-y, 4rem) 0;
   background: #323846 !important;
-  font-family: var(--font-sans);
+  font-family: var(--font-sans); 
   overflow: visible;
 }
 
@@ -27,7 +31,6 @@
   text-align: center;
   font-weight: 700;
   margin-bottom: 4rem !important;
-  /* font-size set inline in JSX */
 }
 
 /* Loading/Error States */
@@ -44,38 +47,69 @@
 
 /* === Project Card Styling === */
 .project-card {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
-  overflow: hidden; /* Important for content sliding from bottom */
+  display: flex; 
+  align-items: flex-end; 
+  overflow: hidden;
+  padding: 1rem; 
+  width: 100%; 
+  text-align: center; 
+  color: whitesmoke; /* Default text color for card content */
+  font-family: var(--font-sans); 
+  background-color: #202020; 
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1),
+              0 2px 2px rgba(0,0,0,0.1),
+              0 4px 4px rgba(0,0,0,0.1),
+              0 8px 8px rgba(0,0,0,0.1),
+              0 16px 16px rgba(0,0,0,0.1); 
   border-radius: var(--border-radius-lg, 12px) !important;
-  /* --- MODIFIED: Reduced height (made square-ish) --- */
-  aspect-ratio: 1 / 1; /* Was 9 / 11 */
-  display: block;
-
-  /* Glassy edge effect */
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.15),
-              0 8px 16px rgba(0, 0, 0, 0.3);
-
+  aspect-ratio: 1 / 1; 
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
   transform-style: preserve-3d !important;
-  transform: perspective(1500px) rotateX(0) rotateY(0) scale3d(1, 1, 1) !important;
+  text-decoration: none; /* Agar card <a> tag hai to underline hatane ke liye */
 }
 
-/* Hover Shadow */
-.project-card:hover {
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.2),
-              0 25px 50px rgba(0, 0, 0, 0.5) !important;
-  /* Tilt applied by JS */
+/* Gradient overlay from reference */
+.project-card::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%; 
+  pointer-events: none;
+  background-image: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 0%, 0) 0%,
+    hsla(0, 0%, 0%, 0.009) 11.7%,
+    hsla(0, 0%, 0%, 0.034) 22.1%,
+    hsla(0, 0%, 0%, 0.072) 31.2%,
+    hsla(0, 0%, 0%, 0.123) 39.4%,
+    hsla(0, 0%, 0%, 0.182) 46.6%,
+    hsla(0, 0%, 0%, 0.249) 53.1%,
+    hsla(0, 0%, 0%, 0.320) 58.9%,
+    hsla(0, 0%, 0%, 0.394) 64.3%,
+    hsla(0, 0%, 0%, 0.468) 69.3%,
+    hsla(0, 0%, 0%, 0.540) 74.1%,
+    hsla(0, 0%, 0%, 0.607) 78.8%,
+    hsla(0, 0%, 0%, 0.668) 83.6%,
+    hsla(0, 0%, 0%, 0.721) 88.7%,
+    hsla(0, 0%, 0%, 0.762) 94.1%,
+    hsla(0, 0%, 0%, 0.790) 100%
+  );
+  transform: translateY(0); 
+  transition: transform calc(var(--d) * 2) var(--e);
+  z-index: 1; 
 }
+
 
 /* === Background Image Container === */
 .project-image {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
   overflow: hidden;
-  z-index: 0;
+  z-index: 0; 
   border-radius: inherit;
 }
 
@@ -85,320 +119,375 @@
   height: 100%;
   object-fit: cover;
   border-radius: inherit;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform calc(var(--d) * 1.5) var(--e), filter 0.5s ease calc(var(--d) / 4); 
 }
 
-/* Image Hover Effect */
-.project-card:hover .project-image img {
-  transform: scale(1.1);
-  filter: brightness(0.5);
-}
-
-
-/* === Clickable Link Overlay === */
-.project-image-link {
+/* === Clickable Link Overlay - abhi use nahi ho raha direct is feature k liye */
+.project-image-link { 
   display: block;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   cursor: pointer;
   border-radius: inherit;
-  z-index: 3;
+  z-index: 3; 
   background-color: transparent;
 }
 .project-image-link.non-clickable { cursor: default; }
 
+
 /* === Project Content (Reveals on Hover) === */
 .project-content {
-  position: absolute !important;
-  bottom: 0 !important; left: 0 !important; right: 0 !important;
-  background: linear-gradient(hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0.3) 50%, hsla(0, 0%, 0%, 0.9) 100%) !important; /* Darker gradient */
-  padding: 1.5rem !important; /* Padding */
-  z-index: 2;
-
+  position: relative; 
   display: flex !important;
   flex-direction: column !important;
-  align-items: flex-start !important;
-
-  transform-style: preserve-3d !important;
-  opacity: 0 !important;
-  transform: translateY(100%) translateZ(30px) !important;
-  transition: opacity 0.4s ease-out, transform 0.45s cubic-bezier(0.23, 1, 0.32, 1) !important; /* Smooth slide */
-  pointer-events: none; /* Initially non-interactive */
+  align-items: center !important; 
+  width: 100%;
+  padding: 1rem !important; 
+  background: transparent !important; 
+  z-index: 2; 
+  transform: translateY(calc(100% - 4.5rem)); 
+  transition: transform var(--d) var(--e);
+  pointer-events: auto; 
 }
 
-/* Reveal content on hover */
-.project-card:hover .project-content {
-  opacity: 1 !important;
-  transform: translateY(0) translateZ(30px) !important; /* Slide fully into view */
-  pointer-events: auto; /* Allow interaction */
+/* Initially hide and offset ALL children (title, description, tags) */
+.project-content > * { 
+  opacity: 0; 
+  transform: translateY(1rem); 
+  transition:
+    transform var(--d) var(--e),
+    opacity var(--d) var(--e);
+}
+
+/* Spacing between content children */
+.project-content > * + * {
+  margin-top: 1rem; 
 }
 
 
 /* === Project Title Styling === */
 .project-title {
-  font-size: 1.1rem !important;
-  font-weight: 700 !important;
-  font-family: "Playfair Display", serif;
-  color: #01EEFF !important; /* Cyan color */
-  margin-bottom: 0.8rem !important;
-  line-height: 1.3;
-  transform: translateZ(10px); /* Adjusted back from previous request's 40px */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-sans) !important; 
+  font-size: 1.3rem !important;
+  font-weight: bold !important;
+  line-height: 1.2 !important;
+  color: whitesmoke !important; /* MODIFIED: Rang hamesha safed rahega */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); 
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
   pointer-events: auto;
+  transform: translateZ(10px); 
+  text-decoration: none !important; /* MODIFIED: Underline hamesha hata rahegi */
 }
 
-/* === Description and Tags (Part of Reveal) === */
-.project-description,
-.project-tags {
-   transition: none; /* No separate transition needed */
-  pointer-events: auto; /* Allow interaction when visible */
-  transform-style: preserve-3d; /* Keep for consistency */
-}
-
+/* === Description Styling === */
 .project-description {
-  color: #e0e0e0 !important;
-  font-size: 0.8rem !important;
-  line-height: 1.5;
-  margin-bottom: 1rem !important;
-   display: -webkit-box;
-   -webkit-line-clamp: 3;
-   -webkit-box-orient: vertical;
-   overflow: hidden;
-   transform: translateZ(5px); /* Adjusted back from previous request's 25px */
+  font-family: var(--font-serif) !important; 
+  font-size: 1.125rem !important;
+  font-style: italic !important;
+  line-height: 1.35 !important;
+  color: whitesmoke !important; /* MODIFIED: Rang hamesha safed rahega */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transform: translateZ(5px); 
+  pointer-events: auto;
+  text-decoration: none !important; /* MODIFIED: Underline hamesha hata rahegi */
 }
 
+/* === Tags Styling === */
 .project-tags {
  display: flex !important;
  flex-wrap: wrap !important;
+ justify-content: center; 
  gap: 0.4rem !important;
- padding-top: 0 !important;
- margin-top: 0 !important;
- transform: translateZ(5px); /* Adjusted back from previous request's 25px */
+ transform: translateZ(5px); 
+ pointer-events: auto;
 }
 
 .tag-bubble {
-display: inline-block !important;
-background-color: rgba(255, 255, 255, 0.15) !important;
-color: #00ffee !important;
-padding: 0.25rem 0.7rem !important;
-border-radius: 50px !important;
-font-size: 0.7rem !important;
-font-weight: 500;
-backdrop-filter: blur(2px);
-transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block !important;
+  background-color: rgba(0, 0, 0, 0.4) !important; 
+  color: whitesmoke !important; 
+  padding: 0.35rem 0.85rem !important; 
+  border-radius: 50px !important;
+  font-size: 0.75rem !important; 
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2); 
 }
 .tag-bubble:hover {
-  background-color: #00ffee !important;
-  color: #080808 !important;
+  background-color: whitesmoke !important; 
+  color: black !important;
   cursor: pointer;
 }
 
 
-/* === View All Button (Kept as is) === */
-.view-all-projects-container { text-align: center; padding: 3rem 0 1rem 0; }
-.view-all-projects-btn { display: inline-block; padding: 10px 25px; font-size: 0.9rem; background-color: #060217 ; color:#ffffff; border-radius: 50px; font-weight: 600; border: 1px solid #060217; box-shadow: 0 0 10px ; text-decoration: none; transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
-.view-all-projects-btn:hover { background-color: #ffff; color: #060217; border-color: #000000; transform: scale(1.05); box-shadow: 0 0 35px #060217; }
+/* === HOVER AND FOCUS-WITHIN STATES === */
 
-/* === Responsive Adjustments === */
+.project-card:hover,
+.project-card:focus-within {
+  align-items: center; 
+}
+
+.project-card:hover .project-image img,
+.project-card:focus-within .project-image img {
+  transform: translateY(-4%) scale(1.1); 
+  filter: brightness(0.6); 
+}
+
+.project-card:hover::after,
+.project-card:focus-within::after {
+  transform: translateY(-50%); 
+}
+
+/* Content block animation on card hover */
+.project-card:hover .project-content,
+.project-card:focus-within .project-content {
+  transform: translateY(0); 
+}
+
+/* ALL children (title, description, tags) animation on card hover */
+.project-card:hover .project-content > *,
+.project-card:focus-within .project-content > * { 
+  opacity: 1; /* Sabhi children visible ho jaate hain */
+  transform: translateY(0); 
+  transition-delay: calc(var(--d) / 8); 
+  /* Rang pehle se hi title/description pe set hai, isliye yahan dobara set karne ki zaroorat nahi */
+}
+
+/* Focus-within instant transitions for ALL children */
+.project-card:focus-within .project-image img,
+.project-card:focus-within::after,
+.project-card:focus-within .project-content,
+.project-card:focus-within .project-content > * { 
+  transition-duration: 0s !important; 
+}
+
+
+/* Baaki CSS (View All Button, Responsive, All Projects Page) waise hi rahega */
+/* ... (aapka baaki ka CSS yahan se neeche) ... */
+.view-all-projects-container {
+  text-align: center;
+  padding: 3rem 0 1rem 0;
+}
+
+.view-all-projects-btn {
+ display: inline-block;
+ padding: 10px 25px;
+ font-size: 0.9rem;
+ font-weight: 500;
+ border-radius: 50px;
+ text-decoration: none;
+ background-color: transparent;
+ cursor: pointer;
+ position: relative;
+ overflow: hidden;
+ z-index: 1;
+ text-transform: uppercase;
+ transition: color .5s;
+ --effect-main-color: #01EEFF;
+ --effect-hover-text-color: #060217;
+ border: 2px solid var(--effect-main-color);
+ color: var(--effect-main-color);
+}
+
+.view-all-projects-btn::after,
+.view-all-projects-btn::before {
+ content: '';
+ display: block;
+ height: 100%;
+ width: 100%;
+ transform: skew(90deg) translate(-50%, -50%);
+ position: absolute;
+ inset: 50%;
+ left: 25%;
+ z-index: -1;
+ transition: transform .5s ease-out;
+ background-color: var(--effect-main-color);
+}
+
+.view-all-projects-btn::before {
+ top: -50%;
+ left: -25%;
+ transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.view-all-projects-btn:hover::before {
+ transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.view-all-projects-btn:hover::after {
+ transform: skew(45deg) translate(-50%, -50%);
+}
+
+.view-all-projects-btn:hover {
+ color: var(--effect-hover-text-color);
+}
+
+.view-all-projects-btn:active {
+ filter: brightness(.7);
+ transform: scale(.98);
+}
+
+
+/* === Responsive Adjustments (largely kept from your original) === */
 @media (max-width: 991px) {
   .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   .projects-section .section-heading { margin-bottom: 3rem; }
-  .project-title { font-size: 1.4rem !important; }
-  /* --- MODIFIED: Adjusted responsive aspect ratio --- */
-  .project-card { aspect-ratio: 1 / 1; } /* Was 9 / 10 */
+  .project-card { aspect-ratio: 1 / 1; }
 }
 
 @media (max-width: 767px) {
   .projects-section { padding: 3rem 0; }
   .projects-grid { grid-template-columns: 1fr; gap: 2rem; }
   .projects-section .section-heading { margin-bottom: 2.5rem; }
-  /* --- MODIFIED: Adjusted responsive aspect ratio --- */
-  .project-card { aspect-ratio: 1 / 1; } /* Was 10 / 11 */
-  .project-title { font-size: 1.3rem !important; }
-  .project-content { padding: 1.2rem 1.2rem 1.5rem 1.2rem !important; }
-   .project-description { font-size: 0.75rem; -webkit-line-clamp: 2; }
-   .tag-bubble { font-size: 0.65rem; }
+  .project-card { aspect-ratio: 1 / 1; }
+  .project-content {
+    padding: 1rem 1rem 1.2rem 1rem !important; 
+    transform: translateY(calc(100% - 3.8rem)); 
+  }
+  .project-description {
+    font-size: 1rem !important; 
+    -webkit-line-clamp: 2;
+   }
+  .tag-bubble {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.6rem !important;
+  }
 }
 
 
-/* ================================================ */
 /* === Styles for All Projects Page (#all-projects-page) === */
-/* ================================================ */
+/* ... (your #all-projects-page styles remain unchanged) ... */
+/* src/sections/Projects.css (ya jahan bhi #all-projects-page ka CSS hai) */
 
-/* ================================================ */
-/* === Styles for All Projects Page (#all-projects-page) === */
-/* ================================================ */
-/* ================================================ */
-/* === Styles for All Projects Page (#all-projects-page) === */
-/* ================================================ */
-
-/* --- Wave Animation Keyframes --- */
+/* Keyframes wave agar kahin aur use nahi ho raha to hata sakte hain, warna rehne dein */
 @keyframes wave {
-  0% {
-    background-position-x: 0;
-  }
-  100% {
-    background-position-x: 1440px; /* Adjust based on wave image pattern width */
-  }
+  0% { background-position-x: 0; }
+  100% { background-position-x: 1440px; }
 }
-/* --- END Keyframes --- */
-
 
 #all-projects-page {
   position: relative;
-  padding-top: 180px; /* Adjust based on final header + wave height */
-  background-color: #E8F9FF; /* Main content background */
-  overflow: hidden; /* Changed back to hidden to prevent horizontal scroll from wave */
-  z-index: 1;
+  /* MODIFIED: Header ki height aap apne content (heading, button) ke anusaar adjust karein */
+  padding-top: 200px; /* Example height for gradient header */
+  background-color: #ffffff !important; /* Safed background neeche ke content ke liye */
+  overflow: hidden; 
+  z-index: 1; 
 }
 
-/* --- Header Background (Purple Gradient) --- */
+/* MODIFIED: ::before ab sirf gradient header ke liye istemal hoga */
 #all-projects-page::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 120px; /* Height from example */
-  /* background-color: #a4508b; */
-  /* background-image: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%); */
-  z-index: 0; /* Behind Button */
+  /* MODIFIED: Header ki height padding-top ke barabar */
+  height: 200px; 
+  /* MODIFIED: Sirf Gradient Background */
+  /* Aap gradient ke colors aur direction badal sakte hain */
+  background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); /* Example Gradient */
+  z-index: 0; /* Header content (button, heading) ke peeche rahega */
+  pointer-events: none; 
 }
-/* --- END Header Background --- */
 
-/* --- Animated Wave (White) --- */
-#all-projects-page::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 120px; /* Position below the purple gradient */
-  width: 100%;
-  height: 100px; /* Adjust height of the wave image part */
-  background: url('https://1.bp.blogspot.com/-NYl6L8pz8B4/XoIVXwfhlNI/AAAAAAAAU3k/nxJKiLT706Mb7jUFiM5vdCsOSNnFAh0yQCLcBGAsYHQ/s1600/hero-wave.png') repeat-x;
-  background-position: bottom;
-  background-size: auto 100px; /* Control height */
-  animation: wave 10s cubic-bezier(0.44, 0.66, 0.67, 0.37) infinite;
-  z-index: 1; /* Above purple gradient, below button */
-  pointer-events: none;
+/* MODIFIED: ::after (wave) ko hata diya gaya hai, user ke request ke anusaar */
+/* #all-projects-page::after { ... } */
+
+
+#all-projects-page .section-heading {
+  position: relative; 
+  text-align: center;
+  /* MODIFIED: Heading color for visibility on gradient background */
+  color: #ffffff; 
+  font-size: 2.5rem;
+  font-weight: 700;
+  /* MODIFIED: Heading ki position adjust karein, ab yeh button ke upar aayegi */
+  /* (Target top e.g. 60px for heading) - (Header height e.g. 200px) = -140px approx. */
+  /* Is value ko heading ki height ke anusaar fine-tune karein */
+  margin-top: -190px; 
+  margin-bottom: 20px; /* Button se pehle thoda space */
+  z-index: 2; /* Gradient se upar */
+  padding: 0 15px;
 }
-/* --- END Wave --- */
 
-
-/* --- Button Styling (Matching Image) --- */
 #all-projects-page .back-home-button {
-  position: absolute;
-  left: 50%;
-  top: 80px; /* Moves the button down, overlapping the wave start */
-  transform: translateX(-50%);
-  z-index: 3; /* Above wave and header */
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff; 
-  color: #333; /* Darker text color */
-  border: 1px solid hsl(0, 81%, 55%); /* Light grey border */
-  border-radius: 50px; /* Rounded corners */
-  padding: 0.6rem 1.8rem; /* Adjust padding */
-  font-size: 14px; /* Adjust font size */
+  position: relative; /* MODIFIED: Relative positioning */
+  display: block; 
+  width: fit-content; 
+  margin: 0 auto; /* Button ko center mein laane ke liye */
+  z-index: 3; /* Sabse upar */
+  /* Baaki button styles */
+  padding: 0.6rem 1.8rem;
+  font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   white-space: nowrap;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  letter-spacing: 1px;
+  /* MODIFIED: Button text and border color for visibility on gradient */
+  color: #ffffff; 
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid #ffffff; /* Border color for gradient */
+  border-radius: 50px;
+  /* Hover effect ke colors bhi adjust kar sakti hain */
+  box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0.3); 
 }
 
 #all-projects-page .back-home-button:hover {
-  transform: translateX(-50%) scale(1.03); /* Keep centering transform */
-  /* --- UPDATED: Changed shadow color to purple tint --- */
-  box-shadow: 0 6px 20px rgba(111, 66, 193, 0.25); /* Using purple color (from --wave-purple) with alpha */
-  /* --- END UPDATE --- */
-  /* Keep background/color same on hover */
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #e00f0f !important;
-}
-/* --- END Button Styling --- */
-
-
-/* --- Heading Styling --- */
-#all-projects-page .section-heading {
-  position: relative;
-  text-align: center;
-  color: #333;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  z-index: 1;
-  padding: 0 15px;
-  margin-top: 60px; /* Adjust this value */
+  /* MODIFIED: Hover effect for gradient background */
+  color: #2575fc; /* Example: Gradient ka ek color */
+  box-shadow: inset 0 -100px 0 0 #ffffff; 
 }
 
-#all-projects-page .section-heading::after {
-  display: none;
+#all-projects-page .back-home-button:active {
+  transform: scale(0.95);
 }
-/* --- END Heading Styling --- */
 
 
-/* --- Projects Grid Margin --- */
 #all-projects-page .projects-grid {
-  margin-top: 1rem;
+  padding: 1rem 15px; 
+  /* background-color: #ffffff;  */
+  margin-top: 30px; /* Header content aur grid ke beech thoda space */
 }
 
-
-/* === Responsive Adjustments === */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  #all-projects-page {
-    padding-top: 160px;
+  #all-projects-page { 
+    padding-top: 180px; /* Medium screens ke liye header height */
   }
   #all-projects-page::before {
-    height: 100px;
+    height: 180px; 
   }
-   #all-projects-page::after {
-     top: 100px;
-     height: 80px;
-     background-size: auto 80px;
-   }
-  #all-projects-page .back-home-button {
-    top: 70px;
-    font-size: 13px;
-    padding: 0.5rem 1.5rem;
+  #all-projects-page .section-heading { 
+    font-size: 2rem; 
+    margin-top: -120px; /* Adjust karein */
+    margin-bottom: 15px;
   }
-  #all-projects-page .section-heading {
-    font-size: 2rem;
-    margin-top: 50px;
+  #all-projects-page .back-home-button { 
+    font-size: 13px; 
+    padding: 0.5rem 1.5rem; 
   }
 }
 
 @media (max-width: 480px) {
-  #all-projects-page {
-     padding-top: 140px;
+  #all-projects-page { 
+    padding-top: 160px; /* Small screens ke liye header height */
   }
-   #all-projects-page::before {
-     height: 90px;
-   }
-    #all-projects-page::after {
-      top: 90px;
-      height: 60px;
-      background-size: auto 60px;
-    }
-   #all-projects-page .back-home-button {
-     top: 65px;
-     font-size: 12px;
-     padding: 0.4rem 1.2rem;
-   }
-   #all-projects-page .section-heading {
-     font-size: 1.8rem;
-     margin-top: 40px;
-   }
+  #all-projects-page::before {
+    height: 160px; 
+  }
+  #all-projects-page .section-heading { 
+    font-size: 1.8rem; 
+    margin-top: -110px; /* Adjust karein */
+    margin-bottom: 10px;
+  }
+  #all-projects-page .back-home-button { 
+    font-size: 12px; 
+    padding: 0.4rem 1.2rem; 
+  }
 }
-
-/* === End Styles for All Projects Page === */
-
-/* === End Styles for All Projects Page === */
-/* === End Styles for All Projects Page === */

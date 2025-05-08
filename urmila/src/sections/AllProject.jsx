@@ -1,23 +1,19 @@
 // src/sections/AllProject.jsx (or src/pages/AllProject.jsx)
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // <--- 1. Import useNavigate
-import './Projects.css'; // Adjust path if needed (e.g., '../sections/Projects.css')
+import { useNavigate } from 'react-router-dom';
+import './Projects.css'; // Adjust path if needed
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// Optional: If this is a full page, you might want a Navbar/Header
-// import Navbar from '../components/Navbar'; // Example
 
 const AllProject = () => {
   const [allProjects, setAllProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // <--- 2. Initialize useNavigate
+  const navigate = useNavigate();
 
-  // --- REQUIRED CHANGE for Vite Environment Variables ---
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-  // -------------------------------------------------------
 
   useEffect(() => {
     AOS.init({
@@ -55,21 +51,22 @@ const AllProject = () => {
         setIsLoading(false);
         setAllProjects([]);
       });
-  }, []); // Fetch on mount
+  }, []);
 
-  // --- 3. Create the handler function ---
   const handleGoHome = () => {
-    navigate('/'); // Navigate to the home page (root path)
+    navigate('/');
   };
 
   // --- Handle Loading State ---
   if (isLoading) {
     return (
+      // Pehle section tag ID "all-projects-page" aur class "projects-section loading" ke saath
       <section id="all-projects-page" className="projects-section loading">
-        <div className="container">
-          <h2 className="section-heading">All My Projects</h2>
-          {/* You might want the back button even during loading, or hide it */}
+        {/* Gradient/Background CSS ::before se aayega */}
+        <div className="container"> {/* Container heading aur button ko wrap karega header ke andar */}
+          {/* Note: Loading state mein button ko CSS se position karna hoga agar gradient header ke upar dikhana hai */}
           {/* <button onClick={handleGoHome} className="back-home-button">Back to Home</button> */}
+          <h2 className="section-heading">All My Projects</h2>
           <p style={{ textAlign: 'center', padding: '2rem 0' }}>Loading Projects...</p>
         </div>
       </section>
@@ -80,38 +77,41 @@ const AllProject = () => {
   if (error) {
     return (
       <section id="all-projects-page" className="projects-section error">
+        {/* Gradient/Background CSS ::before se aayega */}
         <div className="container">
-           {/* --- 4. Add the button (also in error state) --- */}
-          <button
+          {/* Error state mein order aapke original code jaisa rakha gaya hai */}
+          <h2 className="section-heading" data-aos="fade-up">All My Projects</h2>
+           <button
               onClick={handleGoHome}
-              className="back-home-button" // Add a class for potential styling
-              style={{ marginBottom: '20px' }} // Basic inline style for spacing
+              className="back-home-button"
+              data-aos="fade-up" 
+              data-aos-delay="100"
             >
-              ← Back to Home
+               Back to Home
             </button>
-          <h2 className="section-heading">All My Projects</h2>
-          <p className="error-message" style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }}>{error}</p>
+          <p className="error-message" style={{ textAlign: 'center', whiteSpace: 'pre-wrap' }} data-aos="fade-up" data-aos-delay="200">{error}</p>
         </div>
       </section>
     );
   }
 
   // --- Handle No Projects Found ---
-  if (allProjects.length === 0 && !isLoading) { // Ensure loading is finished
+  if (allProjects.length === 0 && !isLoading) {
     return (
       <section id="all-projects-page" className="projects-section">
+         {/* Gradient/Background CSS ::before se aayega */}
         <div className="container">
-           {/* --- 4. Add the button (also when no projects) --- */}
+          {/* No projects state mein order aapke original code jaisa rakha gaya hai */}
+          <h2 className="section-heading" data-aos="fade-up">All My Projects</h2>
            <button
               onClick={handleGoHome}
-              className="back-home-button" // Add a class for potential styling
-              style={{ marginBottom: '20px' }} // Basic inline style for spacing
-              data-aos="fade-up" // Optional animation
+              className="back-home-button"
+              data-aos="fade-up"
+              data-aos-delay="100"
             >
-              ← Back to Home
+              Back to Home
             </button>
-          <h2 className="section-heading" data-aos="fade-up">All My Projects</h2>
-          <p style={{ textAlign: 'center' }} data-aos="fade-up" data-aos-delay="100">No Projects available at the moment.</p>
+          <p style={{ textAlign: 'center' }} data-aos="fade-up" data-aos-delay="200">No Projects available at the moment.</p>
         </div>
       </section>
     );
@@ -120,24 +120,31 @@ const AllProject = () => {
   // --- Render the section displaying ALL projects ---
   return (
     <section id="all-projects-page" className="projects-section">
-      <div className="container">
+      {/* Gradient/Background CSS ::before se aayega (CSS file mein defined) */}
+      
+      {/* Aapka container yahan se shuru ho sakta hai agar heading aur button ko gradient header ke upar rakhna hai */}
+      {/* CSS mein inki positioning (negative margin, z-index) zaroori hogi */}
+      <div className="container"> {/* Yeh container grid ke liye hai, heading/button header mein honge */}
 
-        {/* --- 4. Add the button HERE --- */}
-        <button
-          onClick={handleGoHome}
-          className="back-home-button" // Add a class for potential styling
-          style={{ marginBottom: '20px' }} // Basic inline style for spacing
-          data-aos="fade-up" // Optional animation
-        >
-          ← Back to Home {/* ← is the left arrow ← */}
-        </button>
-
+        {/* === MODIFIED ORDER STARTS HERE === */}
+        {/* Pehle "All My Projects" heading */}
         <h2 className="section-heading" data-aos="fade-up">
           All My Projects
         </h2>
 
-        {/* --- Map over the FULL allProjects array --- */}
-        <div className="projects-grid">
+        {/* Fir "Back to Home" button */}
+        <button
+          onClick={handleGoHome}
+          className="back-home-button"
+          data-aos="fade-up" 
+          data-aos-delay="100" // Heading ke baad thoda delay
+        >
+           Back to Home
+        </button>
+        {/* === MODIFIED ORDER ENDS HERE === */}
+
+        {/* Map over the FULL allProjects array */}
+        <div className="projects-grid" data-aos="fade-up" data-aos-delay="200"> {/* Grid ko bhi animation */}
           {allProjects.map((item, index) => {
             const title = item?.title ?? 'Untitled Project';
             const description = item?.description ?? 'No description provided.';
@@ -148,22 +155,17 @@ const AllProject = () => {
             const tags = item?.tags;
             const projectKey = item?._id ?? `project-${index}`;
 
-            return (
-              <div key={projectKey} className="project-card card-style" data-aos="fade-up" data-aos-delay={index * 100 + 100}> {/* Adjusted delay */}
-                 {imageUrl && (
+            // JSX for project card
+            const CardContent = (
+              <>
+                {imageUrl && (
                   <div className="project-image">
                     <img src={imageUrl} alt={title} loading="lazy"/>
                   </div>
                 )}
                 <div className="project-content">
                   <h3 className="project-title">
-                    {link && link.trim() !== "" ? (
-                      <a href={link} target="_blank" rel="noopener noreferrer" title={`Visit ${title} (opens in new tab)`}>
-                        {title} <FaExternalLinkAlt className="project-link-icon" />
-                      </a>
-                    ) : (
-                      title
-                    )}
+                    {title} {/* Link handling needs to be decided for whole card clickable */}
                   </h3>
                   <p className="project-description">{description}</p>
                   {Array.isArray(tags) && tags.length > 0 && (
@@ -174,8 +176,37 @@ const AllProject = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </>
             );
+            
+            // Making entire card clickable if link exists
+            if (link && link.trim() !== "") {
+              return (
+                <a
+                  key={projectKey}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-card" // Removed card-style, assuming it's part of .project-card from Projects.css
+                  data-aos="fade-up"
+                  data-aos-delay={(index * 50) + 250} // Staggered delay for cards
+                  title={`Visit ${title} (opens in new tab)`}
+                >
+                  {CardContent}
+                </a>
+              );
+            } else {
+              return (
+                <div 
+                  key={projectKey} 
+                  className="project-card" // Removed card-style
+                  data-aos="fade-up" 
+                  data-aos-delay={(index * 50) + 250}
+                >
+                  {CardContent}
+                </div>
+              );
+            }
           })}
         </div>
       </div>

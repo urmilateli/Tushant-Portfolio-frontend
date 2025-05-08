@@ -21,10 +21,10 @@
   /* --font-body: sans-serif; /* Define your default body font if needed */
 
   /* Other Variables */
-  --box-shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* --box-shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
   --border-color: #e5e7eb; /* Light grey border for scrolled state */
   --border-radius-sm: 4px;
-  --box-shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* --box-shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); */
 }
 
 
@@ -37,7 +37,7 @@
   z-index: 1000;
   height: 70px; /* Standard height */
   width: 100%;
-  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+  /* transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out; */
   border-bottom: 1px solid transparent; /* Start transparent */
 }
 /* Scrolled state */
@@ -66,16 +66,16 @@
   align-items: center;
   height: 100%;
   white-space: nowrap;                 /* Prevent wrapping */
-  text-decoration: none; 
-  position: relative;  
-  top: 5px;  
-  text-shadow: 1px 1px 2px #ffffff;  
-  left: -50px;              /* Remove underline if it's a link */
+  text-decoration: none;
+  position: relative;
+  top: 5px;
+  text-shadow: 1px 1px 2px #ffffff;
+  left: -30px;              /* Remove underline if it's a link */
 }
 /* Style for the second part ("Kumar") */
 .nav-logo .logo-lastname {
   color: var(--logo-lastname-color);   /* Cyan color */
-  margin-left: 0.5rem; 
+  margin-left: 0.5rem;
   text-shadow: 1px 1px 2px #01EEFF;                /* Space between names */
 }
 
@@ -103,45 +103,81 @@
   font-weight: 500;
   transition: color 0.2s ease-in-out;
   background: none;
-  border: none;
+  border: none; /* Ab hum direct border nahi lagaenge */
   cursor: pointer;
-  position: relative;
+  position: relative; /* ::after ko position karne ke liye zaroori */
+  text-decoration: none;
+  /* Neeche space reserve karne ke liye taki content jump na kare,
+     hum ek transparent border bottom parent pe rakh sakte hain
+     YA ::after ko hamesha wahan rakhein (transparent state mein) */
+  /* Option 1: Keep transparent border on parent for consistent height */
+  /* border-bottom: 3px solid transparent; */
+  /* Option 2 (Preferred with ::after): Manage all via ::after, no parent border */
 }
+
+/* ::after pseudo-element line ke liye */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Line ko .nav-link ke bilkul neeche rakhega (padding ke andar) */
+             /* Agar aapko text ke thoda kareeb chahiye aur padding-bottom 0.6rem hai,
+                toh bottom: 0.1rem ya 0.2rem try kar sakte hain */
+  left: 50%; /* Line ko center se shuru karega */
+  transform: translateX(-50%); /* Line ko horizontally center mein rakhega */
+  width: 0; /* Shuru mein line ki चौड़ाई 0 hogi */
+  height: 3px; /* Line ki motai (aapke original border jitni) */
+  background-color: transparent; /* Shuru mein transparent */
+  transition: width 0.3s ease-in-out, background-color 0.2s ease-in-out; /* Width aur color ka animation */
+}
+
 /* Active state for desktop links */
 .nav-link.active {
   font-weight: 600;
   color: var(--navbar-link-active); /* Cyan */
-  
+  /* border-bottom: 3px solid #01EEFF !important; <-- YEH HATA DEIN */
 }
+
+.nav-link.active::after {
+  background-color: #01EEFF; /* Cyan */
+  width: 60%; /* YA jitni bhi width aapko chahiye, e.g., "40px", "70%" */
+              /* Yeh .nav-link ki total width ka 60% hoga */
+}
+
 /* Optional hover effect */
 .nav-link:hover {
- color: var(--navbar-link-active); /* Cyan on hover */
+  color: var(--navbar-link-active); /* Cyan on hover */
+  /* border-bottom: 3px solid #01EEFF !important; <-- YEH HATA DEIN */
+}
 
+.nav-link:hover::after {
+  background-color: #01EEFF; /* Cyan */
+  width: 60%; /* Hover par bhi utni hi width, ya aap alag bhi rakh sakte hain */
 }
 
 
 /* === Desktop Contact Button === */
 .nav-contact-btn {
  color: var(--navbar-contact-text) !important;      /* White text */
- /* background-color: var(--navbar-contact-bg) !important;  */
+ background-color: var(--navbar-contact-bg) !important;
  padding: 0.6rem 1.25rem;
  font-size: 0.9rem;
- border-radius: 50px; /* Pill shape */
- border: none;
+ border-radius: 50px;
+ border: none !important; /* MODIFIED: Ensure no border */
+ box-shadow: none !important; /* ADDED: Ensure no box-shadow */
  cursor: pointer;
  font-weight: 500;
- transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+ /* transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out; */
 }
 /* Active state for contact button */
 .nav-contact-btn.active {
   /* background-color: var(--navbar-contact-active-bg) !important;  */
-  color: #ffffff !important; 
-  border: 1px solid #01EEFF !important;
+  color: #ffffff !important;
+  /* border: 1px solid #01EEFF !important; */ /* MODIFIED: Removed, inherits border: none */
 }
 /* Optional hover effect */
 .nav-contact-btn:hover:not(.active) {
-   /* background-color: #1a1f2e !important;  */
-   border: 1px solid #01EEFF !important;
+   background-color: #1a1f2e !important;
+   /* border: 1px solid #01EEFF !important; */ /* MODIFIED: Removed, inherits border: none */
 }
 
 
@@ -227,6 +263,7 @@
   background-color: var(--navbar-contact-bg) !important; /* Dark Purple bg */
   border-radius: 50px; /* Pill shape */
   border: none;
+  box-shadow: none !important; /* ADDED: Ensure no box-shadow */
   font-weight: 500;
 }
 .nav-contact-btn-mobile.active {

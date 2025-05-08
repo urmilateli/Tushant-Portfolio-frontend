@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './Projects.css'; // Shared CSS
-import { FaExternalLinkAlt } from 'react-icons/fa';
+// FaExternalLinkAlt ab card title mein use nahi hoga, agar kahin aur use na ho to hata sakte hain,
+// lekin abhi ke liye rakhte hain.
+import { FaExternalLinkAlt } from 'react-icons/fa'; 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// ******* NO VanillaTilt import or useEffect needed if you removed it ********
-// If you KEPT VanillaTilt from previous step, keep its import and useEffect hooks
 
 const Projects = () => {
   const [allProjects, setAllProjects] = useState([]);
@@ -16,7 +16,6 @@ const Projects = () => {
   const initialDisplayCount = 3;
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
-  // useEffect for AOS and Fetch (Keep this as it was)
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -52,23 +51,14 @@ const Projects = () => {
         setIsLoading(false);
         setAllProjects([]);
       });
-
-  }, []); // Empty dependency array
-
-  // ******* Keep the VanillaTilt useEffect hook ONLY IF you implemented it previously ********
-  // useEffect(() => {
-  //   // ... your VanillaTilt initialization logic ...
-  // }, [isLoading, error, allProjects]);
-
+  }, []);
 
   const projectsToShow = allProjects.slice(0, initialDisplayCount);
 
-  // --- Loading State ---
   if (isLoading) {
     return (
       <section id="projects" className="projects-section loading">
         <div className="container">
-          {/* Use spans for heading colors */}
           <h2 className="section-heading">
              <span>My</span> <span style={{ color: '#01EEFF' }}>Projects</span>
           </h2>
@@ -77,12 +67,11 @@ const Projects = () => {
       </section>
     );
   }
-  // --- Error State ---
+
   if (error) {
     return (
       <section id="projects" className="projects-section error">
         <div className="container">
-          {/* Use spans for heading colors */}
           <h2 className="section-heading">
              <span>My</span> <span style={{ color: '#01EEFF' }}>Projects</span>
           </h2>
@@ -91,12 +80,11 @@ const Projects = () => {
       </section>
     );
   }
-  // --- No Projects State ---
-  if (allProjects.length === 0) {
+
+  if (allProjects.length === 0 && !isLoading) { // Ensure not loading before showing "No Projects"
     return (
       <section id="projects" className="projects-section">
         <div className="container">
-           {/* Use spans for heading colors */}
           <h2 className="section-heading" data-aos="fade-up">
              <span>My</span> <span style={{ color: '#01EEFF' }}>Projects</span>
           </h2>
@@ -110,15 +98,12 @@ const Projects = () => {
     navigate("/allprojects");
   };
 
-  // --- Render Section ---
   return (
     <section id="projects" className="projects-section">
       <div className="container">
-        {/* ***** MODIFIED HEADING HERE ***** */}
         <h2 className="section-heading" data-aos="fade-up">
            <span>My</span> <span style={{ color: '#01EEFF' }}>Projects</span>
         </h2>
-        {/* ***** END OF MODIFIED HEADING ***** */}
 
         <div className="projects-grid">
           {projectsToShow.map((item, index) => {
@@ -130,18 +115,11 @@ const Projects = () => {
             const link = item?.link;
             const tags = item?.tags;
             const projectKey = item?._id ?? `project-${index}`;
+            const cardRef = null; // VanillaTilt ref placeholder, as per original
 
-            // Use the appropriate ref attribute if you are still using VanillaTilt
-            const cardRef = /* el => tiltRefs.current[index] = el */ null; // Example placeholder
-
-            return (
-              <div
-                 key={projectKey}
-                 ref={cardRef} // Add back ref={el => tiltRefs.current[index] = el} if using Tilt
-                 className="project-card" // Removed 'card-style' if not defined/needed, keep if it is
-                 data-aos="fade-up"
-                 data-aos-delay={index * 100}
-              >
+            // Card ka content
+            const CardContent = (
+              <>
                 {imageUrl && (
                   <div className="project-image">
                     <img src={imageUrl} alt={title} loading="lazy" />
@@ -149,13 +127,7 @@ const Projects = () => {
                 )}
                 <div className="project-content">
                   <h3 className="project-title">
-                    {link && link.trim() !== "" ? (
-                      <a href={link} target="_blank" rel="noopener noreferrer" title={`Visit ${title} (opens in new tab)`}>
-                        {title} <FaExternalLinkAlt className="project-link-icon" />
-                      </a>
-                    ) : (
-                      title
-                    )}
+                    {title} {/* Link aur icon yahan se hata diya gaya hai */}
                   </h3>
                   <p className="project-description">{description}</p>
                   {Array.isArray(tags) && tags.length > 0 && (
@@ -166,8 +138,40 @@ const Projects = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </>
             );
+
+            // Agar link hai, to card <a> tag hoga
+            if (link && link.trim() !== "") {
+              return (
+                <a
+                  key={projectKey}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Visit ${title} (opens in new tab)`} // Accessibility ke liye title attribute
+                  className="project-card"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                  ref={cardRef} 
+                >
+                  {CardContent}
+                </a>
+              );
+            } else {
+              // Agar link nahi hai, to card <div> tag hoga
+              return (
+                <div
+                  key={projectKey}
+                  ref={cardRef}
+                  className="project-card" // non-clickable card ke liye cursor default hoga
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  {CardContent}
+                </div>
+              );
+            }
           })}
         </div>
 

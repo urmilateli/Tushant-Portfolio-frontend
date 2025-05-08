@@ -15,7 +15,7 @@
   --accent-cyan-glow-strong: rgba(1, 238, 255, 0.9); /* Stronger glow on hover */
 
   /* Button 1 ("Practice Project" - like Download Resume) */
-  --btn-primary-bg: var(--accent-cyan);
+  --btn-primary-bg: #fff;
   --btn-primary-text: #000000; /* Black text for high contrast */
   --btn-primary-hover-bg: #00dcec; /* Slightly lighter cyan */
   --btn-primary-hover-text: #000000;
@@ -162,68 +162,136 @@
   text-decoration: none;
   font-size: 1.3rem;
   transition: all var(--transition-speed) ease;
-  /* box-shadow: 0 0 8px 1px var(--accent-cyan-glow-subtle); */
+  /* box-shadow: 0 0 8px 1px var(--accent-cyan-glow-subtle); */ /* This was already commented out, keeping it as is */
 }
 .social-icons a:hover {
   background-color: var(--icon-hover-bg);
   color: var(--icon-hover-color);
   border-color: var(--icon-hover-border);
-  box-shadow: 0 0 15px 3px var(--accent-cyan-glow-medium);
+  box-shadow: 0 0 15px 3px var(--accent-cyan-glow-medium); /* This shadow is on social icons, not buttons. Keeping as per user request. */
   transform: translateY(-2px) scale(1.05);
 }
 
 /* === Buttons === */
 .home-cta-buttons {
-    display: flex;
-    justify-content: flex-start;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
+/* Base .btn styles adapted for the new effect */
 .home-cta-buttons .btn {
-  padding: 0.8rem 2.2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  border: 2px solid transparent;
-  transition: all var(--transition-speed) ease;
-  font-family: var(--font-primary);
-  font-weight: 600;
-  border-radius: 50px;
-  letter-spacing: 0.5px;
-  box-shadow: none;
-  display: inline-block;
+/* Aapke original styles jo hum rakh rahe hain */
+padding: 0.8rem 2.2rem;
+font-size: 1rem;
+font-family: var(--font-primary);
+font-weight: 600;
+border-radius: 50px; /* Aapka border-radius */
+letter-spacing: 0.5px;
+text-align: center;
+text-decoration: none;
+box-shadow: none;
+display: inline-block; /* inline-block zaroori hai */
+
+/* Naye effect se liye gaye styles */
+background-color: transparent; /* Effect ke liye zaroori */
+cursor: pointer;
+position: relative;            /* Effect ke liye zaroori */
+overflow: hidden;              /* Effect ke liye zaroori */
+z-index: 1;                    /* Effect ke liye zaroori */
+text-transform: uppercase;     /* Naye effect se */
+transition: color .5s;         /* Text color transition, baaki pseudo-elements mein */
+
+/* --effect-main-color aur --effect-hover-text-color har button type mein define honge */
+border: .3px solid var(--effect-main-color, #ccc); /* Fallback border */
+color: var(--effect-main-color, #ccc);             /* Fallback text color */
 }
+
+/* Pseudo-elements for the skew effect */
+.home-cta-buttons .btn::after,
+.home-cta-buttons .btn::before {
+content: '';
+display: block;
+height: 100%;
+width: 100%;
+transform: skew(90deg) translate(-50%, -50%);
+position: absolute;
+inset: 50%;
+left: 25%;
+z-index: -1; /* Text ke peeche */
+transition: transform .5s ease-out; /* Transform transition */
+background-color: var(--effect-main-color, #ccc); /* Fill color */
+}
+
+.home-cta-buttons .btn::before {
+top: -50%;
+left: -25%;
+transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+/* Hover state for pseudo-elements */
+.home-cta-buttons .btn:hover::before {
+transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.home-cta-buttons .btn:hover::after {
+transform: skew(45deg) translate(-50%, -50%);
+}
+
+/* Hover state for button text color */
+.home-cta-buttons .btn:hover {
+color: var(--effect-hover-text-color, #fff); /* Fallback hover text color */
+}
+
+/* Active state for button */
+.home-cta-buttons .btn:active {
+filter: brightness(.7);
+transform: scale(.98);
+}
+
+/* === Specific Button Styles === */
 
 .btn.btn-primary {
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-  border-color: var(--btn-primary-bg);
-  box-shadow: 0 0 18px 3px var(--accent-cyan-glow-medium);
+/* Naye effect ke liye variables set karna */
+--effect-main-color: var(--btn-primary-bg); /* Initial border/text, and hover fill */
+--effect-hover-text-color: var(--btn-primary-text); /* Text color on hover */
+
+/* Ab border aur color upar .btn se var(--effect-main-color) ke through apply honge */
+/* background-color, border-color, color yahaan se hata diye jayenge */
 }
+/* Purana .btn.btn-primary:hover hata dein */
+/*
 .btn.btn-primary:hover {
-  background-color: var(--btn-primary-hover-bg);
-  border-color: var(--btn-primary-hover-bg);
-  color: var(--btn-primary-hover-text);
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 0 25px 5px var(--accent-cyan-glow-strong);
+background-color: var(--btn-primary-hover-bg);
+border-color: var(--btn-primary-hover-bg);
+color: var(--btn-primary-hover-text);
+transform: translateY(-2px) scale(1.03);
 }
+*/
 
 .btn.btn-secondary-outline {
-  background-color: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-  border-color: var(--btn-secondary-border);
-  box-shadow: 0 0 8px 1px var(--accent-cyan-glow-subtle);
+/* Naye effect ke liye variables set karna */
+--effect-main-color: var(--btn-secondary-border); /* Initial border/text (matches border), and hover fill */
+--effect-hover-text-color: var(--btn-secondary-hover-text); /* Text color on hover */
+
+/* Naye effect mein initial text color border ke color jaisa hota hai.
+   Agar aapka --btn-secondary-text border se alag tha, toh initial text look thoda badlega. */
+/* color: var(--btn-secondary-text); */ /* Yeh line hata denge, kyunki ab color: var(--effect-main-color) hoga */
+
+/* Ab border aur color upar .btn se var(--effect-main-color) ke through apply honge */
+/* background-color, border-color yahaan se hata diye jayenge */
 }
+/* Purana .btn.btn-secondary-outline:hover hata dein */
+/*
 .btn.btn-secondary-outline:hover {
-  background-color: var(--btn-secondary-hover-bg);
-  color: var(--btn-secondary-hover-text);
-  border-color: var(--btn-secondary-hover-border);
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 0 15px 3px var(--accent-cyan-glow-medium);
+background-color: var(--btn-secondary-hover-bg);
+color: var(--btn-secondary-hover-text);
+border-color: var(--btn-secondary-hover-border);
+transform: translateY(-2px) scale(1.03);
 }
+*/
 
 /* === Right Image Content === */
 .home-image-content {

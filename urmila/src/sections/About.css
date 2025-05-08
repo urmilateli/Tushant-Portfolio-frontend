@@ -1,200 +1,294 @@
-/* src/sections/About.css */
+/* About.css - Dark Theme Version (Matches First Image and Your Prompt) */
 
-/* Assume global :root variables like --background-light, --border-radius-lg etc. are defined elsewhere or use defaults */
-
-/* --- Keyframes for Load Animation --- */
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px); /* Start slightly lower */
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);   /* End at normal position */
-  }
+:root {
+  --about-page-bg: #323846;         /* Overall section dark background */
+  --about-text-card-bg: #151925;    /* Very dark background for the text card */
+  --about-image-card-bg: #a7f5ff;   /* Light cyan background for the image card */
+  --about-highlight-color: #00f2ea; /* Bright cyan for text highlights and glows */
+  --about-text-primary: #e6edf3;    /* Main text color (white/light grey) */
+  --about-button-bg: #151925;       /* Dark grey for button background */
+  --about-button-text: #ffffff;    /* White text for button */
+  --font-primary: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
-/* --- END Keyframes --- */
 
-
-.about-section {
-  background: #eaeaea;
-  padding: 6rem 15px;
-  min-height: auto;
+.about-section-new {
+  background-color: var(--about-page-bg);
+  padding: 60px 20px;
+  min-height: 70vh;
   display: flex;
+  align-items: center; /* This centers the .about-container-new vertically */
   justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; 
+  font-family: var(--font-primary);
 }
 
-.about-container {
+.about-container-new {
   display: flex;
-  flex-direction: row;
-  gap: 50px;
-  flex-wrap: wrap;
-  max-width: 1140px;
+  /* Changed to flex-start to allow precise vertical positioning with margin-top */
+  align-items: flex-start; 
+  max-width: 1100px;
   width: 100%;
-  align-items: stretch;
-  justify-content: center;
+  gap: 0; 
+  position: relative; /* Good for context if any absolute positioning was needed, but not strictly here */
 }
 
-/* Common Card Styling */
-.about-image,
-.about-content {
-  background-color: var(--background-light, #fff);
-  border-radius: var(--border-radius-lg, 10px);
-  box-shadow: var(--shadow-light, 0 4px 8px rgba(0,0,0,0.07));
-  flex-grow: 1;
+/* Text Block: Animated */
+.about-text-block {
+  background-color: var(--about-text-card-bg);
+  color: var(--about-text-primary);
+  padding: 50px;
+  border-radius: 5px; 
+  flex: 0 0 60%;
+  max-width: 800px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6); 
+  z-index: 2; 
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Separate hover transition */
-  border: 1px solid var(--border-light, #eee);
+  justify-content: center;
 
-  /* --- Initial state for animation --- */
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateX(-100%);
+  transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.8s ease-out;
 }
 
-/* Apply animation ONLY when .is-visible class is added by IntersectionObserver */
-.about-image.is-visible {
-  animation: fadeSlideUp 0.8s ease-out forwards;
-  /* You can add a slight delay if needed */
-  /* animation-delay: 0.1s; */
-}
-.about-content.is-visible {
-   animation: fadeSlideUp 0.8s ease-out forwards;
-   /* Delay content slightly */
-   animation-delay: 0.2s;
+.about-text-block.is-visible { 
+  opacity: 1;
+  transform: translateX(0);
 }
 
-/* Hover effect (works independently of animation) */
-.about-image:hover,
-.about-content:hover {
-   /* Overrides the final transform(0) from animation when hovered */
-   transform: translateY(-5px);
-   box-shadow: var(--shadow-medium, 0 8px 16px rgba(0,0,0,0.1));
-}
-
-
-/* Image Card Specific Styling */
-.about-image {
-  flex-basis: 48%;
-  max-width: 500px;
-  justify-content: center;
+/* Image Block: Fixed (Not Animated by slide-in), with Glow & Adjusted Position */
+.about-image-block {
+  background-color: var(--about-image-card-bg);
+  flex: 0 0 65%; /* Can adjust if more precise width control is needed */
+  max-width: 450px;
+  border-radius: 2px; 
+  display: flex;
   align-items: center;
-  overflow: hidden;
-  padding: 0;
-  box-shadow:0 0 80px #588cc8; /* Existing shadow overrides common shadow */
-}
-
-.about-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-
-/* Text Content Card Specific Styling */
-.about-content {
-  flex-basis: 48%;
-  max-width: 600px;
-  color: var(--text-dark, #333);
   justify-content: center;
-  padding: 2.5rem 3rem;
+  /* padding: 0px;  */
+  
+  /* --- POSITIONING ADJUSTMENTS --- */
+  /* Increased negative margin for more overlap. The text block will cover more of the image block. */
+  margin-left: -60px; 
+  /* Pushes the image block down relative to the (top-aligned) text block. */
+  margin-top: 70px;   
+  /* --- END POSITIONING ADJUSTMENTS --- */
+
+  position: relative;
+  z-index: 1; 
+
+  box-shadow: 0 0 20px -2px var(--about-highlight-color);
+  opacity: 1;
+  transform: translateX(0); /* Ensures it's not affected by animation transforms */
 }
 
-.about-content h2 {
-  font-family: var(--font-heading, sans-serif);
-  font-size: 2rem;
+
+.about-image-block.is-visible { 
+  /* opacity: 1; */
+  transform: translateX(0); /* Same final state as text block */
+}
+/* --- END OF ADDED/MODIFIED RULE --- */
+
+
+
+.profile-image-new {
+  width: 100%;
+  height: auto;
+  max-height: 430px; 
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+
+.about-heading-new {
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 1.3;
-  text-align: left;
-  color: var(--text-dark, #333);
+  margin-bottom: 0.5em;
+  color: var(--about-text-primary); 
+  line-height: 1.2;
 }
 
-.heading-highlight {
-  color: var(--primary-color, #3aa8ed); /* Example highlight color */
-}
-.heading-main {
-  color: var(--text-dark, #333);
+.highlight-new { 
+  color: var(--about-highlight-color);
 }
 
-.about-content p {
-   font-family: var(--font-body, sans-serif);
-   font-size: 1rem;
-   line-height: 1.7;
-   margin-bottom: 1.5rem;
-   text-align: left;
-   color: var(--text-secondary, #555);
-}
-.about-content p:last-of-type {
-    margin-bottom: 0;
-}
-
-/* Button Styling */
-.read-more-btn {
-  background-color:#060217  !important;
-  color: #ffffff !important;
-  padding: 0.7rem 1.8rem;
-  font-family: var(--font-heading, sans-serif);
-  font-size: 0.9rem;
+.about-subheading-new {
+  font-size: 1.25rem;
   font-weight: 600;
-  border: 2px solid#060217  !important;
-  box-shadow: 0 0 20px #578cd6  !important ;
-  border-radius: var(--border-radius-pill, 50px);
+  margin-bottom: 1.5em;
+  color: var(--about-text-primary); 
+}
+
+.about-paragraph-new,
+.additional-text-new p {
+  font-size: 0.95rem; 
+  line-height: 1.7;
+  color: var(--about-text-primary); 
+  margin-bottom: 1em;
+}
+.additional-text-new p:last-child {
+  margin-bottom: 0;
+}
+.additional-text-new {
+  margin-top: 1em;
+}
+
+/* Pehle wala .c-button se kuch common styles le rahe hain */
+.about-button-new {
+  font-weight: 700;
+  font-size: 12px; /* Original example se */
+  text-decoration: none;
+  padding: 0.9em 1.6em; /* Original example se, aapke '10px 24px' se thoda alag */
   cursor: pointer;
-  margin-top: 1.5rem;
-  transition: var(--transition-base, all 0.3s ease);
   display: inline-block;
-  align-self: flex-start;
-}
-.read-more-btn:hover {
-  background-color:#ffffff !important;
-  color: #000000 !important;
-  transform: translateY(-2px); /* Button specific hover transform */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+  vertical-align: middle;
+  position: relative; /* Gooey effect ke liye zaroori */
+  z-index: 1; /* Text ko blobs ke upar rakhne ke liye */
+
+  /* .c-button--gooey se specific styles */
+  color: #06c8d9; /* Requested color */
+  background-color: transparent; /* Gooey effect ke liye zaroori */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 2px solid #06c8d9; /* Requested border */
+  border-radius: 999px; /* Pill shape, original example jaisa */
+  transition: color 700ms ease; /* Text color transition */
+
+  /* Aapke original .about-button-new se jo relevant hai */
+  margin-top: 1.5rem; /* Aapka original margin */
+  align-self: flex-start; /* Aapka original alignment */
+  outline: none;
+
+  /* Aapke original hover styles (transform, box-shadow) hata diye gaye hain
+     kyunki ab gooey effect primary hover effect hai */
 }
 
-/* === Responsive Adjustments === */
-@media (max-width: 991.98px) {
-  .about-container {
+/* Blobs container */
+.about-button-new .about-button-new__blobs {
+  height: 100%;
+  filter: url(#goo); /* YEH SVG FILTER APPLY KARTA HAI */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: -3px; /* Original example se values */
+  right: -1px;  /* Original example se values */
+  z-index: -1; /* Blobs ko text ke peeche rakhta hai */
+  border-radius: 20px; /* Original example se, button ke border-radius se match kar bhi sakte hain ya alag rakh sakte hain */
+}
+
+/* Individual blobs */
+.about-button-new .about-button-new__blobs div {
+  background-color: #06c8d9; /* Blobs ka color */
+  width: 34%;
+  height: 100%;
+  border-radius: 100%; /* Gol blobs */
+  position: absolute;
+  transform: scale(1.4) translateY(125%) translateZ(0); /* Initial state: neeche, dikhai nahi denge */
+  transition: all 700ms ease;
+}
+
+/* Blobs ki positioning */
+.about-button-new .about-button-new__blobs div:nth-child(1) {
+  left: -5%;
+}
+
+.about-button-new .about-button-new__blobs div:nth-child(2) {
+  left: 30%;
+  transition-delay: 60ms; /* Thoda delay */
+}
+
+.about-button-new .about-button-new__blobs div:nth-child(3) {
+  left: 66%;
+  transition-delay: 25ms; /* Thoda delay */
+}
+
+/* Hover effect */
+.about-button-new:hover {
+  color: #fff; /* Text color on hover */
+}
+
+.about-button-new:hover .about-button-new__blobs div {
+  transform: scale(1.4) translateY(0) translateZ(0); /* Blobs upar aayenge aur button ko fill karenge */
+}
+
+/* Aapke original CSS variables (agar aapne define kiye hain to)
+   Inki ab zaroorat nahi padegi agar aap #06c8d9 color use kar rahe hain.
+:root {
+  --about-button-bg: ...;
+  --about-button-text: ...;
+  --about-highlight-color: ...;
+}
+*/
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .about-container-new {
+    flex-direction: column;
+    align-items: center; /* Revert to center for stacked items */
     gap: 30px;
-    flex-direction: column-reverse;
-     align-items: center;
   }
-   .about-image, .about-content {
-     flex-basis: auto; /* Reset basis */
-     width: 90%;
-     max-width: 600px; /* Limit max width when stacked */
-     /* Initial animation state will still apply */
-   }
-   .about-image {
-        max-width: 500px;
-        min-height: 300px;
-   }
-   .about-content h2 { font-size: 1.8rem; }
-   .about-content p { font-size: 0.95rem; }
+
+  .about-text-block,
+  .about-image-block {
+    flex-basis: auto;
+    width: 90%;
+    max-width: 550px;
+    margin-left: 0; /* Reset overlap margin */
+    margin-top: 0; /* Reset vertical offset margin for stacked view */
+  }
+
+  .about-text-block {
+    /* Animation transform is already set for initial state */
+  }
+  .about-text-block.is-visible {
+    /* Visibility class handles its appearance */
+  }
+
+  .about-image-block {
+    order: -1; 
+    /* Add some top margin if needed when it's the first item, or rely on gap */
+    /* margin-top: 20px; /* Optional: if you want more space above the image in stacked view */
+  }
+
+  .about-heading-new {
+    font-size: 2rem;
+  }
+  .about-subheading-new {
+    font-size: 1.1rem;
+  }
+  .about-paragraph-new,
+  .additional-text-new p {
+    font-size: 0.9rem;
+  }
+  .about-button-new {
+    align-self: center;
+  }
+
+  .profile-image-new {
+    max-height: 350px;
+  }
 }
 
-@media (max-width: 767.98px) {
-  .about-section {
-    padding: 4rem 15px;
+@media (max-width: 576px) {
+  .about-section-new {
+    padding: 40px 15px;
   }
-   .about-content {
-    padding: 2rem 1.5rem;
-    text-align: center;
+  .about-text-block {
+    padding: 30px;
+    width: 100%;
   }
-  .about-content h2 {
-    font-size: 1.6rem;
-    text-align: center;
+  .about-image-block {
+    width: 100%;
+    padding: 10px; 
   }
-  .about-content p {
-      font-size: 0.9rem;
-      text-align: center;
+  .about-heading-new {
+    font-size: 1.8rem;
   }
-  .read-more-btn {
-    align-self: center;
+  .about-subheading-new {
+    font-size: 1rem;
+  }
+   .profile-image-new {
+    max-height: 300px;
   }
 }

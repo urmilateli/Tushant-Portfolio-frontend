@@ -126,31 +126,104 @@ box-shadow: 0 0 0 3px var(--input-focus-shadow); /* Sky Blue Focus Shadow */
 .form-textarea { resize: vertical; min-height: 60px; } /* Slightly taller min-height */
 
 /* Submit Button */
+/* Aapka .form-submit-wrapper waise hi rahega */
 .form-submit-wrapper { margin-top: 0.8rem; text-align: center; }
+
+/* Updated .btn-submit-custom for Gooey Effect */
 .btn-submit-custom {
-display: inline-block; padding: 0.5rem 1.8rem; /* Adjusted padding */
-font-size: 0.85rem; /* Adjusted font size */
-font-weight: 600; /* Bolder */
-background-color: #323846 !important; /* Yellow Background */
-color: var(--submit-btn-text); /* Dark Text */
-border: 1px solid #01EEFF !important; /* Reserve space for hover border */
-border-radius: 50px;
-cursor: pointer;
-transition: var(--transition-base), border-color var(--transition-base); /* Add border-color to transition */
-box-shadow: 0 0 5px #01EEFF; /* Subtle yellow shadow */
-padding: 10px 20px;
+  /* Aapke original styles jo hum rakh rahe hain */
+  display: inline-block;
+  padding: 10px 20px;        /* Aapka original padding */
+  font-size: 0.85rem;       /* Aapka original font-size */
+  font-weight: 600;         /* Aapka original font-weight */
+  border-radius: 50px;      /* Aapka original border-radius */
+  cursor: pointer;
+
+  /* Gooey effect ke liye zaroori styles (example se) */
+  color: #06c8d9;                        /* Text aur border ka shuruaati color */
+  background-color: transparent;        /* ZAROORI: Background transparent hoga */
+  text-transform: uppercase;            /* Example jaisa look */
+  letter-spacing: 2px;                /* Example jaisa look */
+  border: 2px solid #06c8d9;            /* ZAROORI: Border blobs ke color ka hoga */
+  position: relative;                   /* ZAROORI */
+  z-index: 1;                           /* Text ko blobs ke upar rakhega */
+  vertical-align: middle;
+  text-decoration: none;
+  transition: color 700ms ease; /* Sirf text color ka transition button par */
+
+  /* Aapka original box-shadow (0 0 5px #01EEFF) yahaan hata diya gaya hai
+     kyunki transparent background aur naye border ke saath yeh ajeeb lag sakta hai.
+     Gooey example mein bhi initial shadow nahi hai. */
 }
+
+/* Blobs container (Naya add karna hai) */
+.btn-submit-custom .btn-submit-custom__blobs {
+  height: 100%;
+  filter: url(#goo); /* SVG filter apply karega */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: -3px;
+  right: -1px;
+  z-index: -1; /* Blobs ko text ke peeche rakhega */
+  border-radius: 20px; /* Example se, button ke radius se alag ho sakta hai */
+}
+
+/* Individual blobs (Naya add karna hai) */
+.btn-submit-custom .btn-submit-custom__blobs div {
+  background-color: #06c8d9; /* Blobs ka color */
+  width: 34%;
+  height: 100%;
+  border-radius: 100%; /* Gol blobs */
+  position: absolute;
+  transform: scale(1.4) translateY(125%) translateZ(0); /* Shuruaat mein neeche */
+  transition: all 700ms ease;
+}
+
+.btn-submit-custom .btn-submit-custom__blobs div:nth-child(1) {
+  left: -5%;
+}
+
+.btn-submit-custom .btn-submit-custom__blobs div:nth-child(2) {
+  left: 30%;
+  transition-delay: 60ms;
+}
+
+.btn-submit-custom .btn-submit-custom__blobs div:nth-child(3) {
+  left: 66%;
+  transition-delay: 25ms;
+}
+
+/* Aapka original hover style (neeche wala) ab kaam nahi karega, use replace karna hai */
+/*
 .btn-submit-custom:hover:not(:disabled) {
-background-color: var(--submit-btn-hover-bg); /* White Hover Background */
-color: var(--submit-btn-hover-text); /* Dark Hover Text */
-border: 2px solid #d36419 !important;
-box-shadow: 0 0 15px #f47421 !important ; /* Sky Blue Hover Border */
-transform: translateY(-1px);
-box-shadow: 0 2px 5px rgba(135, 206, 235, 0.4);
-color: rgb(68, 68, 202);
-border-radius: 50px;
+  background-color:#01EEFF !important;
+  color: var(--submit-btn-hover-text);
+  border: 2px solid #01EEFF !important;
+  box-shadow: 0 0 15px #01EEFF !important ;
+  transform: translateY(-1px);
+  color: rgb(0, 0, 0);
+  border-radius: 50px;
 }
-.btn-submit-custom:disabled { opacity: 0.6; cursor: not-allowed; }
+*/
+
+/* Naya Hover Effect */
+.btn-submit-custom:hover:not(:disabled) {
+  color: #fff; /* Hover par text ka color white hoga */
+  /* Baaki transform aur box-shadow yahan nahi apply honge, effect blobs se aayega */
+}
+
+.btn-submit-custom:hover:not(:disabled) .btn-submit-custom__blobs div {
+  transform: scale(1.4) translateY(0) translateZ(0); /* Blobs button ko fill karenge */
+}
+
+/* Disabled state (aapka original) */
+.btn-submit-custom:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  /* Gooey effect :not(:disabled) ki wajah se disabled state par trigger nahi hoga */
+}
 
 /* Form Status */
 .form-status { margin-top: 0.7rem; font-size: 0.85rem; font-weight: 500; }

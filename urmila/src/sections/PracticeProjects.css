@@ -1,6 +1,5 @@
-/* src/sections/PracticeProjects.css */
-
 /* Font Imports */
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700'); /* Added for card styling */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 /* === Optional: Global Variables === */
@@ -21,15 +20,16 @@
   /* URL encoded version for SVG fill */
   --wave-purple-encoded: %236f42c1;
 
-  /* Card specific styles */
+  /* Card specific styles (original variables, some might be overridden by new card styles) */
   --card-bg-color: #ffffff;
   --card-border-color: #eee;
-  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Original shadow, will be overridden for new card style */
   --card-hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  --card-title-color: #333;
+  --card-title-color: #333; /* Original title color, will be overridden */
   --card-hover-bg-color: #d4f0f3;
 
-  /* Button styles */
+
+  /* Button styles (original variables, some might be overridden by new card button styles) */
   --button-border-color: #d75a5a;
   --button-text-color: #d75a5a;
   --button-hover-bg: #d75a5a;
@@ -49,7 +49,7 @@
 /* Reset or Base styles */
 body {
   margin: 0;
-  font-family: var(--font-family-sans-serif);
+  font-family: var(--font-family-sans-serif); /* Body remains Poppins */
   line-height: 1.6;
   color: #555;
 }
@@ -68,9 +68,7 @@ body {
 .page-header-section {
   position: relative; /* Needed for absolute positioning of ::after */
   color: var(--text-color-on-dark);
-  /* --- UPDATED: Reduced top padding to move content up --- */
-  padding: 3rem 0 7rem 0; /* Changed 5rem to 3rem (Adjust further if needed) */
-  /* --- END UPDATE --- */
+  padding: 3rem 0 7rem 0;
   overflow: hidden; /* Keep hidden to clip wave if needed */
   z-index: 1; /* Establish stacking context */
 }
@@ -81,23 +79,18 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  /* --- ADJUSTED: Height and gradient --- */
-  height: 100%; /* Keep covering the whole area */
+  height: 100%;
   background: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end));
-  /* --- ADJUSTED: Rounded bottom corners --- */
   border-bottom-left-radius: 50% 40px;
   border-bottom-right-radius: 50% 40px;
   z-index: -1; /* Behind content and wave */
 }
 
-/* --- NEW: Purple Wave Animation using Background Image --- */
 @keyframes wave-flow {
   0% {
     background-position-x: 0;
   }
   100% {
-    /* Move background by a large amount equal to the pattern width */
-    /* Adjust 1000px based on your wave image pattern width for seamless loop */
     background-position-x: -1000px;
   }
 }
@@ -106,34 +99,21 @@ body {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0; /* Position wave at the very bottom */
+  bottom: 0;
   width: 100%;
-  height: 80px; /* Adjust height of the wave */
-  /* Use a repeating wave background image (PNG or SVG) */
-  /* Option 1: External PNG (Replace 'path/to/purple-wave.png') */
-  /* background-image: url('path/to/purple-wave.png'); */
-
-  /* Option 2: Inline SVG Data URI (Purple Wave) */
+  height: 80px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath fill='var(--wave-purple-encoded)' d='M1000,4.31 V100 H0 V4.31 C100.55,15.81,221.13,26.5,350.09,34.8 C501.2,44.82,599.2,40.48,700.81,24 C831.53,2.26,930.3,-5.61,1000,4.31Z'%3E%3C/path%3E%3C/svg%3E");
-
-  background-repeat: repeat-x; /* Repeat horizontally */
-  background-position: center bottom; /* Align pattern to bottom */
-  background-size: auto 80px; /* Adjust width automatically, fix height */
-  /* Alternative size if using a specific pattern width (e.g., 1000px wide pattern) */
-  /* background-size: 1000px 80px; */
-
-  z-index: 0; /* Above ::before gradient, below header content */
-  pointer-events: none; /* Don't interfere with clicks */
-
-  /* Apply the animation - Faster speed */
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 80px;
+  z-index: 0;
+  pointer-events: none;
   animation: wave-flow 8s linear infinite;
 }
-/* --- END NEW --- */
-
 
 .header-content {
-  position: relative; /* Ensure positioning context */
-  z-index: 2; /* Above wave and gradient */
+  position: relative;
+  z-index: 2;
   text-align: left;
 }
 
@@ -184,15 +164,12 @@ body {
 
 /* === Projects Content Area === */
 .projects-content-area {
-  background-color: var(--content-bg-color); /* Light gray background */
+  background-color: var(--content-bg-color);
   padding: 3rem 0;
-  /* --- UPDATED: Adjust vertical position relative to wave --- */
-  margin-top: 0; /* Remove negative margin */
-  padding-top: 90px; /* Add padding roughly equal to wave height + a bit extra */
-  /* --- END UPDATE --- */
+  margin-top: 0;
+  padding-top: 90px;
   position: relative;
-  z-index: 0; /* Behind header content, potentially below wave if z-index not managed */
-  /* border-radius might be visually hidden by the wave */
+  z-index: 0;
 }
 
 /* === Status/Error Messages Styling === */
@@ -218,26 +195,27 @@ body {
   gap: 1.8rem;
 }
 
-/* === Project Card Styling === */
+/* === Project Card Styling (Updated) === */
 .course-card {
   margin-top: 8%;
-  background-color: #ffffff !important;
-  border: 1px solid var(--card-border-color);
-  border-radius: 30px !important;
-  box-shadow: var(--card-shadow);
+  background-color: #ffffff; /* Base card background */
+  /* border: 1px solid var(--card-border-color); */ /* Removed to match first example style */
+  border-radius: 0.25rem !important; /* From first example, !important to override previous 30px */
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25); /* From first example */
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Removed background-color transition for card itself */
+  font-family: 'Quicksand', serif; /* Default font for card content */
 }
 
 .course-card:hover {
-  background-color: var(--card-hover-bg-color) !important;
-  transform: translateY(-5px);
-  box-shadow: var(--card-hover-shadow);
+  /* background-color: var(--card-hover-bg-color) !important; */ /* Removed: content area has gradient */
+  transform: translateY(-5px); /* Kept from original second example */
+  box-shadow: var(--card-hover-shadow); /* Kept from original second example */
 }
 
-/* Card Image Container */
+/* Card Image Container (Unchanged) */
 .course-image {
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -245,7 +223,7 @@ body {
   background-color: #f0f0f0;
 }
 
-/* Card Image Element */
+/* Card Image Element (Unchanged) */
 .course-image img {
   display: block;
   width: 100%;
@@ -254,65 +232,83 @@ body {
   transition: transform var(--transition-speed) ease;
 }
 
-/* Image Hover Effect */
+/* Image Hover Effect (Unchanged) */
 .course-card:hover .course-image img {
   transform: scale(1.05);
 }
 
 
-/* Card Content */
+/* Card Content (Updated) */
 .course-content {
-  padding: 1.5rem;
-  text-align: center;
+  padding: 1rem; /* From first example's .card_content */
+  background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%); /* From first example */
+  /* text-align: center; */ /* Removed to allow left-alignment like first example */
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between; /* Adjusted to push button to bottom if content is short */
 }
 
-/* Card Title */
+/* Card Title (Updated) */
 .course-title-main {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--card-title-color);
-  margin: 0 0 1rem 0;
-  text-transform: uppercase;
-  line-height: 1.4;
+  color: #ffffff; /* From first example's .card_title */
+  font-size: 1.1rem; /* From first example's .card_title */
+  font-weight: 700; /* From first example's .card_title */
+  letter-spacing: 1px; /* From first example's .card_title */
+  text-transform: capitalize; /* From first example's .card_title */
+  margin: 0px 0px 0.5rem 0px; /* From first example's .card_title, added small bottom margin */
+  font-family: 'Quicksand', serif; /* Explicitly set */
+  /* line-height: 1.4; */ /* Removed, not in original .card_title */
 }
 
-/* Read More Button Container */
+/* Style for general text/paragraphs within the card content (like .card_text) */
+.course-content p {
+  color: #ffffff; /* From first example's .card_text */
+  font-size: 0.875rem; /* From first example's .card_text */
+  line-height: 1.5; /* From first example's .card_text */
+  margin-bottom: 1.25rem; /* From first example's .card_text */
+  font-weight: 400; /* From first example's .card_text */
+  font-family: 'Quicksand', serif; /* Ensure Quicksand font */
+  margin-top: 0; /* Reset top margin for paragraphs */
+}
+
+
+/* Read More Button Container (Unchanged) */
 .course-actions {
-  margin-top: auto;
+  margin-top: auto; /* Pushes button to the bottom */
+  padding-top: 0.5rem; /* Added some space above the button */
 }
 
-/* Read More Button */
+/* Read More Button (Updated) */
 .read-more-btn {
-  display: inline-block;
-  padding: 0.5rem 1.2rem;
-  border: 1px solid var(--button-border-color);
-  color: var(--button-text-color);
-  background-color: transparent;
-  border-radius: var(--border-radius-sm);
+  display: block; /* From first example's .btn */
+  width: 100%; /* From first example's .btn */
+  padding: 0.8rem; /* From first example's .btn */
+  font-size: 14px; /* From first example's .btn */
+  text-transform: uppercase; /* From first example's .btn */
+  border-radius: 4px; /* From first example's .btn */
+  font-weight: 400; /* From first example's .btn */
+  color: #ffffff; /* From first example's .btn */
+  background: transparent; /* From first example's .btn */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* From first example's .btn */
+  cursor: pointer; /* From first example's .btn */
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: 'Quicksand', serif; /* Ensure Quicksand font */
+  text-align: center; /* Ensure text is centered in button */
+  transition: background-color 0.2s ease; /* Smooth transition for hover */
 }
+
 .read-more-btn:hover {
-  background-color: var(--button-hover-bg);
-  color: var(--button-hover-text);
+  background-color: rgba(255, 255, 255, 0.12); /* From first example's .btn:hover */
+  color: #ffffff; /* Ensure text color remains white on hover */
 }
 
 
-/* Responsive Adjustments */
+/* Responsive Adjustments (Unchanged) */
 @media (max-width: 991px) {
   .page-header-section h1 { font-size: 2.4rem; }
-  /* --- UPDATED: Reduced responsive top padding --- */
-  .page-header-section { padding: 2rem 0 6rem 0; } /* Changed 4rem to 2rem */
-  /* --- END UPDATE --- */
-  /* Adjust wave height */
+  .page-header-section { padding: 2rem 0 6rem 0; }
   .page-header-section::after { height: 60px; background-size: auto 60px; }
-  /* Adjust content padding */
   .projects-content-area { padding-top: 70px; }
   .courses-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
 }
@@ -321,13 +317,9 @@ body {
   .page-header-section h1 { font-size: 2rem; text-align: center; }
   .header-content { text-align: center; }
   .breadcrumb { justify-content: center; }
-  /* --- UPDATED: Reduced responsive top padding --- */
-  .page-header-section { padding: 1.5rem 0 5rem 0; } /* Changed 3rem to 1.5rem */
-  /* --- END UPDATE --- */
-   .page-header-section::before { border-bottom-left-radius: 50% 30px; border-bottom-right-radius: 50% 30px; }
-  /* Adjust wave height */
+  .page-header-section { padding: 1.5rem 0 5rem 0; }
+  .page-header-section::before { border-bottom-left-radius: 50% 30px; border-bottom-right-radius: 50% 30px; }
   .page-header-section::after { height: 40px; background-size: auto 40px; }
-  /* Adjust content padding */
   .projects-content-area { padding-top: 50px; padding-left: 10px; padding-right: 10px; }
   .courses-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .course-card { max-width: 350px; margin-left: auto; margin-right: auto; }

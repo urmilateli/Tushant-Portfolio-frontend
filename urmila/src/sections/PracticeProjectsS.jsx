@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 // Import the CSS that will contain styles for BOTH header and projects
 import './PracticeProjects.css';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+// import { FaExternalLinkAlt } from 'react-icons/fa'; // Not used in the card currently
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
@@ -96,35 +96,33 @@ const PracticeProjectsS = () => {
                 {allPracticeProjects.map((item, index) => {
                   const title = item?.title ?? 'Untitled Project';
                   const projectKey = item?._id ?? `project-${index}`;
-                  const description = item?.description ?? 'No description.';
+                  const description = item?.description ?? 'No description available for this project.'; // Default description
                   const image = item?.image; // Assuming image URL is correct
                   const link = item?.link;
-                  const tags = item?.tags ?? [];
+                  // const tags = item?.tags ?? []; // Tags are not used in the target card style
 
-                  // Example: Use the structure from the image for cards
                   return (
-                    <div key={projectKey} className="course-card card-style" data-aos="fade-up" data-aos-delay={index * 50}>
+                    // Removed 'card-style' class as .course-card is now the primary style
+                    <div key={projectKey} className="course-card" data-aos="fade-up" data-aos-delay={index * 50}>
                       {image && (
                         <div className="course-image">
-                          {/* Placeholder or actual image */}
                            <img src={image || 'https://via.placeholder.com/300x200?text=Project+Image'} alt={title} loading="lazy"/>
                         </div>
                       )}
                       <div className="course-content">
-                        {/* Make title consistent with image */}
                         <h3 className="course-title-main">
-                          {/* Example: Based on image, titles seem short & bold */}
-                          {title.toUpperCase()}
+                          {/* Pass raw title to let CSS handle text-transform: capitalize */}
+                          {title}
                         </h3>
-                        {/* The image has a "Read more" button instead of description/tags */}
+                        {/* Added paragraph for description, styled by .course-content p */}
+                        <p>{description}</p>
                          <div className="course-actions">
                            <a href={link || '#'} target={link ? '_blank' : '_self'} rel="noopener noreferrer" className="read-more-btn">
                              Read more
                            </a>
                          </div>
-                         {/* If you still want description/tags, uncomment below */}
+                         {/* Tags are not part of the target card style from the first example */}
                          {/*
-                         <p className="course-description">{description}</p>
                          {Array.isArray(tags) && tags.length > 0 && (
                            <div className="course-tags">
                              {tags.map((tag, i) => <span key={`${projectKey}-tag-${i}`} className="tag-bubble">{tag}</span>)}

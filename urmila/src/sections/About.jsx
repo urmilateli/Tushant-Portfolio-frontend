@@ -1,112 +1,109 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './About.css';
-import tushantImage from "../assets/tushant.jpg"; // Make sure the path is correct
+import './About.css'; // Ensure this CSS file is in the same directory or path is correct
+import tussuImage from '../assets/Tussu.jpg'; // Verify this path
 
 function About() {
   const [showMore, setShowMore] = useState(false);
+  const textBlockRef = useRef(null);
+  const imageBlockRef = useRef(null);
+  const [textBlockVisible, setTextBlockVisible] = useState(false);
 
-  // States and Refs for Intersection Observer
-  const [imageVisible, setImageVisible] = useState(false);
-  const [contentVisible, setContentVisible] = useState(false);
-  const imageRef = useRef(null);
-  const contentRef = useRef(null);
+  const handleToggle = () => setShowMore(prevShowMore => !prevShowMore);
 
-  const handleToggle = () => setShowMore(!showMore);
-
-  // Intersection Observer Logic
   useEffect(() => {
-    const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: '0px',
-      threshold: 0.1 // Trigger when 10% of the element is visible
-    };
+    const currentTextBlockRef = textBlockRef.current;
+    if (!currentTextBlockRef) return;
 
-    // Callback function for observers
-    const observerCallback = (entries, observerInstance, setVisible) => {
+    const options = { root: null, rootMargin: '0px', threshold: 0.2 };
+
+    const observerCallback = (entries) => {
       entries.forEach(entry => {
-        // Log intersection status for debugging
-        console.log(`Element intersecting: ${entry.isIntersecting}`, entry.target);
         if (entry.isIntersecting) {
-          console.log(`Setting visible:`, entry.target); // Log when setting visible
-          setVisible(true);
-          observerInstance.unobserve(entry.target); // Stop observing once visible
+          setTextBlockVisible(true);
+          observer.unobserve(entry.target);
         }
       });
     };
 
-    // Create observers
-    const imageObserver = new IntersectionObserver(
-        (entries, observer) => observerCallback(entries, observer, setImageVisible),
-        options
-    );
+    const observer = new IntersectionObserver(observerCallback, options);
+    observer.observe(currentTextBlockRef);
 
-    const contentObserver = new IntersectionObserver(
-        (entries, observer) => observerCallback(entries, observer, setContentVisible),
-        options
-    );
-
-    // Store refs in variables to use in cleanup function
-    const currentImageRef = imageRef.current;
-    const currentContentRef = contentRef.current;
-
-    // Start observing elements if they exist
-    if (currentImageRef) {
-      imageObserver.observe(currentImageRef);
-    }
-    if (currentContentRef) {
-      contentObserver.observe(currentContentRef);
-    }
-
-    // Cleanup function to disconnect observers when component unmounts
     return () => {
-      if (currentImageRef) {
-        imageObserver.unobserve(currentImageRef);
-      }
-      if (currentContentRef) {
-        contentObserver.unobserve(currentContentRef);
+      if (currentTextBlockRef) {
+        observer.unobserve(currentTextBlockRef);
       }
     };
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   return (
-    <section id="about" className="about-section">
-      <div className="about-container">
-
-        {/* Left Side - Image */}
+    <section id="about" className="about-section-new">
+      <div className="about-container-new">
         <div
-          // Add ref and conditional class based on visibility state
-          className={`about-image ${imageVisible ? 'is-visible' : ''}`}
-          ref={imageRef}
+          className={`about-text-block ${textBlockVisible ? 'is-visible' : ''}`}
+          ref={textBlockRef}
         >
-          <img src={tushantImage} alt="Tushant Kumar" />
-        </div>
-
-        {/* Right Side - Content */}
-        <div
-          // Add ref and conditional class based on visibility state
-          className={`about-content ${contentVisible ? 'is-visible' : ''}`}
-          ref={contentRef}
-        >
-          <h2>
-            <span className="heading-highlight">Hey,</span> {/* Yellow Part */}
-            <span className="heading-main"> I’m Tushant Kumar</span> {/* Default/Dark Part */}
+          <h2 className="about-heading-new">
+            About <span className="highlight-new">me</span>
           </h2>
-          <p> An AIML and IoT specialist with 4+ years of experience. I’ve led hands-on projects and trained 600+ students in cutting-edge technologies. I hold an M.Tech and am pursuing a PhD under the prestigious Visvesvaraya Scheme by MeitY.
-            <br /><br />
-            {showMore && (
-              <>
-              I believe in practical, skill-based learning that empowers every student. One proud moment was mentoring a team that built an IoT-based healthcare system using AIML to predict health risks from real-time sensor data—proving how tech can truly save lives
-                <br /><br />
-                When I’m not working, I enjoy roadside chai and local markets, drawing inspiration from everyday life. My mission is to spark confidence in every learner—city or village—so they can shape their future with pride.
-              </>
-            )}
+          <h3 className="about-subheading-new">
+            <span className="highlight-new">AIML & IoT</span> Specialist
+          </h3>
+          <p className="about-paragraph-new">
+            An AIML and IoT specialist with 4+ years of experience. I've led
+            hands-on projects and trained 600+ students in cutting-edge
+            technologies. I hold an M.Tech and am pursuing a PhD under the
+            prestigious Visvesvaraya Scheme by MeitY.
           </p>
-          <button className="read-more-btn" onClick={handleToggle}>
-            {showMore ? 'Read Less ▲' : 'Read More ▼'}
+          {showMore && (
+            <div className="additional-text-new">
+              <p>
+                I believe in practical, skill-based learning that empowers every student.
+                One proud moment was mentoring a team that built an IoT-based healthcare
+                system using AIML to predict health risks from real-time sensor
+                data—proving how tech can truly save lives.
+              </p>
+              <p>
+                When I’m not working, I enjoy roadside chai and local markets,
+                drawing inspiration from everyday life. My mission is to spark
+                confidence in every learner—city or village—so they can shape
+                their future with pride.
+              </p>
+            </div>
+          )}
+          {/* MODIFIED BUTTON CODE STARTS HERE */}
+          <button className="about-button-new" onClick={handleToggle}>
+            {showMore ? 'See less' : 'See more'}
+            <span className="about-button-new__blobs">
+              <div></div>
+              <div></div>
+              <div></div>
+            </span>
           </button>
+          {/* MODIFIED BUTTON CODE ENDS HERE */}
         </div>
 
+        <div
+          className="about-image-block"
+          ref={imageBlockRef}
+        >
+          <img src={tussuImage} alt="Tushant Kumar" className="profile-image-new" />
+        </div>
       </div>
+      {/*
+        REMINDER: Ensure the SVG filter for the gooey effect is included in your project.
+        You can add this SVG code to your main index.html (in the public folder)
+        or render it once at the root of your React application.
+
+        <svg style="position: absolute; width: 0; height: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+          </defs>
+        </svg>
+      */}
     </section>
   );
 }

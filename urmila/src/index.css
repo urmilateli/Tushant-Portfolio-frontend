@@ -126,7 +126,7 @@ a:hover {
 }
 
 /* === Buttons === */
-.btn {
+/* .btn {
   display: inline-block;
   font-weight: 500;
   text-align: center;
@@ -147,9 +147,9 @@ a:hover {
 .btn:active {
     transform: translateY(0px);
     box-shadow: none;
-}
+} */
 
-.btn-primary {
+/* .btn-primary {
   color: #fff;
   background-color: var(--primary-color);
   border-color: var(--primary-color);
@@ -158,23 +158,23 @@ a:hover {
   color: #fff;
   background-color: var(--primary-dark);
   border-color: var(--primary-dark);
-}
+} */
 
 /* Primary Inverted (for dark backgrounds like Hero) */
-.btn-primary-inverted {
-    color: #001f54; /* Darker text to contrast light button */
-    background-color: #64ffda; /* Accent color background */
+/* .btn-primary-inverted {
+    color: #001f54; 
+    background-color: #64ffda;
     border-color: #64ffda;
     font-weight: 600;
-}
-.btn-primary-inverted:hover {
+} */
+/* .btn-primary-inverted:hover {
     background-color: #a7ffea;
     border-color: #a7ffea;
     color: #001f54;
-}
+} */
 
 /* Secondary Outline (for light backgrounds) */
-.btn-secondary-outline {
+/* .btn-secondary-outline {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
     background-color: transparent;
@@ -183,20 +183,19 @@ a:hover {
     color: var(--text-light);
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
-}
+} */
 
 /* Secondary Inverted Outline (for dark backgrounds like Hero) */
-.btn-secondary-inverted-outline {
-    color: #64ffda; /* Accent color text/border */
+/* .btn-secondary-inverted-outline {
+    color: #64ffda; 
     border-color: #64ffda;
     background-color: transparent;
     font-weight: 500;
-}
-.btn-secondary-inverted-outline:hover {
-    background-color: rgba(100, 255, 218, 0.1); /* Subtle accent background */
-    color: #a7ffea; /* Lighter accent */
+} */
+/* .btn-secondary-inverted-outline:hover {
+    background-color: rgba(100, 255, 218, 0.1); 
     border-color: #a7ffea;
-}
+} */
 
 
 /* === Cards (Base style) === */
